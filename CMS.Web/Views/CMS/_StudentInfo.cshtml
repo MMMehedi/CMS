@@ -1,0 +1,246 @@
+﻿<div id="breadcrumbs" class="breadcrumbs ace-save-state">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="" ng-click="Home()">Home</a>
+            <i class="ace-icon fa fa-angle-double-right"></i> Student Information
+        </li>
+    </ul>
+</div>
+<form name="Student" ng-controller="StudentInfoCtrl" class="form-horizontal" role="form" novalidate>
+    <div id="splash-page" data-ng-show="showSplash" class="dissolve-animation">
+        <div class="page-splash">
+            <div class="page-splash-message">
+                <img src="~/dist/img/ajax-loading.gif" />  <b>Please wait ....</b>
+            </div>
+        </div>
+    </div>
+    <div class="widget-box col-md-12 col-xs-12">
+        <div class="widget-header">
+            <h4 class="widget-title">Student Info</h4>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="ace-icon fa fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main col-md-12 col-xs-12">
+                <div class="col-md-12">
+                    <div class="row well well-sm" style="background-color:aliceblue">
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label class="col-md-3 control-label paddidata-ng-left">Student Name <span style="color:red">*</span> </label>
+                                <div class="col-md-8">
+                                    <input type="text" autocomplete="off" id="SNameId" ng-model="Std.SName" class="form-control bordercolor  col-xs-3-offset-4" placeholder="Can't be empty" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label no-paddidata-ng-right">Date of Birth<span style="color:red">*</span> </label>
+                                <div class="col-md-8">
+                                    <input type="text" id="idDateOfBirth" ng-model="DOB" datepicker-popup="{{format}}" class="form-control bordercolor " ng-click="open1()" uib-datepicker-popup is-open="popup1.opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" required />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-3 control-label no-paddidata-ng-middle">Birth Reg. No <span style="color:red">*</span> </label>
+                                <div class="col-md-8">
+                                    <input type="number" autocomplete="off" id="BirthRegNoId" ng-model="Std.BirthRegNo" class="form-control bordercolor  col-xs-3-offset-4" placeholder="Can't be empty" onKeyPress="if(this.value.length==17) return false;" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-3 control-label no-paddidata-ng-middle">Religion<span style="color:red">*</span> </label>
+                                <div class="col-md-8">
+                                    <select id="ReligionId" class="select2 bordercolor" ng-model="Religion" ng-options="item.ReligionName for item in Religions track by item.ReligionId" style='width: 100%;'>
+                                        <option value="">-- Select Religion --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-3 control-label no-paddidata-ng-middle">Gender <span style="color:red">*</span> </label>
+                                <div class="col-md-8">
+                                    <select id="GenderId" class="select2 bordercolor" ng-model="Gender" ng-options="item.GenderName for item in Genders track by item.GenderID" style='width: 100%;'>
+                                        <option value="">-- Select Gender --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-3 control-label no-paddidata-ng-middle">Blood Group<span style="color:red">*</span> </label>
+                                <div class="col-md-8">
+                                    <select id="BloodId" class="select2 bordercolor" ng-model="Blood" ng-options="item.BloodGroup for item in Bloods track by item.BloodID" style='width: 100%;'>
+                                        <option value="">-- Select Blood Group --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-3 control-label paddidata-ng-left">Present Address<span style="color:red">*</span> </label>
+                                <div class="col-md-8">
+                                    <textarea type="text" autocomplete="off" id="PresentAId" ng-model="Std.PresentA" class="form-control bordercolor  col-xs-3-offset-4" placeholder="Can't be empty"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-3 control-label paddidata-ng-left">PermanentAddress<span style="color:red">*</span> </label>
+                                <div class="col-md-8">
+                                    <textarea type="text" autocomplete="off" id="PermanenetAId" ng-model="Std.PermanenetA" class="form-control bordercolor  col-xs-3-offset-4" placeholder="Can't be empty"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-6  col-md-offset-8">
+                                <div class="form-group">
+                                    <img src="" id="imgEmpImage" style="margin-left: 3px; width: 160px;height:170px; margin-top: -6px; margin-bottom: 8px;border:5px outset silver;">
+                                    <input type="file" id="fupEmpImage" name="FupEmpImage" style="max-height: 100%; width:260px" multiple accept='image/*' />
+                                </div>
+                            </div>&nbsp;&nbsp;
+                            <div class="form-group ">
+                                <label class="col-md-4 control-label paddidata-ng-left">Student Mobile<span style="color:red">*</span> </label>
+                                <div class="col-md-8">
+                                    <input type="number" autocomplete="off" id="SmobileId" ng-model="Std.SMobile" class="form-control bordercolor  col-xs-3-offset-4" ng-change="SGetMobile()" onKeyPress="if(this.value.length==11) return false;" placeholder="Can't be empty" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-4 control-label paddidata-ng-left">Guardian Mobile<span style="color:red">*</span> </label>
+                                <div class="col-md-8">
+                                    <input type="number" autocomplete="off" id="GmobileId" ng-model="Std.Gmobile" class="form-control bordercolor  col-xs-3-offset-4" placeholder="Can't be empty" ng-change="GGetMobile()" onKeyPress="if(this.value.length==11) return false;" />
+                                </div>
+                            </div>
+                        </div>
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row well well-sm" style="background-color:white">
+                        <div class="col-md-4">
+                            @*<div class="row well well-sm" style="background-color:white">*@
+                            <div class="form-group ">
+                                <label class="col-md-3 control-label no-paddidata-ng-middle">Shift<span style="color:red">*</span> </label>
+                                <div class="col-md-8 ">
+                                    <select id="ShiftId" class="select2 bordercolor" ng-model="Shift" ng-options="item.ShiftName for item in Shifts track by item.ShiftID" style='width: 100%;'>
+                                        <option value="">-- Select Shift --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-3 control-label no-paddidata-ng-middle">Class <span style="color:red">*</span> </label>
+                                <div class="col-md-8">
+                                    <select id="ClassId" class="select2 bordercolor" ng-model="Class " ng-options="item.ClassName for item in Classs track by item.ClassID" style='width: 100%;'>
+                                        <option value="">-- Select Class --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group Groupdiv">
+                                <label class="col-md-3 control-label no-paddidata-ng-middle">Group<span style="color:red">*</span> </label>
+                                <div class="col-md-8">
+                                    <select id="GroupId" class="select2 bordercolor" ng-model="Group" ng-options="item.GroupName for item in Groups track by item.GroupID" style='width: 100%;'>
+                                        <option value="">-- Select Department --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group Sectiondiv">
+                                <label class="col-md-3 control-label no-paddidata-ng-middle">Section<span style="color:red">*</span> </label>
+                                <div class="col-md-8">
+                                    <select id="SectionId" class="select2 bordercolor" ng-model="SectionName" ng-options="item.SectionName for item in Sections track by item.SectionID" style='width: 100%;'>
+                                        <option value="">-- Select Section --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-3 control-label no-paddidata-ng-right">Roll No <span style="color:red">*</span> </label>
+                                <div class="col-md-8">
+                                    <input type="number" autocomplete="off" id="RollId" ng-model="Std.Roll" class="form-control bordercolor " onKeyPress="if(this.value.length==4) return false;" placeholder="Can't be empty"  />
+                                </div>
+                            </div>
+                            @*</div>*@
+                        </div>
+
+                        <div class="col-md-8" style="background-color:aliceblue">
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                    <label class="col-md-4 control-label no-paddidata-ng-right">Father Name<span style="color:red">*</span> </label>
+                                    <div class="col-md-8">
+                                        <input type="text" autocomplete="off" id="FNameId" ng-model="Std.FName" class="form-control bordercolor " placeholder="Can't be empty" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label class="col-md-4 control-label no-paddidata-ng-right">NID<span style="color:red">*</span> </label>
+                                    <div class="col-md-8">
+                                        <input type="number" autocomplete="off" id="FNID" ng-model="Std.FNID" class="form-control bordercolor " onKeyPress="if(this.value.length==17) return false;" placeholder="Can't be empty" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label no-paddidata-ng-right">Profession<span style="color:red">*</span> </label>
+                                    <div class="col-md-8">
+                                        <input type="text" autocomplete="off" id="FProfessionId" ng-model="Std.FProfession" class="form-control bordercolor " placeholder="Can't be empty" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label no-paddidata-ng-middle">Type<span style="color:red">*</span> </label>
+                                    <div class="col-md-8">
+                                        <select id="FPTypeId" class="select2 bordercolor" ng-model="FPType" ng-options="item.ProfessionTypeName for item in ProfessionTypes track by item.ProfessionTypeID" style='width: 100%;'>
+                                            <option value="">-- Select Profession Type --</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                    <label class="col-md-4 control-label no-paddidata-ng-right">Mother Name<span style="color:red">*</span> </label>
+                                    <div class="col-md-8">
+                                        <input type="text" autocomplete="off" id="MNameId" ng-model="Std.MName" class="form-control bordercolor " placeholder="Can't be empty" />
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="col-md-4 control-label no-paddidata-ng-right">NID<span style="color:red">*</span> </label>
+                                    <div class="col-md-8">
+                                        <input type="number" autocomplete="off" id="MNIDId" ng-model="Std.MNID" class="form-control bordercolor " onKeyPress="if(this.value.length==17) return false;" placeholder="Can't be empty" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label no-paddidata-ng-right">Profession<span style="color:red">*</span> </label>
+                                    <div class="col-md-8">
+                                        <input type="text" autocomplete="off" id="MProfessionId" ng-model="Std.MProfession" class="form-control bordercolor " placeholder="Can't be empty" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label no-paddidata-ng-middle">Type<span style="color:red">*</span> </label>
+                                    <div class="col-md-8">
+                                        <select id="MPTypeId" class="select2 bordercolor" ng-model="MPType" ng-options="item.ProfessionTypeName for item in ProfessionTypes track by item.ProfessionTypeID" style='width: 100%;'>
+                                            <option value="">-- Select Profession Type --</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*</div>*@
+                </div>
+
+                <div class="col-md-12 col-md-offset-4 ">
+                    <button class="btn btn-success" type="button" ng-disabled="SaveDisabled" ng-click="Save(Std)">
+                        <i ng-hide="msgSave" class="ace-icon fa fa-save bigger-110"> {{buttonText}}</i>
+                        <span ng-hide="msgloading"><i ng-hide="msgspinner" class="fa fa-spinner fa-spin"></i></span>
+                        <span ng-hide="msgloading">Loading</span>
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-warning" type="button" ng-click="ClearAll()">
+                        <i class="ace-icon fa fa-undo bigger-110"></i>
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span class="input-icon" style="float: right;">
+        <input ng-keypress="$event.keyCode == 13 && $event.preventDefault()" type="text" autocomplete="off" ng-model="filterOptions.filterText" class="form-control search-query" placeholder="Search...">
+        <i class="ace-icon fa fa-search nav-search-icon"></i>
+    </span>
+    <div class="widget-box col-md-12 col-xs-12">
+        <div class="table-responsive" style="margin-top:4px">
+            <div class="gridStyle" ng-grid="gridOptions">
+                <div id="divMsg" class="watermark">No data available</div>
+            </div>
+        </div>
+    </div>
+</form>

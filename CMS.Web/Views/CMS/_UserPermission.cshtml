@@ -1,0 +1,83 @@
+﻿<style>
+    .pergridStyle {
+        border: 1px solid rgb(212,212,212);
+        width: 413px;
+        height: 400px;
+        margin-top: 0px;
+    }
+</style>
+<div id="breadcrumbs" class="breadcrumbs ace-save-state">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="" ng-click="Home()">Home</a>
+            <i class="ace-icon fa fa-angle-double-right"></i>User Permission
+        </li>
+    </ul>
+</div>
+<form name="suitMember" ng-controller="UserPermissionCtrl" class="form-horizontal" role="form" novalidate>
+    <div id="splash-page" data-ng-show="showSplash" class="dissolve-animation">
+        <div class="page-splash">
+            <div class="page-splash-message">
+                <img src="~/dist/img/ajax-loading.gif" />  <b>Please wait ....</b>
+            </div>
+        </div>
+    </div>
+    <div class="widget-box col-md-12 col-xs-12">
+        <div class="widget-header">
+            <h4 class="widget-title">User Permission</h4>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="ace-icon fa fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="widget-body">
+            <div class="widget-main col-md-12 col-xs-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label no-paddidata-ng-right"> Users <span style="color:red">*</span></label>
+                        <div class="col-md-8">
+                            <select id="UserID" class="select2" ng-model="Users" ng-options="item.Name for item in UserInfo track by item.UserID" style='width: 100%;'>
+                                <option value="">-- Select User --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label no-paddidata-ng-right"> eMail </label>
+                        <div class="col-md-8">
+                            <input type="text" autocomplete="off" id="Email" ng-model="Email" class="col-md-12 col-xs-12" placeholder="Can't be empty" readonly />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label no-paddidata-ng-right"> Menu <span style="color:red">*</span></label>
+                        <div class="col-md-8">
+                            <select id="MenuID" class="select2" ng-model="selectRootMenu" ng-options="item.MenuText for item in Menu track by item.MenuCode" style='width: 100%;'>
+                                <option value="">-- Select Menu --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-md-offset-6">
+                        <button class="btn btn-success" type="button" ng-click="Save(myData)">
+                            <i class="ace-icon fa fa-save bigger-110"></i>
+                            {{buttonText}}
+                        </button>
+                        &nbsp;
+                        <button class="btn btn-default" type="button" ng-click="ClearAll()">
+                            <i class="ace-icon fa fa-undo bigger-110"></i>
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xs-12">
+        <div class="col-md-6 col-md-offset-2">
+            <div class="pergridStyle" ng-grid="PartyItemsgridOption"></div>
+        </div>
+    </div>
+</form>

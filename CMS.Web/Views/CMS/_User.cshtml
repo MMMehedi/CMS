@@ -1,0 +1,138 @@
+
+<div id="breadcrumbs" class="breadcrumbs ace-save-state">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="/CMS/Crm#/Dashboard">Home</a>
+            <i class="ace-icon fa fa-angle-double-right"></i>User Operation
+            <i class="ace-icon fa fa-angle-double-right"></i>  User
+            <i class="ace-icon fa fa-angle-double-right"></i>  User Add
+        </li>
+    </ul>
+</div>
+<form name="cUser" ng-controller="UserInfoCtrl" class="form-horizontal" role="form" novalidate>
+    @*<form name="UserForm" ng-controller="UserCtrl" class="form-horizontal" role="form" novalidate>*@
+    <div id="splash-page" data-ng-show="showSplash" class="dissolve-animation">
+        <div class="page-splash">
+            <div class="page-splash-message">
+                <img src="~/dist/img/ajax-loading.gif" />  <b>Please wait ....</b>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" ng-model="user.UserID">
+    <input type="hidden" ng-model="user.IsTempoarryBlocked">
+
+    <div class="widget-box">
+        <div class="widget-header">
+            <h4 class="widget-title">User Add</h4>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="ace-icon fa fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" style="padding-right: 0px; left: 7px;"> Employee ID <span style="color:red">*</span></label>
+                        <div class="col-md-4">
+                            @*<oi-select oi-options="item.EmpName for item in Employees track by item.EmpID" required
+                                           ng-model="user.EmployeeID" placeholder="Select Employee Name" name="EmployeeName">
+                                </oi-select>*@
+                        </div>
+                        <div class="col-md-5">
+                            <span style="color:red" ng-show="UserForm.EmployeeID.$dirty && UserForm.EmployeeID.$invalid">
+                                <span ng-show="UserForm.EmployeeID.$error.required"></span>
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="col-sm-7 control-label" style="padding-right:3px;" for="IsActive"> Active  </label>
+                                <div class="col-sm-5">
+                                    <input type="checkbox" style="margin-top:10px;margin-left: 7px;" id="IsActive" ng-checked="user.IsActive==1?true:false" name="IsActive" ng-model="user.IsActive" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" ng-show="user.IsActive">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label no-padding-right" for="IsTempoarryBlocked"> Temporary block </label>
+                                <div class="col-sm-2">
+                                    <input type="checkbox" style="margin-top: 10px; float: right;margin-right: 12px;" id="IsTempoarryBlocked" name="IsTempoarryBlocked" ng-model="user.IsTempoarryBlocked" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> User Role <span style="color:red">*</span> </label>
+                        <div class="col-md-4">
+                            @*<oi-select oi-options="item.roleGroupName for item in userTypes track by item.roleGroupID"
+                                           ng-model="user.RoleGroupID" placeholder="Select Role" name="RoleGroupID" required>
+                                </oi-select>*@
+                        </div>
+                        <div class="col-md-5">
+                            <span style="color:red" ng-show="UserForm.RoleGroupID.$dirty && UserForm.RoleGroupID.$invalid">
+                                <span id="spanUserType" ng-show="UserForm.RoleGroupID.$error.required"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> Login Name <span style="color:red">*</span> </label>
+                        <div class="col-md-4">
+                            <input type="text" id="txtUserName" autocomplete="off" ng-change="UserNames()" name="UserName" maxlength="25" ng-model="user.UserName" placeholder="Login Name can not be empty" ng-minlength="6" title="Minimum 6 characters required." class="col-sm-12" required />
+                        </div>
+                        <div class="col-md-5" style="width: 100%; left: 25%;">
+                            <span style="color:red" ng-show="UserForm.UserName.$dirty && UserForm.UserName.$invalid">
+                                <span ng-show="UserForm.UserName.$error.required"></span>
+                                <span id="spnClearText" class="error" style="color:red" ng-show="UserForm.UserName.$dirty && UserForm.UserName.$error.minlength">Minimum 6 characters required.</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> Password <span style="color:red">*</span> </label>
+                        <div class="col-md-4">
+                            <input type="password" id="txtPassword" autocomplete="off" ng-change="Passwords()" ng-readonly="{{isReadOnly}}" name="Password" maxlength="25" ng-model="user.Password" placeholder="Password can not be empty" ng-minlength="6" title="Minimum 6 characters required." class="col-sm-12" required />
+                        </div>
+                        <div class="col-md-5" style="width: 100%; left: 25%;">
+                            <span style="color:red" ng-show="UserForm.Password.$dirty && UserForm.Password.$invalid">
+                                <span ng-show="UserForm.Password.$error.required"></span>
+                                <span id="spnClearText" class="error" style="color:red" ng-show="UserForm.Password.$dirty && UserForm.Password.$error.minlength">Minimum 6 characters required.</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> Email <span style="color:red">*</span> </label>
+                        <div class="col-md-4">
+                            <input type="email" id="txtEmail" name="Email" maxlength="50" ng-pattern="emailFormat" ng-model="user.Email" placeholder="Email can not be empty" class="col-sm-12" required />
+                        </div>
+                        <div class="col-md-5" style="width: 100%; left: 25%;">
+                            <span style="color:red" ng-show="UserForm.Email.$dirty">
+                                <span ng-show="UserForm.Email.$error.required"></span>
+                                <span id="spClearMail" class="error" style="color:red" ng-show="UserForm.Email.$invalid || UserForm.Email.$error.pattern">
+                                    Not valid email!
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-offset-3 col-md-9">
+        <button class="btn btn-info" ng-show="btnSave=='Create'?true:false" type="button" ng-click="Save(user)">
+            <i class="ace-icon fa fa-check bigger-110"></i>
+            {{buttonText}}
+        </button>
+        &nbsp; &nbsp; &nbsp;
+        <button class="btn" type="reset" ng-click="ClearAll()">
+            <i class="ace-icon fa fa-undo bigger-110"></i>
+            Reset
+        </button>
+    </div>
+
+</form>

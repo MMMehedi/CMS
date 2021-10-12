@@ -1,0 +1,126 @@
+﻿
+<div id="breadcrumbs" class="breadcrumbs ace-save-state">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="" ng-click="Home()">Home</a>
+            <i class="ace-icon fa fa-angle-double-right"></i> Create User
+        </li>
+    </ul>
+</div>
+<form name="cUser" ng-controller="UserInfoCtrl" class="form-horizontal" role="form" novalidate>
+    <div id="splash-page" data-ng-show="showSplash" class="dissolve-animation">
+        <div class="page-splash">
+            <div class="page-splash-message">
+                <img src="~/dist/img/ajax-loading.gif" />  <b>Please wait ....</b>
+            </div>
+        </div>
+    </div>
+    <div class="widget-box col-md-12 col-xs-12">
+        <div class="widget-header">
+            <h4 class="widget-title">Create User</h4>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="ace-icon fa fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="widget-body">
+            <div class="widget-main col-md-12 col-xs-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label no-paddidata-ng-right">Employee <span style="color:red">*</span> </label>
+                        <div class="col-md-8">
+                            <select id="EmpNameID" class="select2" ng-model="EmpName" ng-options="item.EmpName for item in Employees track by item.EmpID" style='width: 100%;'>
+                                <option value="">-- Select User --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label no-paddidata-ng-right">Profile Name <span style="color:red">*</span></label>
+                        <div class="col-md-8">
+                            <input type="text" autocomplete="off" id="NameID" ng-model="CUser.Name" class="col-md-12 col-xs-12" placeholder="Can't be empty" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label no-paddidata-ng-right"> Address <span style="color:red">*</span> </label>
+                        <div class="col-md-8">
+                            <input type="text" autocomplete="off" id="Address" maxlength="150" ng-model="CUser.Address" class="col-md-12 col-xs-12" placeholder="Can't be empty" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label no-paddidata-ng-right">Designation <span style="color:red">*</span> </label>
+                        <div class="col-md-8">
+                            <select id="DesignationID" class="select2" ng-model="DesigName" ng-options="item.DesigName for item in designations track by item.DesigID" style='width: 100%;'>
+                                <option value="">-- Select User --</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label no-paddidata-ng-right"> Mobile <span style="color:red">*</span> </label>
+                        <div class="col-md-8">
+                            <input type="text" autocomplete="off" name="Mobile" ng-model="CUser.Mobile" maxlength="11" ng-minlength="11" id="MobileNo" class="col-md-12 col-xs-12" placeholder="0" readonly />
+                        </div>
+                        <div class="col-md-8" style="width: 50%; left: 0%;">
+                            <span style="color:red" ng-show="cUser.Mobile.$dirty && cUser.Mobile.$invalid">
+                                <span ng-show="cUser.Mobile.$error.required"></span>
+                                <span id="spnMobileClearText" class="error" style="color:red" ng-show="cUser.Mobile.$dirty && cUser.Mobile.$error.minlength">   ১১টি সংখ্যা দিতে হবে।</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label no-paddidata-ng-right"> E-Mail <span style="color:red">*</span> </label>
+                        <div class="col-md-8">
+                            <input type="text" autocomplete="off" id="Email" maxlength="150" ng-model="CUser.Email" class="col-md-12 col-xs-12" placeholder="Can't be empty" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label no-paddidata-ng-right"> Password <span style="color:red">*</span> </label>
+                        <div class="col-md-8">
+                            <input type="text" autocomplete="off" id="Password" maxlength="16" ng-model="CUser.Password" class="col-md-12 col-xs-12" placeholder="*****" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label no-paddidata-ng-right"> Is Active? </label>
+                        <div class="col-md-8">
+                            <div class="checkbox">
+                                <label class="block">
+                                    <input type="checkbox" class="ace input-lg" id="Active" ng-model="CUser.Active" name="form-field-checkbox" />
+                                    <span class="lbl bigger-120"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-offset-3 col-md-9">
+                    <button class="btn btn-success" type="button" ng-disabled="SaveDisabled" ng-click="Save(CUser)">
+                        <i ng-hide="msgSave" class="ace-icon fa fa-save bigger-110"> {{buttonText}}</i>
+                        <span ng-hide="msgloading"><i ng-hide="msgspinner" class="fa fa-spinner fa-spin"></i></span>
+                        <span ng-hide="msgloading">Loading</span>
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-default" type="button" ng-click="ClearAll()">
+                        <i class="ace-icon fa fa-undo bigger-110"></i>
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span class="input-icon" style="float: right;">
+        <input ng-keypress="$event.keyCode == 13 && $event.preventDefault()" type="text" ng-model="filterOptions.filterText" class="form-control search-query" placeholder="Search...">
+        <i class="ace-icon fa fa-search nav-search-icon"></i>
+    </span>
+    <div class="widget-box col-md-12 col-xs-12">
+        <div class="table-responsive" style="margin-top:4px">
+            <div class="gridStyle" ng-grid="gridOptions">
+                <div id="divMsg" class="watermark">No data available</div>
+            </div>
+        </div>
+    </div>
+
+</form>

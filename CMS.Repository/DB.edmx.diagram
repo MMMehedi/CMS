@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4437715e85ed4a16b23a17e63eead1d5" Name="Diagram1">
+        <EntityTypeShape EntityType="CMSModel.Blood" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CMSModel.Class" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CMSModel.DesignationInfo" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CMSModel.DistrictInfo" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CMSModel.Employee" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CMSModel.FMInformaton" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CMSModel.Gender" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CMSModel.Group" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="CMSModel.Menu" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="CMSModel.Permission" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CMSModel.ProfessionType" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="CMSModel.Religion" Width="1.5" PointX="8.75" PointY="7.75" />
+        <EntityTypeShape EntityType="CMSModel.SectionInfo" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="CMSModel.Shift" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CMSModel.StudentAcademicInfo" Width="1.5" PointX="2.75" PointY="10.75" />
+        <EntityTypeShape EntityType="CMSModel.StudentInformation" Width="1.5" PointX="10.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CMSModel.UnionInfo" Width="1.5" PointX="8.75" PointY="10.75" />
+        <EntityTypeShape EntityType="CMSModel.UserInfo" Width="1.5" PointX="10.75" PointY="10.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

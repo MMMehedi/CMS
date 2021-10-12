@@ -1,0 +1,64 @@
+﻿@{
+    List<CMS.Repository.Menu> menuList = ViewBag.Menu;
+    var mm = menuList;
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<ul class='nav nav-list'>
+    <li class=''>
+        @{
+            try
+            {
+                if (menuList != null)
+                {
+                    var Parent = menuList.Where(m => m.ParentID == "ROOT");
+
+                    foreach (var iteparent in Parent)
+                    {
+                        var childitem = menuList.Where(m => m.ParentID == iteparent.MenuCode);
+                        if (childitem.Count() == 0)
+                        {
+                        <li class=''>
+                            <a href='@iteparent.URL' class="dropdown-toggle">
+                                <span class="menu-text">
+                                    @iteparent.MenuText
+                                </span>
+                                <b class="arrow fa fa-angle-down"></b>
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        }
+                        else
+                        {
+                            <li class=''>
+                                <a href="#" class="dropdown-toggle">
+                                    <i class="menu-icon fa fa-sliders"></i>
+                                    <span class="menu-text">@iteparent.MenuText</span>
+                                    <b class="arrow fa fa-angle-down"></b>
+                                </a>
+                                <b class="arrow"></b>
+                                @if (childitem.Count() > 0)
+                                {
+                                    <ul class='submenu'>
+                                        @foreach (var itemchild in childitem)
+                                        {
+                                            <li class=''>
+                                                <a href='@itemchild.URL'>
+                                                    <i class='icon-caret-right'></i>
+                                                    <span>@itemchild.MenuText</span>
+                                                </a>
+                                                <b class="arrow"></b>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </li>
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                Response.Redirect("/", true);
+            }
+        }
+    </ul>

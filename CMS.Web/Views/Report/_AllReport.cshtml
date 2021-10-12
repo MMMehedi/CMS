@@ -1,0 +1,270 @@
+﻿<style>
+    .gridStyle {
+        border: 1px solid rgb(212,212,212);
+        width: 100%;
+        height: 200px;
+        margin-top: 0%;
+        margin-bottom: -25px;
+    }
+
+    .gridStyleD {
+        border: 1px solid rgb(212,212,212);
+        width: 530px;
+        height: 200px;
+        margin-top: 0%;
+        margin-bottom: -25px;
+    }
+</style>
+
+<div id="breadcrumbs" class="breadcrumbs ace-save-state">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="#">হোম</a>
+            <i class="ace-icon fa fa-angle-double-right"></i>প্রতিবেদন
+            <i class="ace-icon fa fa-angle-double-right"></i>সব প্রতিবেদন
+        </li>
+    </ul>
+</div>
+
+<form ng-controller="AllReportCtrl" class="form-horizontal" role="form" novalidate>
+    <div id="splash-page" data-ng-show="showSplash" class="dissolve-animation">
+        <div class="page-splash">
+            <div class="page-splash-message">
+                <img src="~/dist/img/ajax-loading.gif" />  <b>Please wait ....</b>
+            </div>
+        </div>
+    </div>
+    <div class="widget-box col-md-12 col-xs-12">
+        <div class="widget-header">
+            <h4 class="widget-title">প্রতিবেদন</h4>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="ace-icon fa fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="widget-body">
+            <div class="widget-main col-md-12 col-xs-12">
+                <div class="widget-main col-md-12 col-xs-12 well">
+                    <div class="widget-main col-md-4 col-xs-4">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label no-paddidata-ng-right">মামলা নং</label>
+                            <div class="col-md-8">
+                                <oi-select oi-options="item.SuitNo for item in SuitNo track by item.SuitNo" ng-change="OrNo()" required
+                                           ng-model="rpt.SuitNo" placeholder="">
+                                </oi-select>
+                                <label id="SuitNos"><span style="color:red">{{MsgSuitNo}} </span> </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-main col-md-4 col-xs-4">
+                        <div class="form-group" id="OrderNoHideShow">
+                            <label class="col-md-4 control-label no-paddidata-ng-right">আদেশ নং</label>
+                            <div class="col-md-8">
+                                <oi-select oi-options="item.OrdID  for item in OrderNumber track by item.OrdID"
+                                           ng-model="rpt.OrderNum" placeholder="0">
+                                </oi-select>
+                                <label id="OrderNum"><span style="color:red">{{MsgOrderNum}} </span> </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-main col-md-4 col-xs-4">
+                        @*<div class="form-group">
+                                <label class="col-md-4 control-label no-paddidata-ng-right"> ইউনিয়ন</label>
+                                <div class="col-md-8">
+                                    <oi-select oi-options="item.Unions for item in UnionNames track by item.UnionsID" required
+                                               ng-model="rpt.UnionsID" placeholder="">
+                                    </oi-select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label no-paddidata-ng-right"> ইউনিয়ন</label>
+                                <div class="col-md-8">
+                                    <oi-select oi-options="item.Unions for item in UnionNames track by item.UnionsID" required
+                                               ng-model="rpt.UnionsID" placeholder="">
+                                    </oi-select>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+
+                <div class="widget-main col-md-12 col-xs-12">
+                    <div class="widget-main col-md-4 col-xs-4">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="2" ng-click="Common()" ng-checked="checked">মামলার নিবন্ধন
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="3" ng-click="Common()">মামলার আদেশ
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="4" ng-click="Common()"> প্রতিবাদীর প্রতি সমন
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="5" ng-click="Common()"> সাক্ষীর প্রতি সমন
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="6" ng-click="Common()"> সদস্য মনোনয়নের নির্দেশনামা(আবেদকারী)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="25" ng-click="Common()"> সদস্য মনোনয়নের নির্দেশনামা(প্রতিবাদী)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="7" ng-click="Common()"> গ্রাম আদালতের সদস্য মনোনয়ন ফরম আবেদনকারী
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="24" ng-click="Common()"> গ্রাম আদালতের সদস্য মনোনয়ন ফরম প্রতিবাদী
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-main col-md-4 col-xs-4">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="8" ng-click="Common()">গ্রাম আদালতে সদস্য উপস্থিতির অনুরোধ পত্র
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="9" ng-click="Common()"> আপোষনামা
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="10" ng-click="Common()"> মামলার হাজিরা
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="11" ng-click="Common()"> মামলার স্লিপ
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="12" ng-click="Common()"> ডিগ্রী বা আদেশের ফরম
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="14" ng-click="Common()"> ফিস রসিদ
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-main col-md-4 col-xs-4">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="20" ng-click="Common()">অর্থ/জরিমানা আদায়
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="21" ng-click="Common()">ফৌজদারী আদালতে মামলা প্রেরণ
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group hidden">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="17" ng-click="Common()"> অভিযোগ গ্রহণ ও নিষ্পত্তির ত্রৈমাসিক প্রতিবেদন
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="22" ng-click="Common()"> জরিমানা রসিদ
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-paddidata-ng-right"></label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="btnradio" value="23" ng-click="Common()"> আবেদন
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;
+                <div class="col-md-offset-3 col-md-9">
+                    <button class="btn btn-success" type="button" ng-click="Preview()">
+                        <i class="ace-icon fa fa-search bigger-110"></i>
+                        পূর্বরূপ
+                    </button>
+                    &nbsp; &nbsp; &nbsp;
+                    <button class="btn" type="reset" ng-click="ClearAll()">
+                        <i class="ace-icon fa fa-undo bigger-110"></i>
+                        পুনরায় বসান
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
