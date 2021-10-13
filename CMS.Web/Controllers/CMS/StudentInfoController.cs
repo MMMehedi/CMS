@@ -30,20 +30,45 @@ namespace CMS.Web.Controllers
             {
                 //var result = Uow.SectionInfoRepository.GetByCompanyID(m => m.CompanyID == CompanyID);
                 //return result;
-                var result = (from S in context.SectionInfoes
-                              join C in context.Classes on S.ClassID equals C.ClassID
+                var result = (from S in context.StudentInformations
+                              join SE in context.StudentAcademicInfoes on S.StudentID equals SE.StudentID
+                              join SP in context.FMInformatons on S.StudentID equals SP.StudentID
+                              join C in context.Classes on SE.ClassID equals C.ClassID
+                              join SS in context.Shifts on SE.ShiftID equals SS.ShiftID
                               select new
                               {
+                                  S.StudentID,
+                                  S.StudentCode,
+                                  SE.SAcademicID,
+                                  SP.FMID,
+                                  S.StudentName,
+                                  S.DOB,
+                                  S.BRN,
+                                  S.ReligionId,
+                                  S.GenderID,
+                                  S.BloodID,
+                                  S.PresentAddress,
+                                  S.PermanentAddress,
+                                  S.StudentMobile,
+                                  S.GuardianMobile,
+                                  S.Picture,
+                                  SE.ShiftID,
+                                  SE.ClassID,
+                                  SE.GroupID,
+                                  SE.SectionID,
+                                  SE.RollNo,
+                                  SP.FatherName,
+                                  SP.FNID,
+                                  SP.FProfession,
+                                  SP.FProfessionType,
+                                  SP.MotherName,
+                                  SP.MNID,
+                                  SP.MProfession,
+                                  SP.MProfessionType,
+                                  S.CreatedBy,
+                                  S.CreatedDate, 
                                   C.ClassName,
-                                  S.ClassID,
-                                  S.SectionID,
-                                  S.SectionName,
-                                  S.CompanyID,
-                                  S.CreateBy,
-                                  S.CreateDate,
-                                  S.ModifyBy,
-                                  S.ModifyDate,
-                                  S.Status
+                                  SS.ShiftName,                          
                               }).ToList();
                 return result;
             }
@@ -129,7 +154,7 @@ namespace CMS.Web.Controllers
                     objstudent.StudentMobile = HttpContext.Current.Request.Form["StudentMobile"].ToString();
                     objstudent.GuardianMobile = HttpContext.Current.Request.Form["GuardianMobile"].ToString();
                     objstudent.CompanyID = Convert.ToInt32(HttpContext.Current.Request.Form["CompanyID"]);
-                    objstudent.Active = Convert.ToBoolean(HttpContext.Current.Request.Form["Active"].ToString());
+                    objstudent.Status = Convert.ToBoolean(HttpContext.Current.Request.Form["Status"].ToString());
                     objstudent.Remarks = HttpContext.Current.Request.Form["Remarks"].ToString();
                     objstudent.CreatedBy = Convert.ToInt32(HttpContext.Current.Request.Form["CreatedBy"]);
                     objstudent.CreatedDate = Convert.ToDateTime(HttpContext.Current.Request.Form["CreatedDate"].ToString());

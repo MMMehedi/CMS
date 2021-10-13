@@ -13,6 +13,8 @@ namespace CMS.Repository.UnitOfWorks
         IRepository<Employee> EmployeeInfoRepository { get; }
         IRepository<Class> ClassInfoRepository { get; }
         IRepository<SectionInfo> SectionInfoRepository { get; }
+        IRepository<StudentInformation> TblStudentInformationRepository { get; }
+
 
 
         //End Reporting view

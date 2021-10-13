@@ -223,12 +223,12 @@
           <Property Name="StudentMobile" Type="nvarchar(max)" Nullable="false" />
           <Property Name="GuardianMobile" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CompanyID" Type="bigint" Nullable="false" />
-          <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar(max)" />
           <Property Name="CreatedBy" Type="bigint" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyBy" Type="bigint" Nullable="false" />
           <Property Name="ModifyDate" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="UnionInfo">
           <Key>
@@ -533,12 +533,12 @@
           <Property Name="StudentMobile" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="GuardianMobile" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CompanyID" Type="Int64" Nullable="false" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="Int64" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifyBy" Type="Int64" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="UnionInfo">
           <Key>
@@ -800,12 +800,12 @@
           <EntitySetMapping Name="StudentInformations">
             <EntityTypeMapping TypeName="CMSModel.StudentInformation">
               <MappingFragment StoreEntitySet="StudentInformation">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="GuardianMobile" ColumnName="GuardianMobile" />
                 <ScalarProperty Name="StudentMobile" ColumnName="StudentMobile" />

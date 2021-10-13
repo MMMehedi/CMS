@@ -28,11 +28,11 @@ namespace CMS.Repository
         public string StudentMobile { get; set; }
         public string GuardianMobile { get; set; }
         public long CompanyID { get; set; }
-        public bool Active { get; set; }
         public string Remarks { get; set; }
         public long CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public long ModifyBy { get; set; }
         public System.DateTime ModifyDate { get; set; }
+        public bool Status { get; set; }
     }
 }

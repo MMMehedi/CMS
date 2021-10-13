@@ -5,7 +5,7 @@
     }
     else {
         //var Status = true;
-        $scope.UserID = localStorage.getItem('UserID');        
+        $scope.UserID = localStorage.getItem('UserID');
         $scope.SaveDisabled = false;
         $scope.msgspinner = true;
         $scope.msgloading = true;
@@ -97,7 +97,7 @@
 
         $scope.Std = {};
         $scope.buttonText = 'Save';
-        $scope.Save = function (Std) {         
+        $scope.Save = function (Std) {
             if (filedVal() == true) {
                 $scope.SaveDisabled = true;
                 $scope.msgspinner = false;
@@ -108,7 +108,7 @@
                     var other_data = $('form').serializeArray();
                     $.each(other_data, function (key, input) {
                         data.append(input.name, input.value);
-                    });                   
+                    });
                     data.append("StudentID", 0);
                     data.append("StudentCode", 0);
                     data.append("StudentName", $scope.Std.SName);
@@ -122,12 +122,12 @@
                     data.append("StudentMobile", $scope.Std.SMobile || 0);
                     data.append("GuardianMobile", $scope.Std.Gmobile);
                     data.append("CompanyID", 1);
-                    data.append("Active", Active);
                     data.append("Remarks", 0);
                     data.append("CreatedBy", $scope.UserID);
                     data.append("CreatedDate", sysDate);
                     data.append("ModifyBy", $scope.UserID);
                     data.append("ModifyDate", sysDate);
+
                     //academic                   
                     data.append("SAcademicID", 0);
                     data.append("ShiftID", $('#ShiftId').val());
@@ -135,12 +135,8 @@
                     data.append("SectionID", $('#SectionId').val());
                     data.append("GroupID", $('#GroupId').val());
                     data.append("RollNo", $scope.Std.Roll);
-                    // data.append("CreatedBy", $scope.UserID);
-                    //data.append("CreatedDate", $scope.sysDate);
-                    // data.append("ModifyBy", $scope.UserID);
-                    // data.append("ModifyDate", $scope.sysDate);
-                    data.append("Status", Active);
-                    alert($scope.Std.Roll)
+
+
                     //parents
                     data.append("FMID", 0);
                     data.append("FatherName", $scope.Std.FName);
@@ -148,18 +144,19 @@
                     data.append("FProfession", $scope.Std.FProfession);
                     data.append("FProfessionType", $('#FPTypeId').val());
                     data.append("FYearlyIncome", 0);
-                    data.append("MotherName", 0);
                     data.append("MotherName", $scope.Std.MName);
                     data.append("MNID", $scope.Std.MNID);
                     data.append("MProfession", $scope.Std.MProfession);
                     data.append("MProfessionType", $('#MPTypeId').val());
                     data.append("MYearlyIncome", 0);
-                    data.append("MMobile", 0);                  
-                    // data.append("CreatedBy", $scope.UserID);
-                    // data.append("CreatedDate", $scope.sysDate);
-                    // data.append("ModifyBy", $scope.UserID);
-                    //data.append("ModifyDate", $scope.sysDate);
-                    // data.append("Status", Active);                
+                    data.append("MMobile", 0);
+
+                    // common
+                    data.append("Status", Active);
+                    data.append("CreatedBy", $scope.UserID);
+                    data.append("CreatedDate", sysDate);
+                    data.append("ModifyBy", $scope.UserID);
+                    data.append("ModifyDate", sysDate);
                     //// Add the uploaded image content to the form data collection
                     var files = $("#fupEmpImage").get(0).files;
                     if (files.length > 0) {
@@ -179,8 +176,11 @@
                             $('#SNameId').css('border-color', 'red');
                             return false;
                         }
-                        else
+                        else {
+                            toastr.success("Data Successfully Add");
                             $scope.ClearAll();
+                        }
+
                     });
                 }
                 if ($scope.buttonText == 'Update') {
@@ -189,8 +189,8 @@
                     $.each(other_data, function (key, input) {
                         data.append(input.name, input.value);
                     });
-                    data.append("StudentID", 0);
-                    data.append("StudentCode", 0);
+                    data.append("StudentID", $scope.StudentID);
+                    data.append("StudentCode", $scope.StudentCode);
                     data.append("StudentName", $scope.Std.SName);
                     data.append("DOB", $scope.DOB);
                     data.append("BRN", $scope.Std.BirthRegNo);
@@ -202,27 +202,17 @@
                     data.append("StudentMobile", $scope.Std.SMobile || 0);
                     data.append("GuardianMobile", $scope.Std.Gmobile);
                     data.append("CompanyID", 1);
-                    data.append("Active", Active);
                     data.append("Remarks", 0);
-                    data.append("CreatedBy", $scope.UserID);
-                    data.append("CreatedDate", sysDate);
-                    data.append("ModifyBy", $scope.UserID);
-                    data.append("ModifyDate", sysDate);
                     //academic                   
-                    data.append("SAcademicID", 0);
+                    data.append("SAcademicID", $scope.AcademicID);
                     data.append("ShiftID", $('#ShiftId').val());
                     data.append("ClassID", $('#ClassId').val());
                     data.append("SectionID", $('#SectionId').val());
                     data.append("GroupID", $('#GroupId').val());
                     data.append("RollNo", $scope.Std.Roll);
-                    // data.append("CreatedBy", $scope.UserID);
-                    //data.append("CreatedDate", $scope.sysDate);
-                    // data.append("ModifyBy", $scope.UserID);
-                    // data.append("ModifyDate", $scope.sysDate);
-                    data.append("Status", Active);
-                    alert($scope.Std.Roll)
+
                     //parents
-                    data.append("FMID", 0);
+                    data.append("FMID", $scope.FMID);
                     data.append("FatherName", $scope.Std.FName);
                     data.append("FNID", $scope.Std.FNID);
                     data.append("FProfession", $scope.Std.FProfession);
@@ -235,12 +225,12 @@
                     data.append("MProfessionType", $('#MPTypeId').val());
                     data.append("MYearlyIncome", 0);
                     data.append("MMobile", 0);
-                    // data.append("CreatedBy", $scope.UserID);
-                    // data.append("CreatedDate", $scope.sysDate);
-                    // data.append("ModifyBy", $scope.UserID);
-                    //data.append("ModifyDate", $scope.sysDate);
-                    // data.append("Status", Active);                
-                    //// Add the uploaded image content to the form data collection
+                    //comon
+                    data.append("Status", Active);
+                    data.append("CreatedBy", $scope.CreatedBy);
+                    data.append("CreatedDate", $scope.CreatedDate);
+                    data.append("ModifyBy", $scope.UserID);
+                    data.append("ModifyDate", sysDate);
                     var files = $("#fupEmpImage").get(0).files;
                     if (files.length > 0) {
                         data.append("UploadedImage", files[0]);
@@ -259,8 +249,11 @@
                             $('#SNameId').css('border-color', 'red');
                             return false;
                         }
-                        else
+                        else {
+                            toastr.success("Data Update Successfully");
                             $scope.ClearAll();
+                        }
+
                     });
                 }
             }
@@ -292,7 +285,7 @@
             var data;
             if (searchText) {
                 var ft = searchText.toLowerCase();
-                CMSService.GetAll('/api/SectionInfo/GetAll/' + localStorage.getItem('CompanyID')).success(function (largeLoad) {
+                CMSService.GetAll('/api/StudentInfo/GetAll/' + localStorage.getItem('CompanyID')).success(function (largeLoad) {
                     data = largeLoad.filter(function (item) {
                         return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
                     });
@@ -305,7 +298,7 @@
                     fnSetPagingData(data, page, pageSize);
                 });
             } else {
-                CMSService.GetAll('/api/SectionInfo/GetAll/' + localStorage.getItem('CompanyID')).success(function (largeLoad) {
+                CMSService.GetAll('/api/StudentInfo/GetAll/' + localStorage.getItem('CompanyID')).success(function (largeLoad) {
                     fnSetPagingData(largeLoad, page, pageSize);
                 });
             }
@@ -341,28 +334,72 @@
         selectedItems: $scope.selectedRow,
         multiSelect: false,
         columnDefs: [
-        { field: 'SectionID', displayName: 'SectionID', visible: false },
+        { field: 'StudentID', displayName: 'StudentID', visible: false },
         { field: 'Edit', width: 70, sortable: false, cellTemplate: '<button  ng-hide="edithide" ng-click=edit(row.entity)><i class="fa fa-pencil-square-o grid-edit-icon"></i></button>' },
-        { field: 'ClassID', displayName: 'ClassID', visible: false },
-        { field: 'ClassName', displayName: 'Class', visible: true },
-        { field: 'SectionName', displayName: 'SectionName', visible: true },
-        { field: 'Status', displayName: 'Status', width: 100, visible: false },
+        { field: 'StudentCode', displayName: 'Student Code', visible: true },
+        { field: 'StudentName', displayName: 'StudentName', visible: true },
+        { field: 'ShiftName', displayName: 'Shift Name', visible: true },
+        { field: 'ClassName', displayName: 'Class Name', visible: true },
+        { field: 'RollNo', displayName: 'Roll', width: 100, visible: true },
         ]
     };
     //End of ng-Grid
     //Edit
     $scope.edit = function (row) {
         $scope.ClearAll();
-        //$scope.Desig = angular.copy(row);
-        //Active = angular.copy(row.Active);
-        $scope.SectionID = angular.copy(row.SectionID);
-        $scope.SectionInfo.Section = angular.copy(row.SectionName);
+        $('#ClassIdEdit').change();
+
+        //student Info
+        $('#imgEmpImage').attr('src', '/CMS/GetWebsiteImage/?StudentID=' + row.StudentID);
+        $scope.StudentID = angular.copy(row.StudentID);
+        $scope.StudentCode = angular.copy(row.StudentCode);
+        $scope.Std.SName = angular.copy(row.StudentName);
+        $scope.DOB = angular.copy(row.DOB);
+        // $scope.Std.BirthRegNo = angular.copy(row.BRN);
+        $('#BirthRegNoId').val(angular.copy(row.BRN));
+        $('#ReligionId').val(angular.copy(row.ReligionId));
+        $('#ReligionId').select2().trigger('change.select2');
+        $('#GenderId').val(angular.copy(row.GenderID));
+        $('#GenderId').select2().trigger('change.select2');
+        $('#BloodId').val(angular.copy(row.BloodID));
+        $('#BloodId').select2().trigger('change.select2');
+        $scope.Std.PresentA = angular.copy(row.PresentAddress);
+        $scope.Std.PermanenetA = angular.copy(row.PermanentAddress);
+        $scope.Std.SMobile = angular.copy(row.StudentMobile);
+        $scope.Std.Gmobile = angular.copy(row.GuardianMobile);
+        $('#SmobileId').val(angular.copy(row.StudentMobile));
+        $('#GmobileId').val(angular.copy(row.GuardianMobile));
+        // student Academic
+        $scope.AcademicID = angular.copy(row.SAcademicID);
+        $('#ShiftId').val(angular.copy(row.ShiftID));
+        $('#ShiftId').select2().trigger('change.select2');
         $('#ClassId').val(angular.copy(row.ClassID));
         $('#ClassId').select2().trigger('change.select2');
-        $scope.CompanyId = angular.copy(row.CompanyID);
-        $scope.CreatedBy = angular.copy(row.CreateBy);
-        $scope.CreateDate = angular.copy(row.CreateDate);
-        $scope.SectionInfo.Active = angular.copy(row.Status);
+        $('#GroupId').val(angular.copy(row.GroupID));
+        $('#GroupId').select2().trigger('change.select2');
+        $('#SectionId').val(angular.copy(row.SectionID));
+        $('#SectionId').select2().trigger('change.select2');
+        $('#RollId').val(angular.copy(row.RollNo));
+
+        // student Parents
+        $scope.FMID = angular.copy(row.FMID);
+        $scope.Std.FName = angular.copy(row.FatherName);
+        $('#FNIDId').val(angular.copy(row.FNID));
+        $scope.Std.FProfession = angular.copy(row.FProfession);
+        $('#FPTypeId').val(angular.copy(row.FProfessionType));
+        $('#FPTypeId').select2().trigger('change.select2');
+        $scope.Std.MName = angular.copy(row.MotherName);
+        $('#MNIDId').val(angular.copy(row.MNID));
+        $scope.Std.MProfession = angular.copy(row.MProfession);
+        $('#MPTypeId').val(angular.copy(row.MProfessionType));
+        $('#MPTypeId').select2().trigger('change.select2');
+
+        // all common
+
+        $scope.CreatedBy = angular.copy(row.CreatedBy);
+        $scope.CreatedDate = angular.copy(row.CreatedDate);
+
+
         $scope.buttonText = 'Update';
     }
 
@@ -578,6 +615,7 @@
         $scope.GroupInfo();
         $scope.SectionInfo();
     });
+   
 
     $scope.GroupInfo = function () {
         if ($("#ClassId").val() > 10) {
@@ -592,6 +630,7 @@
             $(".Groupdiv").hide();
         }
     }
+
     $scope.SectionInfo = function () {
         CMSService.GetAll('/api/SetUpInfo/GetAllSection/' + $("#ClassId").val()).success(function (data) {
             if (data != '') {
@@ -605,4 +644,64 @@
             }
         });
     }
+    // edit button  group and class
+    $('#ClassIdEdit').change(function () {
+        $scope.GroupInfoEdit();
+        $scope.SectionInfoEdit();
+    });
+    $scope.EditGS = function (GroupId, SectionId)
+    {
+        CMSService.GetAll('/api/SetUpInfo/GetSelectedGroup/' + GroupId).success(function (data) {
+            if (data[0].GroupID >10) {
+                $('#GroupId').val('').trigger('change.select2');
+                $(".Groupdiv").show();
+                $scope.Groups = data;
+               
+            }
+            else {
+                $('#GroupId').val('').trigger('change.select2');
+                $(".Groupdiv").hide();
+            }
+        });
+
+        CMSService.GetAll('/api/SetUpInfo/GetSelectedSection/' + SectionId).success(function (data) {
+            if (data != '') {
+                $('#SectionId').val('').trigger('change.select2');
+                $scope.Sections = data;
+                $(".Sectiondiv").show();
+            }
+            else {
+                $('#SectionId').val('').trigger('change.select2');
+                $(".Sectiondiv").hide();
+            }
+        });
+    }
+    $scope.GroupInfoEdit = function () {
+        if ($("#ClassId").val() > 10) {
+            CMSService.GetAll('/api/SetUpInfo/GetSelectedGroup/' + $("#ClassId").val()).success(function (data) {
+                $('#GroupId').val('').trigger('change.select2');
+                $scope.Groups = data;
+                $(".Groupdiv").show();
+            });
+        }
+        else {
+            $('#GroupId').val('').trigger('change.select2');
+            $(".Groupdiv").hide();
+        }
+    }
+
+    $scope.SectionInfoEdit = function () {
+        CMSService.GetAll('/api/SetUpInfo/GetSelectedSection/' + $("#ClassId").val()).success(function (data) {
+            if (data != '') {
+                $('#SectionId').val('').trigger('change.select2');
+                $scope.Sections = data;
+                $(".Sectiondiv").show();
+            }
+            else {
+                $('#SectionId').val('').trigger('change.select2');
+                $(".Sectiondiv").hide();
+            }
+        });
+    }
+
 });

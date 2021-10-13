@@ -4,6 +4,7 @@ using System.Web.Routing;
 using CMS.Repository;
 using CMS.Repository.UnitOfWorks;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CMS.Web.Controllers
 {
@@ -166,6 +167,22 @@ namespace CMS.Web.Controllers
                 return RedirectToAction("../Home/Index/");
         }
 
+        //[Route("GetWebsiteImage")]
+        //[HttpPost]
+        public async Task<dynamic> GetWebsiteImage(int StudentID)
+        {
+            try
+            {
+                StudentInformation objEmployee = await Uow.TblStudentInformationRepository.GetByID(StudentID);
+                return File(objEmployee.Picture, "-", "");
+
+            }
+            catch (Exception ex)
+            {
+                //Logger.LogInformation(ex.Message);
+                throw ex;
+            }
+        }
 
         //public PartialViewResult _Dashboard(int? id)
         //{

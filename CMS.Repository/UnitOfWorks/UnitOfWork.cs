@@ -114,6 +114,16 @@ namespace CMS.Repository.UnitOfWorks
                 return sectionInfoRepository;
             }
         }
+        private IRepository<StudentInformation> tblStudentInformationRepository;
+        public IRepository<StudentInformation> TblStudentInformationRepository
+        {
+            get
+            {
+                if (this.tblStudentInformationRepository == null)
+                    this.tblStudentInformationRepository = new GenericRepository<StudentInformation>(context);
+                return tblStudentInformationRepository;
+            }
+        }
 
 
 

@@ -149,58 +149,38 @@ namespace CMS.Web.Controllers
                 throw ex;
             }
         }
-        //[Route("Add")]
-        //[HttpPost]
-        //public async Task<dynamic> Add([FromBody] DesignationInfo entity)
-        //{
-        //    try
-        //    {
-        //        var result = "";
-        //        var search = context.DesignationInfoes.FirstOrDefault(m => m.DesigName == entity.DesigName);
-        //        if (search == null)
-        //        {
-        //            entity.CreatedDate = cstTime;
-        //            entity.ModifyDate = cstTime;
-        //            result = await Uow.DesignationInfoRepository.Add(entity);
-        //        }
-        //        else
-        //        {
-        //            return "Data Already Exits";
-        //        }
-        //        if (result.Trim() == "Data Saved Successfully")
-        //        {
-        //            //await Uow.TblLogHistoryRepository.AddLogHistory(entity.Applicant.ToString() + " has been added successfully.", 20029, 1, 1, entity.AppID);
-        //        }
-        //        return Json(result);
-        //        //entity.CreatedDate = cstTime;
-        //        //entity.ModifyDate = cstTime;
-        //        //entity.Active = true;
-        //        //var result = await Uow.DesignationInfoRepository.Add(entity);
-        //        //return Json(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //Logger.LogInformation(ex.Message);
-        //        throw ex;
-        //    }
-        //}
 
-        //[Route("Update")]
-        //[HttpPost]
-        //public async Task<dynamic> Update([FromBody] DesignationInfo entity)
-        //{
-        //    try
-        //    {
-        //        entity.ModifyBy = entity.ModifyBy;
-        //        entity.ModifyDate = cstTime;
-        //        var result = await Uow.DesignationInfoRepository.Update(entity);
-        //        return Json(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //Logger.LogInformation(ex.Message);
-        //        throw ex;
-        //    }
-        //}
+        [Route("GetSelectedSection/{GroupId:int}")]
+        [HttpGet]
+        public dynamic GetSelectedSection(int GroupId)
+        {
+            try
+            {
+                var result = context.Pr.Where(m => m.CompanyID == CompanyID);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //Logger.LogInformation(ex.Message);
+                throw ex;
+            }
+        }
+
+        [Route("GetSelectedGroup/{GroupId:int}")]
+        [HttpGet]
+        public dynamic GetSelectedGroup(int GroupId)
+        {
+            try
+            {
+                var result = context.ProfessionTypes.Where(m => m.CompanyID == CompanyID);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //Logger.LogInformation(ex.Message);
+                throw ex;
+            }
+        }
+
     }
 }
