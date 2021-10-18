@@ -150,13 +150,13 @@ namespace CMS.Web.Controllers
             }
         }
 
-        [Route("GetSelectedSection/{GroupId:int}")]
+        [Route("GetSelectedSection/{SectionId:int}")]
         [HttpGet]
-        public dynamic GetSelectedSection(int GroupId)
+        public dynamic GetSelectedSection(int SectionId)
         {
             try
             {
-                var result = context.Pr.Where(m => m.CompanyID == CompanyID);
+                var result = context.SectionInfoes.Where(m => m.SectionID == SectionId);
                 return result;
             }
             catch (Exception ex)
@@ -172,7 +172,7 @@ namespace CMS.Web.Controllers
         {
             try
             {
-                var result = context.ProfessionTypes.Where(m => m.CompanyID == CompanyID);
+                var result =context.Groups.Where(m => m.GroupID == GroupId);
                 return result;
             }
             catch (Exception ex)

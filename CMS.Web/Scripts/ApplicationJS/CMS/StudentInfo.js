@@ -55,6 +55,16 @@
             $scope.buttonText = 'Save';
             $('#fupEmpImage').val('');
             $('#imgEmpImage').attr('src', '/assets/images/NoPreview.jpg');
+
+            $('#BirthRegNoId').val('');
+            $('#SmobileId').val('');
+            $('#GmobileId').val('');
+            $('#RollId').val('');
+            $('#FNIDId').val('');
+            $('#MNIDId').val('');
+            $scope.Sections = "";
+            $scope.Groups = "";
+
         }
 
 
@@ -132,8 +142,8 @@
                     data.append("SAcademicID", 0);
                     data.append("ShiftID", $('#ShiftId').val());
                     data.append("ClassID", $('#ClassId').val());
-                    data.append("SectionID", $('#SectionId').val());
-                    data.append("GroupID", $('#GroupId').val());
+                    data.append("SectionID", $('#SectionId').val() || 0);
+                    data.append("GroupID", $('#GroupId').val() ||1);
                     data.append("RollNo", $scope.Std.Roll);
 
 
@@ -346,9 +356,7 @@
     //End of ng-Grid
     //Edit
     $scope.edit = function (row) {
-        $scope.ClearAll();
-        $('#ClassIdEdit').change();
-
+        $scope.ClearAll();       
         //student Info
         $('#imgEmpImage').attr('src', '/CMS/GetWebsiteImage/?StudentID=' + row.StudentID);
         $scope.StudentID = angular.copy(row.StudentID);
@@ -369,16 +377,16 @@
         $scope.Std.Gmobile = angular.copy(row.GuardianMobile);
         $('#SmobileId').val(angular.copy(row.StudentMobile));
         $('#GmobileId').val(angular.copy(row.GuardianMobile));
-        // student Academic
+        // student Academic       
         $scope.AcademicID = angular.copy(row.SAcademicID);
         $('#ShiftId').val(angular.copy(row.ShiftID));
         $('#ShiftId').select2().trigger('change.select2');
         $('#ClassId').val(angular.copy(row.ClassID));
         $('#ClassId').select2().trigger('change.select2');
-        $('#GroupId').val(angular.copy(row.GroupID));
-        $('#GroupId').select2().trigger('change.select2');
-        $('#SectionId').val(angular.copy(row.SectionID));
-        $('#SectionId').select2().trigger('change.select2');
+        $scope.GroupInfo();
+        $scope.SectionInfo();       
+        $scope.EditGroup(row.GroupID);
+        $scope.EditSection(row.SectionID);
         $('#RollId').val(angular.copy(row.RollNo));
 
         // student Parents
@@ -615,9 +623,7 @@
         $scope.GroupInfo();
         $scope.SectionInfo();
     });
-   
-
-    $scope.GroupInfo = function () {
+        $scope.GroupInfo = function () {
         if ($("#ClassId").val() > 10) {
             CMSService.GetAll('/api/SetUpInfo/GetAllGroup/' + $("#ClassId").val()).success(function (data) {
                 $('#GroupId').val('').trigger('change.select2');
@@ -644,64 +650,38 @@
             }
         });
     }
-    // edit button  group and class
-    $('#ClassIdEdit').change(function () {
-        $scope.GroupInfoEdit();
-        $scope.SectionInfoEdit();
-    });
-    $scope.EditGS = function (GroupId, SectionId)
-    {
+
+    // edit button  group and section
+
+    $scope.EditGroup = function (GroupId) {
+        $('#GroupId').val('').trigger('change.select2');      
         CMSService.GetAll('/api/SetUpInfo/GetSelectedGroup/' + GroupId).success(function (data) {
-            if (data[0].GroupID >10) {
-                $('#GroupId').val('').trigger('change.select2');
+            if (data[0].GroupID > 10) {
+                $('#GroupId').val(angular.copy(data[0].GroupID));
+                $('#GroupId').select2().trigger('change.select2');
                 $(".Groupdiv").show();
-                $scope.Groups = data;
-               
             }
             else {
                 $('#GroupId').val('').trigger('change.select2');
                 $(".Groupdiv").hide();
             }
         });
-
-        CMSService.GetAll('/api/SetUpInfo/GetSelectedSection/' + SectionId).success(function (data) {
-            if (data != '') {
-                $('#SectionId').val('').trigger('change.select2');
-                $scope.Sections = data;
-                $(".Sectiondiv").show();
-            }
-            else {
-                $('#SectionId').val('').trigger('change.select2');
-                $(".Sectiondiv").hide();
-            }
-        });
+       
     }
-    $scope.GroupInfoEdit = function () {
-        if ($("#ClassId").val() > 10) {
-            CMSService.GetAll('/api/SetUpInfo/GetSelectedGroup/' + $("#ClassId").val()).success(function (data) {
-                $('#GroupId').val('').trigger('change.select2');
-                $scope.Groups = data;
-                $(".Groupdiv").show();
+    $scope.EditSection = function (SectionId) {
+        $('#SectionId').val('').trigger('change.select2');
+        if (SectionId != '') {
+            CMSService.GetAll('/api/SetUpInfo/GetSelectedSection/' + SectionId).success(function (data) {
+                $('#SectionId').val(angular.copy(data[0].SectionID));
+                $('#SectionId').select2().trigger('change.select2');
+                $(".Sectiondiv").show();
             });
         }
         else {
-            $('#GroupId').val('').trigger('change.select2');
-            $(".Groupdiv").hide();
+            $('#SectionId').val('').trigger('change.select2');
+            $(".Sectiondiv").hide();
         }
     }
 
-    $scope.SectionInfoEdit = function () {
-        CMSService.GetAll('/api/SetUpInfo/GetSelectedSection/' + $("#ClassId").val()).success(function (data) {
-            if (data != '') {
-                $('#SectionId').val('').trigger('change.select2');
-                $scope.Sections = data;
-                $(".Sectiondiv").show();
-            }
-            else {
-                $('#SectionId').val('').trigger('change.select2');
-                $(".Sectiondiv").hide();
-            }
-        });
-    }
 
 });
