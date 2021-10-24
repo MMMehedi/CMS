@@ -36,15 +36,16 @@
             $scope.Clearspinner();
             $scope.Std = {};
             $scope.DOB = sysDate;
-            $('#ReligionId').val('').trigger('change.select2');
-            $('#GenderId').val('').trigger('change.select2');
-            $('#BloodId').val('').trigger('change.select2');
-            $('#ShiftId').val('').trigger('change.select2');
-            $('#ClassId').val('').trigger('change.select2');
-            $('#GroupId').val('').trigger('change.select2');
-            $('#SectionId').val('').trigger('change.select2');
-            $('#FPTypeId').val('').trigger('change.select2');
-            $('#MPTypeId').val('').trigger('change.select2');
+            $('.select2').val('').trigger('change.select2');
+            //$('#ReligionId').val('').trigger('change.select2');
+            //$('#GenderId').val('').trigger('change.select2');
+            //$('#BloodId').val('').trigger('change.select2');
+            //$('#ShiftId').val('').trigger('change.select2');
+            //$('#ClassId').val('').trigger('change.select2');
+            //$('#GroupId').val('').trigger('change.select2');
+            //$('#SectionId').val('').trigger('change.select2');
+            //$('#FPTypeId').val('').trigger('change.select2');
+            //$('#MPTypeId').val('').trigger('change.select2');
             $('.bordercolor').css('border-color', '');
             $scope.filterOptions.filterText = "";
             $('#divMsg').hide();
@@ -55,13 +56,12 @@
             $scope.buttonText = 'Save';
             $('#fupEmpImage').val('');
             $('#imgEmpImage').attr('src', '/assets/images/NoPreview.jpg');
-
-            $('#BirthRegNoId').val('');
-            $('#SmobileId').val('');
-            $('#GmobileId').val('');
-            $('#RollId').val('');
-            $('#FNIDId').val('');
-            $('#MNIDId').val('');
+            $('.form-control').val('');
+            //$('#SmobileId').val('');
+            //$('#GmobileId').val('');
+            //$('#RollId').val('');
+            //$('#FNIDId').val('');
+            //$('#MNIDId').val('');
             $scope.Sections = "";
             $scope.Groups = "";
 
@@ -92,6 +92,12 @@
         CMSService.GetAll('/api/SetUpInfo/ProfessionType/' + localStorage.getItem('CompanyID')).success(function (data) {
             $scope.ProfessionTypes = data;
             //$scope.MProfessionTypes = data;
+        });
+        CMSService.GetAll('/api/SetUpInfo/GetAllSection/' + localStorage.getItem('CompanyID')).success(function (data) {
+            $scope.Sections = data;
+        });
+        CMSService.GetAll('/api/SetUpInfo/GetAllGroup/' + localStorage.getItem('CompanyID')).success(function (data) {
+            $scope.Groups = data;
         });
 
         $("#fupEmpImage").change(function () {
@@ -143,7 +149,7 @@
                     data.append("ShiftID", $('#ShiftId').val());
                     data.append("ClassID", $('#ClassId').val());
                     data.append("SectionID", $('#SectionId').val() || 0);
-                    data.append("GroupID", $('#GroupId').val() ||1);
+                    data.append("GroupID", $('#GroupId').val() || 1);
                     data.append("RollNo", $scope.Std.Roll);
 
 
@@ -269,7 +275,6 @@
             }
         }
     }
-
     //ng-Grid
     $scope.filterOptions = {
         filterText: "",
@@ -353,10 +358,12 @@
         { field: 'RollNo', displayName: 'Roll', width: 100, visible: true },
         ]
     };
+
     //End of ng-Grid
     //Edit
+    $scope.Std = {};
     $scope.edit = function (row) {
-        $scope.ClearAll();       
+        $scope.ClearAll();
         //student Info
         $('#imgEmpImage').attr('src', '/CMS/GetWebsiteImage/?StudentID=' + row.StudentID);
         $scope.StudentID = angular.copy(row.StudentID);
@@ -378,15 +385,16 @@
         $('#SmobileId').val(angular.copy(row.StudentMobile));
         $('#GmobileId').val(angular.copy(row.GuardianMobile));
         // student Academic       
-        $scope.AcademicID = angular.copy(row.SAcademicID);
+        $scope.AcademicID = row.SAcademicID;
         $('#ShiftId').val(angular.copy(row.ShiftID));
         $('#ShiftId').select2().trigger('change.select2');
-        $('#ClassId').val(angular.copy(row.ClassID));
+        $('#ClassId').val(row.ClassID);
         $('#ClassId').select2().trigger('change.select2');
-        $scope.GroupInfo();
-        $scope.SectionInfo();       
-        $scope.EditGroup(row.GroupID);
-        $scope.EditSection(row.SectionID);
+        $('#ClassId').change();
+        $('#GroupId').val(angular.copy(row.GroupID));
+        $('#GroupId').select2().trigger('change.select2');
+        $('#SectionId').val(angular.copy(row.SectionID));
+        $('#SectionId').select2().trigger('change.select2');
         $('#RollId').val(angular.copy(row.RollNo));
 
         // student Parents
@@ -617,16 +625,18 @@
 
     }
 
-    //ng-hide
 
+    // ng-change
+
+    //$('#ClassId').change(function () {
+    //    $scope.GroupInfo();
+    //    $scope.SectionInfo();
+    //});
     $('#ClassId').change(function () {
-        $scope.GroupInfo();
-        $scope.SectionInfo();
-    });
-        $scope.GroupInfo = function () {
+        //$scope.GroupInfo = function () {
+
         if ($("#ClassId").val() > 10) {
-            CMSService.GetAll('/api/SetUpInfo/GetAllGroup/' + $("#ClassId").val()).success(function (data) {
-                $('#GroupId').val('').trigger('change.select2');
+            CMSService.GetAll('/api/SetUpInfo/GetAllGroupByClass/' + $("#ClassId").val()).success(function (data) {
                 $scope.Groups = data;
                 $(".Groupdiv").show();
             });
@@ -635,12 +645,9 @@
             $('#GroupId').val('').trigger('change.select2');
             $(".Groupdiv").hide();
         }
-    }
 
-    $scope.SectionInfo = function () {
-        CMSService.GetAll('/api/SetUpInfo/GetAllSection/' + $("#ClassId").val()).success(function (data) {
+        CMSService.GetAll('/api/SetUpInfo/GetAllSectionByClass/' + $("#ClassId").val()).success(function (data) {
             if (data != '') {
-                $('#SectionId').val('').trigger('change.select2');
                 $scope.Sections = data;
                 $(".Sectiondiv").show();
             }
@@ -649,39 +656,60 @@
                 $(".Sectiondiv").hide();
             }
         });
-    }
 
-    // edit button  group and section
+    });
 
-    $scope.EditGroup = function (GroupId) {
-        $('#GroupId').val('').trigger('change.select2');      
-        CMSService.GetAll('/api/SetUpInfo/GetSelectedGroup/' + GroupId).success(function (data) {
-            if (data[0].GroupID > 10) {
-                $('#GroupId').val(angular.copy(data[0].GroupID));
-                $('#GroupId').select2().trigger('change.select2');
-                $(".Groupdiv").show();
-            }
-            else {
-                $('#GroupId').val('').trigger('change.select2');
-                $(".Groupdiv").hide();
-            }
-        });
-       
-    }
-    $scope.EditSection = function (SectionId) {
-        $('#SectionId').val('').trigger('change.select2');
-        if (SectionId != '') {
-            CMSService.GetAll('/api/SetUpInfo/GetSelectedSection/' + SectionId).success(function (data) {
-                $('#SectionId').val(angular.copy(data[0].SectionID));
-                $('#SectionId').select2().trigger('change.select2');
-                $(".Sectiondiv").show();
-            });
-        }
-        else {
-            $('#SectionId').val('').trigger('change.select2');
-            $(".Sectiondiv").hide();
-        }
-    }
+    //$scope.SectionInfo = function () {
+    //    CMSService.GetAll('/api/SetUpInfo/GetAllSection/' + $("#ClassId").val()).success(function (data) {
+    //        if (data != '') {
+    //            $('#SectionId').val('').trigger('change.select2');
+    //            $scope.Sections = data;
+    //            $(".Sectiondiv").show();
+    //        }
+    //        else {
+    //            $('#SectionId').val('').trigger('change.select2');
+    //            $(".Sectiondiv").hide();
+    //        }
+    //    });
+    //}
+
+
+
+
+
+
+    ////ng-hide
+    //// edit button  group and section
+
+    //$scope.EditGroup = function (GroupId) {
+    //    $('#GroupId').val('').trigger('change.select2');
+    //    CMSService.GetAll('/api/SetUpInfo/GetSelectedGroup/' + GroupId).success(function (data) {
+    //        if (data[0].GroupID > 10) {
+    //            $('#GroupId').val(angular.copy(data[0].GroupID));
+    //            $('#GroupId').select2().trigger('change.select2');
+    //            $(".Groupdiv").show();
+    //        }
+    //        else {
+    //            $('#GroupId').val('').trigger('change.select2');
+    //            $(".Groupdiv").hide();
+    //        }
+    //    });
+
+    //}
+    //$scope.EditSection = function (SectionId) {
+    //    $('#SectionId').val('').trigger('change.select2');
+    //    if (SectionId != '') {
+    //        CMSService.GetAll('/api/SetUpInfo/GetSelectedSection/' + SectionId).success(function (data) {
+    //            $('#SectionId').val(angular.copy(data[0].SectionID));
+    //            $('#SectionId').select2().trigger('change.select2');
+    //            $(".Sectiondiv").show();
+    //        });
+    //    }
+    //    else {
+    //        $('#SectionId').val('').trigger('change.select2');
+    //        $(".Sectiondiv").hide();
+    //    }
+    //}
 
 
 });

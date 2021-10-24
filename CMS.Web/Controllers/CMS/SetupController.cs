@@ -53,9 +53,9 @@ namespace CMS.Web.Controllers
             }
         }
 
-        [Route("GetAllGroup/{ClassID:int}")]
+        [Route("GetAllGroupByClass/{ClassID:int}")]
         [HttpGet]
-        public dynamic GetAllGroup(int ClassID)
+        public dynamic GetAllGroupByClass(int ClassID)
         { 
             try
             {
@@ -69,9 +69,9 @@ namespace CMS.Web.Controllers
             }
         }
 
-        [Route("GetAllSection/{ClassID:int}")]
+        [Route("GetAllSectionByClass/{ClassID:int}")]
         [HttpGet]
-        public dynamic GetAllSection(int ClassID)
+        public dynamic GetAllSectionByClass(int ClassID)
         {
             try
             {
@@ -84,6 +84,39 @@ namespace CMS.Web.Controllers
                 throw ex;
             }
         }
+
+        [Route("GetAllSection/{CompanyID:int}")]
+        [HttpGet]
+        public dynamic GetAllSection(int CompanyID)
+        {
+            try
+            {
+                var result = context.SectionInfoes;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //Logger.LogInformation(ex.Message);
+                throw ex;
+            }
+        }
+
+        [Route("GetAllGroup/{CompanyID:int}")]
+        [HttpGet]
+        public dynamic GetAllGroup(int CompanyID)
+        {
+            try
+            {
+                var result = context.Groups;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //Logger.LogInformation(ex.Message);
+                throw ex;
+            }
+        }
+
 
         [Route("GetAllReligion/{CompanyID:int}")]
         [HttpGet]
