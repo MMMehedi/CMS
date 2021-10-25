@@ -20,6 +20,5 @@ namespace CMS.Repository
         public bool UserPer { get; set; }
         public System.DateTime PerDate { get; set; }
         public bool chkRootMenu { get; set; }
-
     }
 }

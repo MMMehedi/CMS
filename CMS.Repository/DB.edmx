@@ -222,11 +222,11 @@
           <Property Name="PermanentAddress" Type="nvarchar(max)" Nullable="false" />
           <Property Name="StudentMobile" Type="nvarchar(max)" Nullable="false" />
           <Property Name="GuardianMobile" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="CompanyID" Type="bigint" Nullable="false" />
+          <Property Name="CompanyID" Type="int" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar(max)" />
-          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifyBy" Type="bigint" Nullable="false" />
+          <Property Name="ModifyBy" Type="int" Nullable="false" />
           <Property Name="ModifyDate" Type="datetime" Nullable="false" />
           <Property Name="Status" Type="bit" Nullable="false" />
         </EntityType>
@@ -532,11 +532,11 @@
           <Property Name="PermanentAddress" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="StudentMobile" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="GuardianMobile" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyID" Type="Int64" Nullable="false" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifyBy" Type="Int64" Nullable="false" />
+          <Property Name="ModifyBy" Type="Int32" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
         </EntityType>

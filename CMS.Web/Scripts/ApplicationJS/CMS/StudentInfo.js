@@ -23,7 +23,7 @@
             opened: false
         };
         var Active = true;
-        var sysDate = $filter('date')(Date.now(), 'dd-MM-yyyy');
+        var sysDate = $filter('date')(Date.now(), 'yyyy-MM-dd');
         $scope.DOB = sysDate;
         $('#fupEmpImage').val('');
         $('#imgEmpImage').attr('src', '/assets/images/NoPreview.jpg');
@@ -31,21 +31,11 @@
         $(".Sectiondiv").hide();
         $scope.SCorrect = 1;
         $scope.GCorrect = 1;
-
         $scope.ClearAll = function () {
             $scope.Clearspinner();
             $scope.Std = {};
             $scope.DOB = sysDate;
             $('.select2').val('').trigger('change.select2');
-            //$('#ReligionId').val('').trigger('change.select2');
-            //$('#GenderId').val('').trigger('change.select2');
-            //$('#BloodId').val('').trigger('change.select2');
-            //$('#ShiftId').val('').trigger('change.select2');
-            //$('#ClassId').val('').trigger('change.select2');
-            //$('#GroupId').val('').trigger('change.select2');
-            //$('#SectionId').val('').trigger('change.select2');
-            //$('#FPTypeId').val('').trigger('change.select2');
-            //$('#MPTypeId').val('').trigger('change.select2');
             $('.bordercolor').css('border-color', '');
             $scope.filterOptions.filterText = "";
             $('#divMsg').hide();
@@ -56,15 +46,8 @@
             $scope.buttonText = 'Save';
             $('#fupEmpImage').val('');
             $('#imgEmpImage').attr('src', '/assets/images/NoPreview.jpg');
-            $('.form-control').val('');
-            //$('#SmobileId').val('');
-            //$('#GmobileId').val('');
-            //$('#RollId').val('');
-            //$('#FNIDId').val('');
-            //$('#MNIDId').val('');
-            $scope.Sections = "";
-            $scope.Groups = "";
-
+            $('.form-control').val('');     
+          
         }
 
 
@@ -90,8 +73,7 @@
             $scope.Bloods = data;
         });
         CMSService.GetAll('/api/SetUpInfo/ProfessionType/' + localStorage.getItem('CompanyID')).success(function (data) {
-            $scope.ProfessionTypes = data;
-            //$scope.MProfessionTypes = data;
+            $scope.ProfessionTypes = data;           
         });
         CMSService.GetAll('/api/SetUpInfo/GetAllSection/' + localStorage.getItem('CompanyID')).success(function (data) {
             $scope.Sections = data;
@@ -121,28 +103,22 @@
                 $scope.msgSave = true;
                 if ($scope.buttonText == 'Save') {
                     var data = new FormData();
-                    var other_data = $('form').serializeArray();
-                    $.each(other_data, function (key, input) {
-                        data.append(input.name, input.value);
-                    });
+                    //var other_data = $('form').serializeArray();
+                    //$.each(other_data, function (key, input) {
+                    //    data.append(input.name, input.value);
+                    //});
                     data.append("StudentID", 0);
                     data.append("StudentCode", 0);
-                    data.append("StudentName", $scope.Std.SName);
-                    data.append("DOB", $scope.DOB);
-                    data.append("BRN", $scope.Std.BirthRegNo);
+                    data.append("StudentName", $scope.Std.StudentName);
+                    data.append("DOB", $filter('date')($scope.DOB, 'dd-MM-yyyy'));
+                    data.append("BRN", $scope.Std.BRN);
                     data.append("ReligionId", $('#ReligionId').val());
                     data.append("GenderID", $('#GenderId').val());
                     data.append("BloodID", $('#BloodId').val());
-                    data.append("PresentAddress", $scope.Std.PresentA);
-                    data.append("PermanentAddress", $scope.Std.PermanenetA);
-                    data.append("StudentMobile", $scope.Std.SMobile || 0);
-                    data.append("GuardianMobile", $scope.Std.Gmobile);
-                    data.append("CompanyID", 1);
-                    data.append("Remarks", 0);
-                    data.append("CreatedBy", $scope.UserID);
-                    data.append("CreatedDate", sysDate);
-                    data.append("ModifyBy", $scope.UserID);
-                    data.append("ModifyDate", sysDate);
+                    data.append("PresentAddress", $scope.Std.PresentAddress);
+                    data.append("PermanentAddress", $scope.Std.PermanentAddress);
+                    data.append("StudentMobile", $scope.Std.StudentMobile || 0);
+                    data.append("GuardianMobile", $scope.Std.GuardianMobile);
 
                     //academic                   
                     data.append("SAcademicID", 0);
@@ -150,17 +126,18 @@
                     data.append("ClassID", $('#ClassId').val());
                     data.append("SectionID", $('#SectionId').val() || 0);
                     data.append("GroupID", $('#GroupId').val() || 1);
-                    data.append("RollNo", $scope.Std.Roll);
+                    data.append("RollNo", $scope.Std.RollNo);
 
 
                     //parents
                     data.append("FMID", 0);
-                    data.append("FatherName", $scope.Std.FName);
+                    data.append("FatherName", $scope.Std.FFatherName);
                     data.append("FNID", $scope.Std.FNID);
                     data.append("FProfession", $scope.Std.FProfession);
                     data.append("FProfessionType", $('#FPTypeId').val());
                     data.append("FYearlyIncome", 0);
-                    data.append("MotherName", $scope.Std.MName);
+                    data.append("FMobile", 0);
+                    data.append("MotherName", $scope.Std.MotherName);
                     data.append("MNID", $scope.Std.MNID);
                     data.append("MProfession", $scope.Std.MProfession);
                     data.append("MProfessionType", $('#MPTypeId').val());
@@ -168,11 +145,13 @@
                     data.append("MMobile", 0);
 
                     // common
+                    data.append("Remarks", "");
+                    data.append("CompanyID", 1);
                     data.append("Status", Active);
                     data.append("CreatedBy", $scope.UserID);
-                    data.append("CreatedDate", sysDate);
+                    data.append("CreatedDate", $filter('date')(sysDate, 'dd-MM-yyyy'));
                     data.append("ModifyBy", $scope.UserID);
-                    data.append("ModifyDate", sysDate);
+                    data.append("ModifyDate", $filter('date')(sysDate, 'dd-MM-yyyy'));
                     //// Add the uploaded image content to the form data collection
                     var files = $("#fupEmpImage").get(0).files;
                     if (files.length > 0) {
@@ -187,55 +166,57 @@
                         data: data
                     });
                     ajaxRequest.done(function (xhr, textStatus) {
-                        toastr.success(xhr.Result);
+                        //toastr.success(xhr.Result);
                         if (xhr.Result == 'Data Already Exits') {
                             $('#SNameId').css('border-color', 'red');
                             return false;
                         }
                         else {
-                            toastr.success("Data Successfully Add");
+                            toastr.remove();
+                            toastr.success(xhr);
                             $scope.ClearAll();
                         }
 
                     });
                 }
-                if ($scope.buttonText == 'Update') {
+                if ($scope.buttonText == 'Update') {                   
                     var data = new FormData();
                     var other_data = $('form').serializeArray();
                     $.each(other_data, function (key, input) {
                         data.append(input.name, input.value);
                     });
-                    data.append("StudentID", $scope.StudentID);
-                    data.append("StudentCode", $scope.StudentCode);
-                    data.append("StudentName", $scope.Std.SName);
-                    data.append("DOB", $scope.DOB);
-                    data.append("BRN", $scope.Std.BirthRegNo);
+                    data.append("StudentID", $scope.Std.StudentID);
+                    data.append("StudentCode", $scope.Std.StudentCode);
+                    data.append("StudentName", $scope.Std.StudentName);
+                    data.append("DOB", $filter('date')($scope.DOB, 'dd-MM-yyyy'));
+                    data.append("BRN", $scope.Std.BRN);
                     data.append("ReligionId", $('#ReligionId').val());
                     data.append("GenderID", $('#GenderId').val());
                     data.append("BloodID", $('#BloodId').val());
-                    data.append("PresentAddress", $scope.Std.PresentA);
-                    data.append("PermanentAddress", $scope.Std.PermanenetA);
-                    data.append("StudentMobile", $scope.Std.SMobile || 0);
-                    data.append("GuardianMobile", $scope.Std.Gmobile);
+                    data.append("PresentAddress", $scope.Std.PresentAddress);
+                    data.append("PermanentAddress", $scope.Std.PermanentAddress);
+                    data.append("StudentMobile", $scope.Std.StudentMobile || 0);
+                    data.append("GuardianMobile", $scope.Std.GuardianMobile);
                     data.append("CompanyID", 1);
                     data.append("Remarks", 0);
                     //academic                   
-                    data.append("SAcademicID", $scope.AcademicID);
+                    data.append("SAcademicID", $scope.Std.SAcademicID);
                     data.append("ShiftID", $('#ShiftId').val());
                     data.append("ClassID", $('#ClassId').val());
-                    data.append("SectionID", $('#SectionId').val());
+                    data.append("SectionID", $('#SectionId').val());                   
                     data.append("GroupID", $('#GroupId').val());
-                    data.append("RollNo", $scope.Std.Roll);
+                    data.append("RollNo", $scope.Std.RollNo);
+                 
 
                     //parents
-                    data.append("FMID", $scope.FMID);
-                    data.append("FatherName", $scope.Std.FName);
+                    data.append("FMID", $scope.Std.FMID);
+                    data.append("FatherName", $scope.Std.FatherName);
                     data.append("FNID", $scope.Std.FNID);
                     data.append("FProfession", $scope.Std.FProfession);
                     data.append("FProfessionType", $('#FPTypeId').val());
                     data.append("FYearlyIncome", 0);
-                    data.append("MotherName", 0);
-                    data.append("MotherName", $scope.Std.MName);
+                    data.append("FMobile", 0);
+                    data.append("MotherName", $scope.Std.MotherName);
                     data.append("MNID", $scope.Std.MNID);
                     data.append("MProfession", $scope.Std.MProfession);
                     data.append("MProfessionType", $('#MPTypeId').val());
@@ -243,10 +224,10 @@
                     data.append("MMobile", 0);
                     //comon
                     data.append("Status", Active);
-                    data.append("CreatedBy", $scope.CreatedBy);
-                    data.append("CreatedDate", $scope.CreatedDate);
+                    data.append("CreatedBy", $scope.Std.CreatedBy);
+                    data.append("CreatedDate", $scope.Std.CreatedDate);
                     data.append("ModifyBy", $scope.UserID);
-                    data.append("ModifyDate", sysDate);
+                    data.append("ModifyDate", $filter('date')(sysDate, 'dd-MM-yyyy'));
                     var files = $("#fupEmpImage").get(0).files;
                     if (files.length > 0) {
                         data.append("UploadedImage", files[0]);
@@ -260,13 +241,15 @@
                         data: data
                     });
                     ajaxRequest.done(function (xhr, textStatus) {
-                        toastr.success(xhr.Result);
+                        //toastr.success(xhr.Result);
                         if (xhr.Result == 'Data Already Exits') {
                             $('#SNameId').css('border-color', 'red');
                             return false;
                         }
                         else {
-                            toastr.success("Data Update Successfully");
+
+                            toastr.remove();
+                            toastr.success(xhr);
                             $scope.ClearAll();
                         }
 
@@ -363,14 +346,15 @@
     //Edit
     $scope.Std = {};
     $scope.edit = function (row) {
-        $scope.ClearAll();
+        //$scope.ClearAll();
         //student Info
         $('#imgEmpImage').attr('src', '/CMS/GetWebsiteImage/?StudentID=' + row.StudentID);
-        $scope.StudentID = angular.copy(row.StudentID);
-        $scope.StudentCode = angular.copy(row.StudentCode);
-        $scope.Std.SName = angular.copy(row.StudentName);
+        //$scope.StudentID = angular.copy(row.StudentID);
+        //$scope.StudentCode = angular.copy(row.StudentCode);
+        $scope.Std = angular.copy(row);
+        // $scope.Std.StudentName = angular.copy(row.StudentName);       
+        //$scope.DOB = sysDate;
         $scope.DOB = angular.copy(row.DOB);
-        // $scope.Std.BirthRegNo = angular.copy(row.BRN);
         $('#BirthRegNoId').val(angular.copy(row.BRN));
         $('#ReligionId').val(angular.copy(row.ReligionId));
         $('#ReligionId').select2().trigger('change.select2');
@@ -378,14 +362,14 @@
         $('#GenderId').select2().trigger('change.select2');
         $('#BloodId').val(angular.copy(row.BloodID));
         $('#BloodId').select2().trigger('change.select2');
-        $scope.Std.PresentA = angular.copy(row.PresentAddress);
-        $scope.Std.PermanenetA = angular.copy(row.PermanentAddress);
-        $scope.Std.SMobile = angular.copy(row.StudentMobile);
-        $scope.Std.Gmobile = angular.copy(row.GuardianMobile);
+        //$scope.Std.PresentAddress = angular.copy(row.PresentAddress);
+        // $scope.Std.PermanentAddress = angular.copy(row.PermanentAddress);
+        // $scope.Std.StudentMobile = angular.copy(row.StudentMobile);
+        // $scope.Std.GuardianMobile = angular.copy(row.GuardianMobile);
         $('#SmobileId').val(angular.copy(row.StudentMobile));
         $('#GmobileId').val(angular.copy(row.GuardianMobile));
         // student Academic       
-        $scope.AcademicID = row.SAcademicID;
+        //$scope.AcademicID = row.SAcademicID;
         $('#ShiftId').val(angular.copy(row.ShiftID));
         $('#ShiftId').select2().trigger('change.select2');
         $('#ClassId').val(row.ClassID);
@@ -395,25 +379,25 @@
         $('#GroupId').select2().trigger('change.select2');
         $('#SectionId').val(angular.copy(row.SectionID));
         $('#SectionId').select2().trigger('change.select2');
-        $('#RollId').val(angular.copy(row.RollNo));
+        $('#RollId').val(angular.copy(row.RollNo));      
 
         // student Parents
-        $scope.FMID = angular.copy(row.FMID);
-        $scope.Std.FName = angular.copy(row.FatherName);
+        //$scope.FMID = angular.copy(row.FMID);
+        // $scope.Std.FatherName = angular.copy(row.FatherName);
         $('#FNIDId').val(angular.copy(row.FNID));
-        $scope.Std.FProfession = angular.copy(row.FProfession);
+        // $scope.Std.FProfession = angular.copy(row.FProfession);
         $('#FPTypeId').val(angular.copy(row.FProfessionType));
         $('#FPTypeId').select2().trigger('change.select2');
-        $scope.Std.MName = angular.copy(row.MotherName);
+        //  $scope.Std.MotherName = angular.copy(row.MotherName);
         $('#MNIDId').val(angular.copy(row.MNID));
-        $scope.Std.MProfession = angular.copy(row.MProfession);
+        // $scope.Std.MProfession = angular.copy(row.MProfession);
         $('#MPTypeId').val(angular.copy(row.MProfessionType));
         $('#MPTypeId').select2().trigger('change.select2');
 
         // all common
 
-        $scope.CreatedBy = angular.copy(row.CreatedBy);
-        $scope.CreatedDate = angular.copy(row.CreatedDate);
+        //$scope.CreatedBy = angular.copy(row.CreatedBy);
+        //$scope.CreatedDate = angular.copy(row.CreatedDate);
 
 
         $scope.buttonText = 'Update';

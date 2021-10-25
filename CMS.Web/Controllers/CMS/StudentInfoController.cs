@@ -141,14 +141,14 @@ namespace CMS.Web.Controllers
                 try
                 {
                     StudentInformation objstudent = new StudentInformation();
-                    objstudent.StudentID = Convert.ToInt32(HttpContext.Current.Request.Form["StudentID"]);
+                    //objstudent.StudentID = Convert.ToInt32(HttpContext.Current.Request.Form["StudentID"]);
                     objstudent.StudentCode = HttpContext.Current.Request.Form["StudentCode"].ToString();
                     objstudent.StudentName = HttpContext.Current.Request.Form["StudentName"].ToString();
                     objstudent.DOB = Convert.ToDateTime(HttpContext.Current.Request.Form["DOB"]);
                     objstudent.BRN = HttpContext.Current.Request.Form["BRN"].ToString();
-                    objstudent.ReligionId = Convert.ToInt16(HttpContext.Current.Request.Form["ReligionID"].ToString());
-                    objstudent.GenderID = Convert.ToInt16(HttpContext.Current.Request.Form["GenderID"].ToString());
-                    objstudent.BloodID = Convert.ToInt16(HttpContext.Current.Request.Form["BloodID"].ToString());
+                    objstudent.ReligionId = Convert.ToInt32(HttpContext.Current.Request.Form["ReligionID"].ToString());
+                    objstudent.GenderID = Convert.ToInt32(HttpContext.Current.Request.Form["GenderID"].ToString());
+                    objstudent.BloodID = Convert.ToInt32(HttpContext.Current.Request.Form["BloodID"].ToString());
                     objstudent.PresentAddress = HttpContext.Current.Request.Form["PresentAddress"].ToString();
                     objstudent.PermanentAddress = HttpContext.Current.Request.Form["PermanentAddress"].ToString();
                     objstudent.StudentMobile = HttpContext.Current.Request.Form["StudentMobile"].ToString();
@@ -162,6 +162,42 @@ namespace CMS.Web.Controllers
                     objstudent.ModifyDate = Convert.ToDateTime(HttpContext.Current.Request.Form["ModifyDate"].ToString());
 
 
+
+                    StudentAcademicInfo objAcademicStudent = new StudentAcademicInfo();
+                    objAcademicStudent.SAcademicID = Convert.ToInt32(HttpContext.Current.Request.Form["SAcademicID"]);
+                    objAcademicStudent.ShiftID = Convert.ToInt32(HttpContext.Current.Request.Form["ShiftID"]);
+                    objAcademicStudent.ClassID = Convert.ToInt32(HttpContext.Current.Request.Form["ClassID"]);
+                    objAcademicStudent.SectionID = Convert.ToInt32(HttpContext.Current.Request.Form["SectionID"]);
+                    objAcademicStudent.GroupID = Convert.ToInt32(HttpContext.Current.Request.Form["GroupID"].ToString());
+                    objAcademicStudent.RollNo = HttpContext.Current.Request.Form["RollNo"].ToString();
+                    objAcademicStudent.CompanyID = Convert.ToInt32(HttpContext.Current.Request.Form["CompanyID"]);
+                    objAcademicStudent.CreatedBy = Convert.ToInt32(HttpContext.Current.Request.Form["CreatedBy"]);
+                    objAcademicStudent.CreatedDate = Convert.ToDateTime(HttpContext.Current.Request.Form["CreatedDate"].ToString());
+                    objAcademicStudent.ModifyBy = Convert.ToInt32(HttpContext.Current.Request.Form["ModifyBy"]);
+                    objAcademicStudent.ModifyDate = Convert.ToDateTime(HttpContext.Current.Request.Form["ModifyDate"].ToString());
+                    objAcademicStudent.Status = Convert.ToBoolean(HttpContext.Current.Request.Form["Status"].ToString());
+
+
+                    FMInformaton objStudentsParent = new FMInformaton();
+                    objStudentsParent.FMID = Convert.ToInt32(HttpContext.Current.Request.Form["FMID"]);
+                    objStudentsParent.FatherName = HttpContext.Current.Request.Form["FatherName"].ToString();
+                    objStudentsParent.FNID = HttpContext.Current.Request.Form["FNID"].ToString();
+                    objStudentsParent.FProfession = HttpContext.Current.Request.Form["FProfession"].ToString();
+                    objStudentsParent.FProfessionType = Convert.ToInt32(HttpContext.Current.Request.Form["FProfessionType"].ToString());
+                    objStudentsParent.FYearlyIncome = Convert.ToInt32(HttpContext.Current.Request.Form["FYearlyIncome"]);
+                    objStudentsParent.FMobile = HttpContext.Current.Request.Form["FMobile"].ToString();
+                    objStudentsParent.MotherName = HttpContext.Current.Request.Form["MotherName"].ToString();
+                    objStudentsParent.MNID = HttpContext.Current.Request.Form["MNID"].ToString();
+                    objStudentsParent.MProfession = HttpContext.Current.Request.Form["MProfession"].ToString();
+                    objStudentsParent.MProfessionType = Convert.ToInt32(HttpContext.Current.Request.Form["MProfessionType"].ToString());
+                    objStudentsParent.MYearlyIncome = Convert.ToInt32(HttpContext.Current.Request.Form["MYearlyIncome"]);
+                    objStudentsParent.MMobile = HttpContext.Current.Request.Form["MMobile"].ToString();
+                    objStudentsParent.CompanyID = Convert.ToInt32(HttpContext.Current.Request.Form["CompanyID"]);
+                    objStudentsParent.CreatedBy = Convert.ToInt32(HttpContext.Current.Request.Form["CreatedBy"]);
+                    objStudentsParent.CreatedDate = Convert.ToDateTime(HttpContext.Current.Request.Form["CreatedDate"].ToString());
+                    objStudentsParent.ModifyBy = Convert.ToInt32(HttpContext.Current.Request.Form["ModifyBy"]);
+                    objStudentsParent.ModifyDate = Convert.ToDateTime(HttpContext.Current.Request.Form["ModifyDate"].ToString());
+                    objStudentsParent.Status = Convert.ToBoolean(HttpContext.Current.Request.Form["Status"].ToString());
 
                     var httpPostedFile = HttpContext.Current.Request.Files["UploadedImage"];
                     if (httpPostedFile != null)
@@ -289,63 +325,42 @@ namespace CMS.Web.Controllers
                         objstudent.StudentCode = Std;
                         var result = context.StudentInformations.Add(objstudent);
                         context.SaveChanges();
-
                         //Student Academic Info
-                        StudentAcademicInfo objAcademicStudent = new StudentAcademicInfo();
-                        objAcademicStudent.SAcademicID = Convert.ToInt32(HttpContext.Current.Request.Form["SAcademicID"]);
                         objAcademicStudent.StudentID = objstudent.StudentID;
-                        objAcademicStudent.ShiftID = Convert.ToInt32(HttpContext.Current.Request.Form["ShiftID"]);
-                        objAcademicStudent.ClassID = Convert.ToInt32(HttpContext.Current.Request.Form["ClassID"]);
-                        objAcademicStudent.SectionID = Convert.ToInt32(HttpContext.Current.Request.Form["SectionID"]);
-                        objAcademicStudent.GroupID = Convert.ToInt16(HttpContext.Current.Request.Form["GroupID"].ToString());
-                        objAcademicStudent.RollNo = HttpContext.Current.Request.Form["RollNo"].ToString();
-                        objAcademicStudent.CompanyID = Convert.ToInt32(HttpContext.Current.Request.Form["CompanyID"]);
-                        objAcademicStudent.CreatedBy = Convert.ToInt32(HttpContext.Current.Request.Form["CreatedBy"]);
-                        objAcademicStudent.CreatedDate = Convert.ToDateTime(HttpContext.Current.Request.Form["CreatedDate"].ToString());
-                        objAcademicStudent.ModifyBy = Convert.ToInt32(HttpContext.Current.Request.Form["ModifyBy"]);
-                        objAcademicStudent.ModifyDate = Convert.ToDateTime(HttpContext.Current.Request.Form["ModifyDate"].ToString());
-                        objAcademicStudent.Status = Convert.ToBoolean(HttpContext.Current.Request.Form["Active"].ToString());
-
                         context.StudentAcademicInfoes.Add(objAcademicStudent);
                         context.SaveChanges();
-
                         //Student Parent Info
-
-                        FMInformaton objStudentsParent = new FMInformaton();
-                        objStudentsParent.FMID = Convert.ToInt32(HttpContext.Current.Request.Form["FMID"]);
                         objStudentsParent.StudentID = objstudent.StudentID;
-                        objStudentsParent.FatherName = HttpContext.Current.Request.Form["FatherName"].ToString();
-                        objStudentsParent.FNID = HttpContext.Current.Request.Form["FNID"].ToString();
-                        objStudentsParent.FProfession = HttpContext.Current.Request.Form["FProfession"].ToString();
-                        objStudentsParent.FProfessionType = Convert.ToInt32(HttpContext.Current.Request.Form["FProfessionType"].ToString());
-                        objStudentsParent.FYearlyIncome = Convert.ToInt32(HttpContext.Current.Request.Form["FYearlyIncome"]);
-                        objStudentsParent.FMobile = HttpContext.Current.Request.Form["MotherName"].ToString();
-                        objStudentsParent.MotherName = HttpContext.Current.Request.Form["MotherName"].ToString();
-                        objStudentsParent.MNID = HttpContext.Current.Request.Form["MNID"].ToString();
-                        objStudentsParent.MProfession = HttpContext.Current.Request.Form["MProfession"].ToString();
-                        objStudentsParent.MProfessionType = Convert.ToInt32(HttpContext.Current.Request.Form["MProfessionType"].ToString());
-                        objStudentsParent.MYearlyIncome = Convert.ToInt32(HttpContext.Current.Request.Form["MYearlyIncome"]);
-                        objStudentsParent.MMobile = HttpContext.Current.Request.Form["MMobile"].ToString();
-                        objStudentsParent.CompanyID = Convert.ToInt32(HttpContext.Current.Request.Form["CompanyID"]);
-                        objStudentsParent.CreatedBy = Convert.ToInt32(HttpContext.Current.Request.Form["CreatedBy"]);
-                        objStudentsParent.CreatedDate = Convert.ToDateTime(HttpContext.Current.Request.Form["CreatedDate"].ToString());
-                        objStudentsParent.ModifyBy = Convert.ToInt32(HttpContext.Current.Request.Form["ModifyBy"]);
-                        objStudentsParent.ModifyDate = Convert.ToDateTime(HttpContext.Current.Request.Form["ModifyDate"].ToString());
-                        objStudentsParent.Status = Convert.ToBoolean(HttpContext.Current.Request.Form["Active"].ToString());
                         context.FMInformatons.Add(objStudentsParent);
                         context.SaveChanges();
                         dbContextTransaction.Commit();
-                        return Json(result);
+                        return Json("Data Save Succesfully");
                     }
                     else
                     {
-                        //objstudent.EmployeeCode = HttpContext.Current.Request.Form["EmployeeCode"].ToString();
-                        var result = context.StudentInformations.Add(objstudent);
-                        return Json(result);
+                        objstudent.StudentID = Convert.ToInt32(HttpContext.Current.Request.Form["StudentID"]);
+                        context.StudentInformations.Attach(objstudent);
+                        context.Entry(objstudent).State = EntityState.Modified;                       
+                        context.SaveChanges();
+                        //Student Academic Info
+                        objAcademicStudent.StudentID = objstudent.StudentID;
+                        context.StudentAcademicInfoes.Attach(objAcademicStudent);
+                        context.Entry(objAcademicStudent).State = EntityState.Modified;
+                        //context.StudentAcademicInfoes.Add(objAcademicStudent);
+                        context.SaveChanges();
+                        //Student Parent Info
+                        objStudentsParent.StudentID = objstudent.StudentID;
+                        context.FMInformatons.Attach(objStudentsParent);
+                        context.Entry(objStudentsParent).State = EntityState.Modified;
+                        //context.FMInformatons.Add(objStudentsParent);
+                        context.SaveChanges();
+                        dbContextTransaction.Commit();
+                        return Json("Data Update succesful");
                     }
                 }
                 catch (Exception ex)
                 {
+                    
                     dbContextTransaction.Rollback();
                 }
 

@@ -27,11 +27,11 @@ namespace CMS.Repository
         public string PermanentAddress { get; set; }
         public string StudentMobile { get; set; }
         public string GuardianMobile { get; set; }
-        public long CompanyID { get; set; }
+        public int CompanyID { get; set; }
         public string Remarks { get; set; }
-        public long CreatedBy { get; set; }
+        public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
-        public long ModifyBy { get; set; }
+        public int ModifyBy { get; set; }
         public System.DateTime ModifyDate { get; set; }
         public bool Status { get; set; }
     }
