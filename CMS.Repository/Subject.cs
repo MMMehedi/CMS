@@ -12,16 +12,16 @@ namespace CMS.Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class DistrictInfo
+    public partial class Subject
     {
-        public long DistrictID { get; set; }
-        public string DistrictName { get; set; }
-        public long CompanyID { get; set; }
-        public bool Active { get; set; }
-        public string Remarks { get; set; }
+        public int SubjectID { get; set; }
+        public int SubjectCode { get; set; }
+        public string SubjectName { get; set; }
+        public int CompanyID { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int ModifyBy { get; set; }
         public System.DateTime ModifyDate { get; set; }
+        public bool Status { get; set; }
     }
 }

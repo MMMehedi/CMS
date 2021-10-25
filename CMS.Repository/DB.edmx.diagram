@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4437715e85ed4a16b23a17e63eead1d5" Name="Diagram1">
+      <Diagram DiagramId="b4a3effe5120445a82dbf556e679146a" Name="Diagram1">
         <EntityTypeShape EntityType="CMSModel.Blood" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="CMSModel.Class" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="CMSModel.DesignationInfo" Width="1.5" PointX="4.75" PointY="0.75" />
@@ -21,8 +21,9 @@
         <EntityTypeShape EntityType="CMSModel.Shift" Width="1.5" PointX="10.75" PointY="0.75" />
         <EntityTypeShape EntityType="CMSModel.StudentAcademicInfo" Width="1.5" PointX="2.75" PointY="10.75" />
         <EntityTypeShape EntityType="CMSModel.StudentInformation" Width="1.5" PointX="10.75" PointY="4.75" />
-        <EntityTypeShape EntityType="CMSModel.UnionInfo" Width="1.5" PointX="8.75" PointY="10.75" />
-        <EntityTypeShape EntityType="CMSModel.UserInfo" Width="1.5" PointX="10.75" PointY="10.75" />
+        <EntityTypeShape EntityType="CMSModel.Subject" Width="1.5" PointX="8.75" PointY="10.75" />
+        <EntityTypeShape EntityType="CMSModel.UnionInfo" Width="1.5" PointX="10.75" PointY="10.75" />
+        <EntityTypeShape EntityType="CMSModel.UserInfo" Width="1.5" PointX="4.75" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

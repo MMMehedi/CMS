@@ -139,6 +139,18 @@ namespace CMS.Web.Controllers
             else
                 return RedirectToAction("../Home/Index/");
         }
+        public ActionResult _SubjectInfo()
+        {
+            var session = HttpContext.Session;
+            int UserID = Convert.ToInt32(session["UserID"]);
+            if (UserID != 0)
+            {
+                ViewBag.Menu = Uow.TblMenuRepositroy.ParentMenuList(UserID);
+                return PartialView();
+            }
+            else
+                return RedirectToAction("../Home/Index/");
+        }
         public ActionResult _StudentInfo()
         {
             var session = HttpContext.Session;

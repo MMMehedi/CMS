@@ -15,6 +15,10 @@ App.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $u
             url: "/StudentInfo",
             templateUrl: "/CMS/_StudentInfo"
         })
+         .state("SubjectInfo", {
+             url: "/SubjectInfo",
+             templateUrl: "/CMS/_SubjectInfo"
+         })
         .state("UserPermission", {
             url: "/UserPermission",
             templateUrl: "/CMS/_UserPermission"

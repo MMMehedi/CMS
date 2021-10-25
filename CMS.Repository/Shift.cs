@@ -17,9 +17,9 @@ namespace CMS.Repository
         public int ShiftID { get; set; }
         public string ShiftName { get; set; }
         public int CompanyID { get; set; }
-        public string CreateBy { get; set; }
-        public System.DateTime CreateDate { get; set; }
-        public string ModifyBy { get; set; }
+        public int CreatedBy { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public int ModifyBy { get; set; }
         public System.DateTime ModifyDate { get; set; }
         public int Status { get; set; }
     }

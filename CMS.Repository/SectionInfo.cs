@@ -18,8 +18,8 @@ namespace CMS.Repository
         public string SectionName { get; set; }
         public int ClassID { get; set; }
         public int CompanyID { get; set; }
-        public string CreateBy { get; set; }
-        public System.DateTime CreateDate { get; set; }
+        public string CreatedBy { get; set; }
+        public System.DateTime CreatedDate { get; set; }
         public string ModifyBy { get; set; }
         public System.DateTime ModifyDate { get; set; }
         public bool Status { get; set; }

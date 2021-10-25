@@ -12,39 +12,24 @@ using System.Data;
 
 namespace CMS.Web.Controllers
 {
-    [RoutePrefix("api/SectionInfo")]
-    public class SectionInfoController : BaseController
+    [RoutePrefix("api/SubjectInfo")]
+    public class SubjectInfoController : BaseController
     {
         CMSEntities context = new CMSEntities();
         DateTime cstTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, TimeZoneInfo.Local.Id, "Bangladesh Standard Time");
-        public SectionInfoController(IUnitOfWork uow)
+        public SubjectInfoController(IUnitOfWork uow)
         {
             Uow = uow;
         }
         [Route("GetAll/{CompanyID:int}")]
         [HttpGet]
-        public dynamic GetAllClass(int CompanyID)
+        public dynamic GetAll(int CompanyID)
         {
             try
             {
-                //var result = Uow.SectionInfoRepository.GetByCompanyID(m => m.CompanyID == CompanyID);
-                //return result;
-                var result=  (from S in context.SectionInfoes
-                 join C in context.Classes on S.ClassID equals C.ClassID
-                 select new
-                 {
-                     C.ClassName,
-                     S.ClassID,
-                     S.SectionID,
-                     S.SectionName,
-                     S.CompanyID,
-                     S.CreatedBy,
-                     S.CreatedDate,
-                     S.ModifyBy,
-                     S.ModifyDate,
-                     S.Status
-                 }).ToList();
+                var result = context.Subjects;
                 return result;
+              
             }
             catch (Exception ex)
             {
@@ -56,21 +41,17 @@ namespace CMS.Web.Controllers
 
         [Route("Add")]
         [HttpPost]
-        public async Task<dynamic> Add([FromBody] SectionInfo entity)
+        public async Task<dynamic> Add([FromBody] Subject entity)
         {
             try
             {
-                //DataSet ds = new DataSet();
-                //int count = context.SectionInfoes.Count();
-                //if (count > 0) { 
-
                 var result = "";
-                var search = context.SectionInfoes.FirstOrDefault(m => m.ClassID == entity.ClassID && m.SectionName==entity.SectionName );
+                var search = context.Subjects.FirstOrDefault(m => m.SubjectCode == entity.SubjectCode && m.SubjectName==entity.SubjectName);
                 if (search == null)
                 {
                     entity.CreatedDate = cstTime;
                     entity.ModifyDate = cstTime;
-                    result = await Uow.SectionInfoRepository.Add(entity);
+                    result = await Uow.TblSubjectInfoRepository.Add(entity);
                 }
                 else
                 {
@@ -91,13 +72,13 @@ namespace CMS.Web.Controllers
 
         [Route("Update")]
         [HttpPost]
-        public async Task<dynamic> Update([FromBody] SectionInfo entity)
+        public async Task<dynamic> Update([FromBody] Subject entity)
         {
             try
             {
                 entity.ModifyBy = entity.ModifyBy;
                 entity.ModifyDate = cstTime;
-                var result = await Uow.SectionInfoRepository.Update(entity);
+                var result = await Uow.TblSubjectInfoRepository.Update(entity);
                 return Json(result);
             }
             catch (Exception ex)

@@ -20,9 +20,9 @@ namespace CMS.Repository
         public long CompanyID { get; set; }
         public bool Active { get; set; }
         public string Remarks { get; set; }
-        public long CreatedBy { get; set; }
+        public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
-        public long ModifyBy { get; set; }
+        public int ModifyBy { get; set; }
         public System.DateTime ModifyDate { get; set; }
     }
 }

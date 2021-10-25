@@ -17,8 +17,8 @@ namespace CMS.Repository
     
     public partial class CMSEntities : DbContext
     {
-        public CMSEntities()
-            : base("name=CMSEntities")
+        public CMSEntities() : base("name=CMSEntities")
+
         {
         }
     
@@ -43,6 +43,7 @@ namespace CMS.Repository
         public virtual DbSet<Shift> Shifts { get; set; }
         public virtual DbSet<StudentAcademicInfo> StudentAcademicInfoes { get; set; }
         public virtual DbSet<StudentInformation> StudentInformations { get; set; }
+        public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<UnionInfo> UnionInfoes { get; set; }
         public virtual DbSet<UserInfo> UserInfoes { get; set; }
     

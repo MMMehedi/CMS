@@ -126,6 +126,9 @@
     <Compile Include="StudentInformation.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Subject.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="UnionInfo.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>

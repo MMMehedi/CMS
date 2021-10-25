@@ -94,7 +94,7 @@ namespace CMS.Web.Controllers
                 var search = context.SectionInfoes.FirstOrDefault(m => m.ClassID == entity.ClassID && m.SectionName == entity.SectionName);
                 if (search == null)
                 {
-                    entity.CreateDate = cstTime;
+                    entity.CreatedDate = cstTime;
                     entity.ModifyDate = cstTime;
                     result = await Uow.SectionInfoRepository.Add(entity);
                 }

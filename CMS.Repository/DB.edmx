@@ -19,11 +19,11 @@
           <Property Name="ClassID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClassName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CompanyID" Type="int" Nullable="false" />
-          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifyBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyBy" Type="int" Nullable="false" />
           <Property Name="ModifyDate" Type="datetime" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="DesignationInfo">
           <Key>
@@ -34,9 +34,9 @@
           <Property Name="CompanyID" Type="bigint" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifyBy" Type="bigint" Nullable="false" />
+          <Property Name="ModifyBy" Type="int" Nullable="false" />
           <Property Name="ModifyDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="DistrictInfo">
@@ -48,9 +48,9 @@
           <Property Name="CompanyID" Type="bigint" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifyBy" Type="bigint" Nullable="false" />
+          <Property Name="ModifyBy" Type="int" Nullable="false" />
           <Property Name="ModifyDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
@@ -111,9 +111,9 @@
           <Property Name="GroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ClassID" Type="int" />
           <Property Name="CompanyID" Type="int" Nullable="false" />
-          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifyBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyBy" Type="int" Nullable="false" />
           <Property Name="ModifyDate" Type="datetime" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
@@ -146,11 +146,11 @@
           <Property Name="ProfessionTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProfessionTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CompanyID" Type="int" Nullable="false" />
-          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ModifyDate" Type="datetime" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Religion">
           <Key>
@@ -168,8 +168,8 @@
           <Property Name="SectionName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ClassID" Type="int" Nullable="false" />
           <Property Name="CompanyID" Type="int" Nullable="false" />
-          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ModifyDate" Type="datetime" Nullable="false" />
           <Property Name="Status" Type="bit" Nullable="false" />
@@ -181,9 +181,9 @@
           <Property Name="ShiftID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ShiftName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CompanyID" Type="int" Nullable="false" />
-          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifyBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyBy" Type="int" Nullable="false" />
           <Property Name="ModifyDate" Type="datetime" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
@@ -230,6 +230,20 @@
           <Property Name="ModifyDate" Type="datetime" Nullable="false" />
           <Property Name="Status" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectCode" Type="int" Nullable="false" />
+          <Property Name="SubjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyID" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyBy" Type="int" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="UnionInfo">
           <Key>
             <PropertyRef Name="UnionID" />
@@ -240,9 +254,9 @@
           <Property Name="CompanyID" Type="bigint" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifyBy" Type="bigint" Nullable="false" />
+          <Property Name="ModifyBy" Type="int" Nullable="false" />
           <Property Name="ModifyDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="UserInfo">
@@ -285,6 +299,7 @@
           <EntitySet Name="Shift" EntityType="Self.Shift" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentAcademicInfo" EntityType="Self.StudentAcademicInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentInformation" EntityType="Self.StudentInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnionInfo" EntityType="Self.UnionInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -292,10 +307,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="CMSEntities" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="spDecreeOrder">
-          <Parameter Name="SuitNo" Mode="In" Type="String" />
-          </FunctionImport>
+        <EntityContainer Name="CMSEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Bloods" EntityType="CMSModel.Blood" />
           <EntitySet Name="Classes" EntityType="CMSModel.Class" />
           <EntitySet Name="DesignationInfoes" EntityType="CMSModel.DesignationInfo" />
@@ -312,9 +324,13 @@
           <EntitySet Name="Shifts" EntityType="CMSModel.Shift" />
           <EntitySet Name="StudentAcademicInfoes" EntityType="CMSModel.StudentAcademicInfo" />
           <EntitySet Name="StudentInformations" EntityType="CMSModel.StudentInformation" />
+          <EntitySet Name="Subjects" EntityType="CMSModel.Subject" />
           <EntitySet Name="UnionInfoes" EntityType="CMSModel.UnionInfo" />
           <EntitySet Name="UserInfoes" EntityType="CMSModel.UserInfo" />
-          </EntityContainer>
+          <FunctionImport Name="spDecreeOrder">
+            <Parameter Name="SuitNo" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
         <EntityType Name="Blood">
           <Key>
             <PropertyRef Name="BloodID" />
@@ -329,11 +345,11 @@
           <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClassName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CompanyID" Type="Int32" Nullable="false" />
-          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifyBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyBy" Type="Int32" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="DesignationInfo">
           <Key>
@@ -344,9 +360,9 @@
           <Property Name="CompanyID" Type="Int64" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <Property Name="Remarks" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifyBy" Type="Int64" Nullable="false" />
+          <Property Name="ModifyBy" Type="Int32" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="DistrictInfo">
@@ -358,9 +374,9 @@
           <Property Name="CompanyID" Type="Int64" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <Property Name="Remarks" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifyBy" Type="Int64" Nullable="false" />
+          <Property Name="ModifyBy" Type="Int32" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Employee">
@@ -421,9 +437,9 @@
           <Property Name="GroupName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ClassID" Type="Int32" />
           <Property Name="CompanyID" Type="Int32" Nullable="false" />
-          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifyBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyBy" Type="Int32" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Int32" Nullable="false" />
         </EntityType>
@@ -456,11 +472,11 @@
           <Property Name="ProfessionTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProfessionTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CompanyID" Type="Int32" Nullable="false" />
-          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifyBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Religion">
           <Key>
@@ -478,8 +494,8 @@
           <Property Name="SectionName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ClassID" Type="Int32" Nullable="false" />
           <Property Name="CompanyID" Type="Int32" Nullable="false" />
-          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifyBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
@@ -491,9 +507,9 @@
           <Property Name="ShiftID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ShiftName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CompanyID" Type="Int32" Nullable="false" />
-          <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifyBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyBy" Type="Int32" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Int32" Nullable="false" />
         </EntityType>
@@ -540,6 +556,20 @@
           <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectCode" Type="Int32" Nullable="false" />
+          <Property Name="SubjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="UnionInfo">
           <Key>
             <PropertyRef Name="UnionID" />
@@ -550,9 +580,9 @@
           <Property Name="CompanyID" Type="Int64" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <Property Name="Remarks" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifyBy" Type="Int64" Nullable="false" />
+          <Property Name="ModifyBy" Type="Int32" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="UserInfo">
@@ -575,13 +605,12 @@
           <Property Name="ModifyBy" Type="Int32" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        </Schema>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CMSModelStoreContainer" CdmEntityContainer="CMSEntities">
-          <FunctionImportMapping FunctionImportName="spDecreeOrder" FunctionName="CMSModel.Store.spDecreeOrder" />
+        <EntityContainerMapping StorageEntityContainer="CMSModelStoreContainer" CdmEntityContainer="CMSEntities1">
           <EntitySetMapping Name="Bloods">
             <EntityTypeMapping TypeName="CMSModel.Blood">
               <MappingFragment StoreEntitySet="Blood">
@@ -596,8 +625,8 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="ClassName" ColumnName="ClassName" />
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
@@ -693,8 +722,8 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
                 <ScalarProperty Name="GroupName" ColumnName="GroupName" />
@@ -732,8 +761,8 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="ProfessionTypeName" ColumnName="ProfessionTypeName" />
                 <ScalarProperty Name="ProfessionTypeID" ColumnName="ProfessionTypeID" />
@@ -755,8 +784,8 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
                 <ScalarProperty Name="SectionName" ColumnName="SectionName" />
@@ -770,8 +799,8 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="ShiftName" ColumnName="ShiftName" />
                 <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
@@ -823,6 +852,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="CMSModel.Subject">
+              <MappingFragment StoreEntitySet="Subject">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="SubjectCode" ColumnName="SubjectCode" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="UnionInfoes">
             <EntityTypeMapping TypeName="CMSModel.UnionInfo">
               <MappingFragment StoreEntitySet="UnionInfo">
@@ -860,7 +904,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          </EntityContainerMapping>
+          <FunctionImportMapping FunctionImportName="spDecreeOrder" FunctionName="CMSModel.Store.spDecreeOrder" />
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

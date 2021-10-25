@@ -124,6 +124,16 @@ namespace CMS.Repository.UnitOfWorks
                 return tblStudentInformationRepository;
             }
         }
+        private IRepository<Subject> tblSubjectInfoRepository;
+        public IRepository<Subject> TblSubjectInfoRepository
+        {
+            get
+            {
+                if (this.tblSubjectInfoRepository == null)
+                    this.tblSubjectInfoRepository = new GenericRepository<Subject>(context);
+                return tblSubjectInfoRepository;
+            }
+        }
 
 
 
