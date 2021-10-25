@@ -688,6 +688,7 @@
     <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\ApplicationJS\CMS\ClassWiseSubject.js" />
     <Content Include="Scripts\ApplicationJS\CMS\SubjectInfo.js" />
     <Content Include="Scripts\ApplicationJS\CMS\StudentInfo.js" />
     <Content Include="Scripts\ApplicationJS\config.js" />
@@ -1514,6 +1515,7 @@
     <Content Include="Scripts\version.json" />
     <Content Include="Views\CMS\_StudentInfo.cshtml" />
     <Content Include="Views\CMS\_SubjectInfo.cshtml" />
+    <Content Include="Views\CMS\_ClassWiseSubject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -46,7 +46,7 @@ namespace CMS.Web.Controllers
             try
             {
                 var result = "";
-                var search = context.Subjects.FirstOrDefault(m => m.SubjectCode == entity.SubjectCode && m.SubjectName==entity.SubjectName);
+                var search = context.Subjects.FirstOrDefault(m => m.SubjectCode == entity.SubjectCode || m.SubjectName==entity.SubjectName);
                 if (search == null)
                 {
                     entity.CreatedDate = cstTime;

@@ -37,6 +37,22 @@ namespace CMS.Web.Controllers
             }
         }
 
+        [Route("GetAllSubject/{CompanyID:int}")]
+        [HttpGet]
+        public dynamic GetAllSubject(int CompanyID)
+        {
+            try
+            {
+                var result = context.Subjects;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //Logger.LogInformation(ex.Message);
+                throw ex;
+            }
+        }
+
         [Route("GetAllShift/{CompanyID:int}")]
         [HttpGet]
         public dynamic GetAllShift(int CompanyID)
@@ -183,37 +199,9 @@ namespace CMS.Web.Controllers
             }
         }
 
-        [Route("GetSelectedSection/{SectionId:int}")]
-        [HttpGet]
-        public dynamic GetSelectedSection(int SectionId)
-        {
-            try
-            {
-                var result = context.SectionInfoes.Where(m => m.SectionID == SectionId);
-                return result;
-            }
-            catch (Exception ex)
-            {
-                //Logger.LogInformation(ex.Message);
-                throw ex;
-            }
-        }
+      
 
-        [Route("GetSelectedGroup/{GroupId:int}")]
-        [HttpGet]
-        public dynamic GetSelectedGroup(int GroupId)
-        {
-            try
-            {
-                var result =context.Groups.Where(m => m.GroupID == GroupId);
-                return result;
-            }
-            catch (Exception ex)
-            {
-                //Logger.LogInformation(ex.Message);
-                throw ex;
-            }
-        }
+       
 
     }
 }
