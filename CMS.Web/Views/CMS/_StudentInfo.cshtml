@@ -50,7 +50,7 @@
                             <div class="form-group ">
                                 <label class="col-md-3 control-label no-paddidata-ng-middle">Religion<span style="color:red">*</span> </label>
                                 <div class="col-md-8">
-                                    <select id="ReligionId" class="bordercolor" ng-model="Religion" ng-options=" m.ReligionId as m.ReligionName for m in Religions" style='width: 100%;'>
+                                    <select id="ReligionIdID" class="bordercolor" ng-model="Std.ReligionId" ng-options=" m.ReligionId as m.ReligionName for m in Religions" style='width: 100%;'>
                                         <option value="">-- Select Religion --</option>
                                     </select>
                                 </div>
@@ -58,7 +58,7 @@
                             <div class="form-group ">
                                 <label class="col-md-3 control-label no-paddidata-ng-middle">Gender <span style="color:red">*</span> </label>
                                 <div class="col-md-8">
-                                    <select id="GenderId" class=" bordercolor" ng-model="Gender" ng-options="m.GenderID as m.GenderName for m in Genders" style='width: 100%;'>
+                                    <select id="GenderIDId" class=" bordercolor" ng-model="Std.GenderID" ng-options="m.GenderID as m.GenderName for m in Genders" style='width: 100%;'>
                                         <option value="">-- Select Gender --</option>
                                     </select>
                                 </div>
@@ -66,7 +66,7 @@
                             <div class="form-group ">
                                 <label class="col-md-3 control-label no-paddidata-ng-middle">Blood Group<span style="color:red">*</span> </label>
                                 <div class="col-md-8">
-                                    <select id="BloodId" class=" bordercolor" ng-model="Blood" ng-options="m.BloodID as m.BloodGroup for m in Bloods" style='width: 100%;'>
+                                    <select id="BloodIDId" class=" bordercolor" ng-model="Std.BloodID" ng-options="m.BloodID as m.BloodGroup for m in Bloods" style='width: 100%;'>
                                         <option value="">-- Select Blood Group --</option>
                                     </select>
                                 </div>
@@ -114,7 +114,7 @@
                             <div class="form-group ">
                                 <label class="col-md-3 control-label no-paddidata-ng-middle">Shift<span style="color:red">*</span> </label>
                                 <div class="col-md-8 ">
-                                    <select id="ShiftId" class=" bordercolor" ng-model="Shift" ng-options="m.ShiftID as m.ShiftName for m in Shifts" style='width: 100%;'>
+                                    <select id="ShiftIDId" class=" bordercolor" ng-model="Std.ShiftID" ng-options="m.ShiftID as m.ShiftName for m in Shifts" style='width: 100%;'>
                                         <option value="">-- Select Shift --</option>
                                     </select>
                                 </div>
@@ -122,7 +122,7 @@
                             <div class="form-group ">
                                 <label class="col-md-3 control-label no-paddidata-ng-middle">Class <span style="color:red">*</span> </label>
                                 <div class="col-md-8">
-                                    <select id="ClassId" class=" bordercolor" ng-model="Class " ng-options="m.ClassID as m.ClassName for m in Classs" style='width: 100%;'>
+                                    <select id="ClassIDId" class=" bordercolor" ng-model="Std.ClassID" ng-options="m.ClassID as m.ClassName for m in Classs" style='width: 100%;'>
                                         <option value="">-- Select Class --</option>
                                     </select>
                                 </div>
@@ -130,7 +130,7 @@
                             <div class="form-group Groupdiv">
                                 <label class="col-md-3 control-label no-paddidata-ng-middle">Group<span style="color:red">*</span> </label>
                                 <div class="col-md-8">
-                                    <select id="GroupId" class=" bordercolor" ng-model="Group" 
+                                    <select id="GroupIDId" class=" bordercolor" ng-model="Std.GroupID" 
                                            ng-options="m.GroupID as m.GroupName for m in Groups" style='width: 100%;'>
                                         <option value="">-- Select Department --</option>
                                     </select>
@@ -139,7 +139,7 @@
                             <div class="form-group Sectiondiv">
                                 <label class="col-md-3 control-label no-paddidata-ng-middle">Section<span style="color:red">*</span> </label>
                                 <div class="col-md-8">
-                                    <select id="SectionId" class=" bordercolor" ng-model="SectionName" ng-options="m.SectionID as m.SectionName for m in Sections" style='width: 100%;'>
+                                    <select id="SectionIDId" class=" bordercolor" ng-model="Std.SectionID" ng-options="m.SectionID as m.SectionName for m in Sections" style='width: 100%;'>
                                         <option value="">-- Select Section --</option>
                                     </select>
                                 </div>
@@ -179,7 +179,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label no-paddidata-ng-middle">Type<span style="color:red">*</span> </label>
                                     <div class="col-md-8">
-                                        <select id="FPTypeId" class=" bordercolor" ng-model="FPType" ng-options="item.ProfessionTypeName for item in ProfessionTypes track by item.ProfessionTypeID" style='width: 100%;'>
+                                        <select id="FProfessionTypeId" class=" bordercolor" ng-model="Std.FProfessionType" ng-options="item.ProfessionTypeName for item in ProfessionTypes track by item.ProfessionTypeID" style='width: 100%;'>
                                             <option value="">-- Select Profession Type --</option>
                                         </select>
                                     </div>
@@ -207,7 +207,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label no-paddidata-ng-middle">Type<span style="color:red">*</span> </label>
                                     <div class="col-md-8">
-                                        <select id="MPTypeId" class=" bordercolor" ng-model="MPType" ng-options="item.ProfessionTypeName for item in ProfessionTypes track by item.ProfessionTypeID" style='width: 100%;'>
+                                        <select id="MProfessionTypeId" class=" bordercolor" ng-model="Std.MProfessionType" ng-options="item.ProfessionTypeName for item in ProfessionTypes track by item.ProfessionTypeID" style='width: 100%;'>
                                             <option value="">-- Select Profession Type --</option>
                                         </select>
                                     </div>

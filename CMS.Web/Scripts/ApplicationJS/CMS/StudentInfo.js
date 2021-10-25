@@ -35,7 +35,7 @@
             $scope.Clearspinner();
             $scope.Std = {};
             $scope.DOB = sysDate;
-            $('.select2').val('').trigger('change.select2');
+            //$('.select2').val('').trigger('change.select2');
             $('.bordercolor').css('border-color', '');
             $scope.filterOptions.filterText = "";
             $('#divMsg').hide();
@@ -112,9 +112,9 @@
                     data.append("StudentName", $scope.Std.StudentName);
                     data.append("DOB", $filter('date')($scope.DOB, 'dd-MM-yyyy'));
                     data.append("BRN", $scope.Std.BRN);
-                    data.append("ReligionId", $('#ReligionId').val());
-                    data.append("GenderID", $('#GenderId').val());
-                    data.append("BloodID", $('#BloodId').val());
+                    data.append("ReligionId", $scope.Std.ReligionId);
+                    data.append("GenderID", $scope.Std.GenderID);
+                    data.append("BloodID", $scope.Std.BloodID);
                     data.append("PresentAddress", $scope.Std.PresentAddress);
                     data.append("PermanentAddress", $scope.Std.PermanentAddress);
                     data.append("StudentMobile", $scope.Std.StudentMobile || 0);
@@ -122,10 +122,10 @@
 
                     //academic                   
                     data.append("SAcademicID", 0);
-                    data.append("ShiftID", $('#ShiftId').val());
-                    data.append("ClassID", $('#ClassId').val());
-                    data.append("SectionID", $('#SectionId').val() || 0);
-                    data.append("GroupID", $('#GroupId').val() || 1);
+                    data.append("ShiftID", $scope.Std.ShiftID);
+                    data.append("ClassID", $scope.Std.ClassID);
+                    data.append("SectionID", $scope.Std.SectionID || 0);
+                    data.append("GroupID", $scope.Std.GroupID || 1);
                     data.append("RollNo", $scope.Std.RollNo);
 
 
@@ -134,13 +134,13 @@
                     data.append("FatherName", $scope.Std.FFatherName);
                     data.append("FNID", $scope.Std.FNID);
                     data.append("FProfession", $scope.Std.FProfession);
-                    data.append("FProfessionType", $('#FPTypeId').val());
+                    data.append("FProfessionType", $scope.Std.FProfessionType);
                     data.append("FYearlyIncome", 0);
                     data.append("FMobile", 0);
                     data.append("MotherName", $scope.Std.MotherName);
                     data.append("MNID", $scope.Std.MNID);
                     data.append("MProfession", $scope.Std.MProfession);
-                    data.append("MProfessionType", $('#MPTypeId').val());
+                    data.append("MProfessionType", $scope.Std.MProfessionType);
                     data.append("MYearlyIncome", 0);
                     data.append("MMobile", 0);
 
@@ -356,12 +356,12 @@
         //$scope.DOB = sysDate;
         $scope.DOB = angular.copy(row.DOB);
         $('#BirthRegNoId').val(angular.copy(row.BRN));
-        $('#ReligionId').val(angular.copy(row.ReligionId));
-        $('#ReligionId').select2().trigger('change.select2');
-        $('#GenderId').val(angular.copy(row.GenderID));
-        $('#GenderId').select2().trigger('change.select2');
-        $('#BloodId').val(angular.copy(row.BloodID));
-        $('#BloodId').select2().trigger('change.select2');
+        //$('#ReligionId').val(angular.copy(row.ReligionId));
+        //$('#ReligionId').select2().trigger('change.select2');
+        //$('#GenderId').val(angular.copy(row.GenderID));
+        //$('#GenderId').select2().trigger('change.select2');
+        //$('#BloodId').val(angular.copy(row.BloodID));
+        //$('#BloodId').select2().trigger('change.select2');
         //$scope.Std.PresentAddress = angular.copy(row.PresentAddress);
         // $scope.Std.PermanentAddress = angular.copy(row.PermanentAddress);
         // $scope.Std.StudentMobile = angular.copy(row.StudentMobile);
@@ -370,15 +370,15 @@
         $('#GmobileId').val(angular.copy(row.GuardianMobile));
         // student Academic       
         //$scope.AcademicID = row.SAcademicID;
-        $('#ShiftId').val(angular.copy(row.ShiftID));
-        $('#ShiftId').select2().trigger('change.select2');
-        $('#ClassId').val(row.ClassID);
-        $('#ClassId').select2().trigger('change.select2');
-        $('#ClassId').change();
-        $('#GroupId').val(angular.copy(row.GroupID));
-        $('#GroupId').select2().trigger('change.select2');
-        $('#SectionId').val(angular.copy(row.SectionID));
-        $('#SectionId').select2().trigger('change.select2');
+        //$('#ShiftId').val(angular.copy(row.ShiftID));
+        //$('#ShiftId').select2().trigger('change.select2');
+        //$('#ClassId').val(row.ClassID);
+        //$('#ClassId').select2().trigger('change.select2');
+        //$('#ClassId').change();
+        //$('#GroupId').val(angular.copy(row.GroupID));
+        //$('#GroupId').select2().trigger('change.select2');
+        //$('#SectionId').val(angular.copy(row.SectionID));
+        //$('#SectionId').select2().trigger('change.select2');
         $('#RollId').val(angular.copy(row.RollNo));      
 
         // student Parents
@@ -386,13 +386,13 @@
         // $scope.Std.FatherName = angular.copy(row.FatherName);
         $('#FNIDId').val(angular.copy(row.FNID));
         // $scope.Std.FProfession = angular.copy(row.FProfession);
-        $('#FPTypeId').val(angular.copy(row.FProfessionType));
-        $('#FPTypeId').select2().trigger('change.select2');
+        //$('#FPTypeId').val(angular.copy(row.FProfessionType));
+        //$('#FPTypeId').select2().trigger('change.select2');
         //  $scope.Std.MotherName = angular.copy(row.MotherName);
         $('#MNIDId').val(angular.copy(row.MNID));
         // $scope.Std.MProfession = angular.copy(row.MProfession);
-        $('#MPTypeId').val(angular.copy(row.MProfessionType));
-        $('#MPTypeId').select2().trigger('change.select2');
+        //$('#MPTypeId').val(angular.copy(row.MProfessionType));
+        //$('#MPTypeId').select2().trigger('change.select2');
 
         // all common
 
