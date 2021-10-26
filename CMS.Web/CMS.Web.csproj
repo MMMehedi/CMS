@@ -262,6 +262,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CMS\ClassWiseSubjectInfoController.cs" />
     <Compile Include="Controllers\CMS\SubjectInfoController.cs" />
     <Compile Include="Controllers\CMS\StudentInfoController.cs" />
     <Compile Include="Controllers\CMS\SectionInfoController .cs" />

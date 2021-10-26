@@ -24,7 +24,7 @@ namespace CMS.Web.Controllers
         }
         [Route("GetAll/{CompanyID:int}")]
         [HttpGet]
-        public dynamic GetAllClass(int CompanyID)
+        public dynamic GetAll(int CompanyID)
         {
             try
             {
@@ -141,12 +141,12 @@ namespace CMS.Web.Controllers
                 try
                 {
                     StudentInformation objstudent = new StudentInformation();
-                    //objstudent.StudentID = Convert.ToInt32(HttpContext.Current.Request.Form["StudentID"]);
+                    objstudent.StudentID = Convert.ToInt32(HttpContext.Current.Request.Form["StudentID"]);
                     objstudent.StudentCode = HttpContext.Current.Request.Form["StudentCode"].ToString();
                     objstudent.StudentName = HttpContext.Current.Request.Form["StudentName"].ToString();
                     objstudent.DOB = Convert.ToDateTime(HttpContext.Current.Request.Form["DOB"]);
                     objstudent.BRN = HttpContext.Current.Request.Form["BRN"].ToString();
-                    objstudent.ReligionId = Convert.ToInt32(HttpContext.Current.Request.Form["ReligionID"].ToString());
+                    objstudent.ReligionId = Convert.ToInt32(HttpContext.Current.Request.Form["ReligionId"].ToString());
                     objstudent.GenderID = Convert.ToInt32(HttpContext.Current.Request.Form["GenderID"].ToString());
                     objstudent.BloodID = Convert.ToInt32(HttpContext.Current.Request.Form["BloodID"].ToString());
                     objstudent.PresentAddress = HttpContext.Current.Request.Form["PresentAddress"].ToString();

@@ -1,6 +1,4 @@
 ﻿App.controller('ClassWiseSubjectCtrl', function ($scope, $filter, CMSService) {
-
-
     if (localStorage.getItem('UserID') === null) {
         window.location = '../Home/Index';
     }
@@ -22,8 +20,7 @@
         }
         $scope.ClearAll = function () {
             $scope.Clearspinner();
-            $scope.SectionInfo = {};
-            $('#ClassId').val('').trigger('change.select2');
+            $scope.CWS = {};           
             $('.bordercolor').css('border-color', '');
             $scope.filterOptions.filterText = "";
             $('#divMsg').hide();
@@ -43,7 +40,7 @@
             $scope.Subjects = data;
         });
 
-        $scope.SectionInfo = {};
+        $scope.CWS = {};
         $scope.buttonText = 'Save';
         $scope.Save = function (entity) {
             if (filedVal() == true) {
@@ -52,49 +49,52 @@
                 $scope.msgloading = false;
                 $scope.msgSave = true;
                 if ($scope.buttonText == 'Save') {
-                    entity.SectionID = 0;
-                    entity.SectionName = $scope.SectionInfo.Section;
-                    entity.ClassID = $("#ClassId").val();
+                    entity.ClassSubjectID = 0;
+                    entity.ClassID = $scope.CWS.ClassID;
+                    entity.SubjectID = $scope.CWS.SubjectID;
                     entity.CompanyID = 1;
-                    entity.CreateBy = $scope.UserID;
+                    entity.CreatedBy = $scope.UserID;
                     entity.ModifyBy = $scope.UserID;
-                    entity.Status = SectionInfo.Active;
+                    entity.Status = true;
                     //entity.CreateDate = $scope.Today;
                     //entity.ModifyDate = $scope.Today;
-                    CMSService.Save('/api/SectionInfo/Add/', entity).success(function (data) {
-                        if (data == "Data Saved Successfullly") {
+                    CMSService.Save('/api/ClassWiseSubjectInfo/Add/', entity).success(function (data) {
+                        if (data == "Data Saved Successfullly") {                          
                             toastr.success(data);
                             fnGetPagedDataAsync($scope.pagingOptions.pageSize, 1);
                             $scope.ClearAll();
                         }
                         else if (data == "Data Already Exits") {
+                            toastr.remove();
                             toastr.warning(data);
                             fnGetPagedDataAsync($scope.pagingOptions.pageSize, 1);
                             $scope.Clearspinner();
                         }
                         else {
-                            $scope.Clearspinner();
+                            toastr.remove();
+                            $scope.Clearspinner();                          
                             toastr.error("Something wrong!!");
                         }
                     });
                 }
                 if ($scope.buttonText == 'Update') {
-                    
-                    entity.SectionID = $scope.SectionID;
-                    entity.SectionName = $scope.SectionInfo.Section;
-                    entity.ClassID = $("#ClassId").val();
-                    entity.CompanyID = $scope.CompanyId;
-                    entity.CreateBy = $scope.CreatedBy;
-                    entity.CreateDate = $scope.CreateDate;
+                    entity.ClassSubjectID =$scope.CWS.ClassSubjectID; 
+                    entity.ClassID = $scope.CWS.ClassID;
+                    entity.SubjectID = $scope.CWS.SubjectID;
+                    entity.CompanyID = $scope.CWS.CompanyID;
+                    entity.CreatedBy = $scope.CWS.CreatedBy;
+                    entity.CreatedDate = $scope.CWS.CreatedDate;
                     entity.ModifyBy = $scope.UserID;
-                    entity.Status = $scope.SectionInfo.Active;                   
-                    CMSService.Save('/api/SectionInfo/Update/', entity).success(function (data) {
+                    entity.Status = $scope.CWS.Status;                                
+                    CMSService.Save('/api/ClassWiseSubjectInfo/Update/', entity).success(function (data) {
                         if (data == "Data Updated Successfullly") {
+                            toastr.remove();
                             toastr.success(data);
                             fnGetPagedDataAsync($scope.pagingOptions.pageSize, 1);
                             $scope.ClearAll();
                         }
                         else {
+                            toastr.remove();
                             $scope.Clearspinner();
                             alert("Something wrong!!");
                         }
@@ -129,7 +129,7 @@
             var data;
             if (searchText) {
                 var ft = searchText.toLowerCase();
-                CMSService.GetAll('/api/SectionInfo/GetAll/' + localStorage.getItem('CompanyID')).success(function (largeLoad) {
+                CMSService.GetAll('/api/ClassWiseSubjectInfo/GetAll/' + localStorage.getItem('CompanyID')).success(function (largeLoad) {
                     data = largeLoad.filter(function (item) {
                         return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
                     });
@@ -142,7 +142,7 @@
                     fnSetPagingData(data, page, pageSize);
                 });
             } else {
-                CMSService.GetAll('/api/SectionInfo/GetAll/' + localStorage.getItem('CompanyID')).success(function (largeLoad) {
+                CMSService.GetAll('/api/ClassWiseSubjectInfo/GetAll/' + localStorage.getItem('CompanyID')).success(function (largeLoad) {
                     fnSetPagingData(largeLoad, page, pageSize);
                 });
             }
@@ -178,50 +178,42 @@
         selectedItems: $scope.selectedRow,
         multiSelect: false,
         columnDefs: [
-        { field: 'SectionID', displayName: 'SectionID', visible: false },
+        { field: 'ClassSubjectID', displayName: 'ClassSubjectID', visible: false },
         { field: 'Edit', width: 70, sortable: false, cellTemplate: '<button  ng-hide="edithide" ng-click=edit(row.entity)><i class="fa fa-pencil-square-o grid-edit-icon"></i></button>' },
-        { field: 'ClassID', displayName: 'ClassID', visible: false },
-        { field: 'ClassName', displayName: 'Class', visible: true },
-        { field: 'SectionName', displayName: 'SectionName', visible: true },
+        { field: 'ClassName', displayName: 'Class Name', visible: true },
+        { field: 'SubjectName', displayName: 'SubjectName', visible: true },
         { field: 'Status', displayName: 'Status', width: 100, visible: false },      
         ]
     };
     //End of ng-Grid
     //Edit
     $scope.edit = function (row) {
-        $scope.ClearAll();
-        //$scope.Desig = angular.copy(row);
-        //Active = angular.copy(row.Active);
-        $scope.SectionID = angular.copy(row.SectionID);
-        $scope.SectionInfo.Section = angular.copy(row.SectionName);
-        $('#ClassId').val(angular.copy(row.ClassID));
-        $('#ClassId').select2().trigger('change.select2');
-        $scope.CompanyId = angular.copy(row.CompanyID);
-        $scope.CreatedBy = angular.copy(row.CreateBy);
-        $scope.CreateDate = angular.copy(row.CreateDate);
-        $scope.SectionInfo.Active = angular.copy(row.Status);
+        $scope.ClearAll();       
+        $scope.CWS = angular.copy(row);      
         $scope.buttonText = 'Update';
     }
 
     //Validation
     function filedVal() {
+        toastr.remove();
         $('.bordercolor').css('border-color', '');
         $('.validation').hide();
         $('#spnMobileClearText').hide();
 
-        if ($("#ClassId").val() == "") {
-            $("#ClassId").select2('open');
-            $(".select2-search__field").css('border-color', 'red');
+        if ($("#ClassIDId").val() == "") {
+            $('#ClassIDId').css('border-color', 'red');
+            $('#ClassIDId').focus();           
             toastr.warning("Please Selcet Class !");
             return;
         }
-        else if ($('#SectionId').val() == '') {
-            $('#SectionId').css('border-color', 'red');
-            $('#SectionId').focus();
-            toastr.warning("Can't be empty !");
+        else if ($("#SubjectIDId").val() == "") {
+            $('#SubjectIDId').css('border-color', 'red');
+            $('#SubjectIDId').focus();           
+            toastr.warning("Please Selcet Subject !");
+            return;
         }
         else {
-            $('#ClassId').css('border-color', '');
+            $('#SubjectIDId').css('border-color', '');
             $('.validation').hide();
             return true;
         }

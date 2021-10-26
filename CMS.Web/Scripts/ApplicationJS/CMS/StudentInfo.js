@@ -29,8 +29,6 @@
         $('#imgEmpImage').attr('src', '/assets/images/NoPreview.jpg');
         $(".Groupdiv").hide();
         $(".Sectiondiv").hide();
-        $scope.SCorrect = 1;
-        $scope.GCorrect = 1;
         $scope.ClearAll = function () {
             $scope.Clearspinner();
             $scope.Std = {};
@@ -40,14 +38,12 @@
             $scope.filterOptions.filterText = "";
             $('#divMsg').hide();
             $('.validation').hide();
-            $(".Groupdiv").hide();
-            $(".Sectiondiv").hide();
             fnGetPagedDataAsync($scope.pagingOptions.pageSize, 1);
             $scope.buttonText = 'Save';
             $('#fupEmpImage').val('');
             $('#imgEmpImage').attr('src', '/assets/images/NoPreview.jpg');
-            $('.form-control').val('');     
-          
+            $('.form-control').val('');
+
         }
 
 
@@ -73,14 +69,15 @@
             $scope.Bloods = data;
         });
         CMSService.GetAll('/api/SetUpInfo/ProfessionType/' + localStorage.getItem('CompanyID')).success(function (data) {
-            $scope.ProfessionTypes = data;           
+            $scope.ProfessionTypes = data;
         });
-        CMSService.GetAll('/api/SetUpInfo/GetAllSection/' + localStorage.getItem('CompanyID')).success(function (data) {
-            $scope.Sections = data;
-        });
-        CMSService.GetAll('/api/SetUpInfo/GetAllGroup/' + localStorage.getItem('CompanyID')).success(function (data) {
-            $scope.Groups = data;
-        });
+        //CMSService.GetAll('/api/SetUpInfo/GetAllSection/' + localStorage.getItem('CompanyID')).success(function (data) {
+        //    $scope.Sections = data;
+        //});
+        //CMSService.GetAll('/api/SetUpInfo/GetAllGroup/' + localStorage.getItem('CompanyID')).success(function (data) {
+        //    $scope.Groups = data;
+        //});
+
 
         $("#fupEmpImage").change(function () {
             if (this.files && this.files[0]) {
@@ -124,14 +121,14 @@
                     data.append("SAcademicID", 0);
                     data.append("ShiftID", $scope.Std.ShiftID);
                     data.append("ClassID", $scope.Std.ClassID);
-                    data.append("SectionID", $scope.Std.SectionID || 0);
-                    data.append("GroupID", $scope.Std.GroupID || 1);
+                    data.append("SectionID", $scope.Std.SectionID);
+                    data.append("GroupID", $scope.Std.GroupID);
                     data.append("RollNo", $scope.Std.RollNo);
 
 
                     //parents
                     data.append("FMID", 0);
-                    data.append("FatherName", $scope.Std.FFatherName);
+                    data.append("FatherName", $scope.Std.FatherName);
                     data.append("FNID", $scope.Std.FNID);
                     data.append("FProfession", $scope.Std.FProfession);
                     data.append("FProfessionType", $scope.Std.FProfessionType);
@@ -179,7 +176,7 @@
 
                     });
                 }
-                if ($scope.buttonText == 'Update') {                   
+                if ($scope.buttonText == 'Update') {
                     var data = new FormData();
                     var other_data = $('form').serializeArray();
                     $.each(other_data, function (key, input) {
@@ -190,36 +187,36 @@
                     data.append("StudentName", $scope.Std.StudentName);
                     data.append("DOB", $filter('date')($scope.DOB, 'dd-MM-yyyy'));
                     data.append("BRN", $scope.Std.BRN);
-                    data.append("ReligionId", $('#ReligionId').val());
-                    data.append("GenderID", $('#GenderId').val());
-                    data.append("BloodID", $('#BloodId').val());
+                    data.append("ReligionId", $scope.Std.ReligionId);
+                    data.append("GenderID", $scope.Std.GenderID);
+                    data.append("BloodID", $scope.Std.BloodID);
                     data.append("PresentAddress", $scope.Std.PresentAddress);
                     data.append("PermanentAddress", $scope.Std.PermanentAddress);
-                    data.append("StudentMobile", $scope.Std.StudentMobile || 0);
+                    data.append("StudentMobile", $scope.Std.StudentMobile);
                     data.append("GuardianMobile", $scope.Std.GuardianMobile);
                     data.append("CompanyID", 1);
                     data.append("Remarks", 0);
                     //academic                   
                     data.append("SAcademicID", $scope.Std.SAcademicID);
-                    data.append("ShiftID", $('#ShiftId').val());
-                    data.append("ClassID", $('#ClassId').val());
-                    data.append("SectionID", $('#SectionId').val());                   
-                    data.append("GroupID", $('#GroupId').val());
+                    data.append("ShiftID", $scope.Std.ShiftID);
+                    data.append("ClassID", $scope.Std.ClassID);
+                    data.append("SectionID", $scope.Std.SectionID);
+                    data.append("GroupID", $scope.Std.GroupID);
                     data.append("RollNo", $scope.Std.RollNo);
-                 
+
 
                     //parents
                     data.append("FMID", $scope.Std.FMID);
                     data.append("FatherName", $scope.Std.FatherName);
                     data.append("FNID", $scope.Std.FNID);
                     data.append("FProfession", $scope.Std.FProfession);
-                    data.append("FProfessionType", $('#FPTypeId').val());
+                    data.append("FProfessionType", $scope.Std.FProfessionType);
                     data.append("FYearlyIncome", 0);
                     data.append("FMobile", 0);
                     data.append("MotherName", $scope.Std.MotherName);
                     data.append("MNID", $scope.Std.MNID);
                     data.append("MProfession", $scope.Std.MProfession);
-                    data.append("MProfessionType", $('#MPTypeId').val());
+                    data.append("MProfessionType", $scope.Std.MProfessionType);
                     data.append("MYearlyIncome", 0);
                     data.append("MMobile", 0);
                     //comon
@@ -346,73 +343,21 @@
     //Edit
     $scope.Std = {};
     $scope.edit = function (row) {
-        //$scope.ClearAll();
-        //student Info
-        $('#imgEmpImage').attr('src', '/CMS/GetWebsiteImage/?StudentID=' + row.StudentID);
-        //$scope.StudentID = angular.copy(row.StudentID);
-        //$scope.StudentCode = angular.copy(row.StudentCode);
         $scope.Std = angular.copy(row);
-        // $scope.Std.StudentName = angular.copy(row.StudentName);       
-        //$scope.DOB = sysDate;
+        $scope.ClassSection();
+        $('#imgEmpImage').attr('src', '/CMS/GetWebsiteImage/?StudentID=' + row.StudentID);
         $scope.DOB = angular.copy(row.DOB);
-        $('#BirthRegNoId').val(angular.copy(row.BRN));
-        //$('#ReligionId').val(angular.copy(row.ReligionId));
-        //$('#ReligionId').select2().trigger('change.select2');
-        //$('#GenderId').val(angular.copy(row.GenderID));
-        //$('#GenderId').select2().trigger('change.select2');
-        //$('#BloodId').val(angular.copy(row.BloodID));
-        //$('#BloodId').select2().trigger('change.select2');
-        //$scope.Std.PresentAddress = angular.copy(row.PresentAddress);
-        // $scope.Std.PermanentAddress = angular.copy(row.PermanentAddress);
-        // $scope.Std.StudentMobile = angular.copy(row.StudentMobile);
-        // $scope.Std.GuardianMobile = angular.copy(row.GuardianMobile);
-        $('#SmobileId').val(angular.copy(row.StudentMobile));
-        $('#GmobileId').val(angular.copy(row.GuardianMobile));
-        // student Academic       
-        //$scope.AcademicID = row.SAcademicID;
-        //$('#ShiftId').val(angular.copy(row.ShiftID));
-        //$('#ShiftId').select2().trigger('change.select2');
-        //$('#ClassId').val(row.ClassID);
-        //$('#ClassId').select2().trigger('change.select2');
-        //$('#ClassId').change();
-        //$('#GroupId').val(angular.copy(row.GroupID));
-        //$('#GroupId').select2().trigger('change.select2');
-        //$('#SectionId').val(angular.copy(row.SectionID));
-        //$('#SectionId').select2().trigger('change.select2');
-        $('#RollId').val(angular.copy(row.RollNo));      
-
-        // student Parents
-        //$scope.FMID = angular.copy(row.FMID);
-        // $scope.Std.FatherName = angular.copy(row.FatherName);
-        $('#FNIDId').val(angular.copy(row.FNID));
-        // $scope.Std.FProfession = angular.copy(row.FProfession);
-        //$('#FPTypeId').val(angular.copy(row.FProfessionType));
-        //$('#FPTypeId').select2().trigger('change.select2');
-        //  $scope.Std.MotherName = angular.copy(row.MotherName);
-        $('#MNIDId').val(angular.copy(row.MNID));
-        // $scope.Std.MProfession = angular.copy(row.MProfession);
-        //$('#MPTypeId').val(angular.copy(row.MProfessionType));
-        //$('#MPTypeId').select2().trigger('change.select2');
-
-        // all common
-
-        //$scope.CreatedBy = angular.copy(row.CreatedBy);
-        //$scope.CreatedDate = angular.copy(row.CreatedDate);
-
-
         $scope.buttonText = 'Update';
     }
 
     //Validation
     // mobile number validation
     $scope.SGetMobile = function () {
-        $scope.SCorrect = 1;
         $('#SmobileId').css('border-color', '');
         $('.validation').hide();
         if (($('#SmobileId').val().substring(0, 3) == "013" || $('#SmobileId').val().substring(0, 3) == "014" || $('#SmobileId').val().substring(0, 3) == "015" || $('#SmobileId').val().substring(0, 3) == "016" || $('#SmobileId').val().substring(0, 3) == "017" || $('#SmobileId').val().substring(0, 3) == "018" || $('#SmobileId').val().substring(0, 3) == "019") && $('#SmobileId').val().length == 11) {
             $('#SmobileId').css('border-color', '');
             $('.validation').hide();
-            $scope.SCorrect = 2;
         }
         else {
             $('#SmobileId').parent().after("<div class='validation  col-md-8 col-md-offset-4' style='color:red;'>Please Enter Correct mobile number.</div>");
@@ -422,13 +367,11 @@
         }
     }
     $scope.GGetMobile = function () {
-        $scope.GCorrect = 1;
         $('#GmobileId').css('border-color', '');
         $('.validation').hide();
         if (($('#GmobileId').val().substring(0, 3) == "013" || $('#GmobileId').val().substring(0, 3) == "014" || $('#GmobileId').val().substring(0, 3) == "015" || $('#GmobileId').val().substring(0, 3) == "016" || $('#GmobileId').val().substring(0, 3) == "017" || $('#GmobileId').val().substring(0, 3) == "018" || $('#GmobileId').val().substring(0, 3) == "019") && $('#GmobileId').val().length == 11) {
             $('#GmobileId').css('border-color', '');
             $('.validation').hide();
-            $scope.GCorrect = 2;
         }
         else {
             $('#GmobileId').parent().after("<div class='validation  col-md-8 col-md-offset-4' style='color:red;'>Please Enter Correct mobile number.</div>");
@@ -466,20 +409,20 @@
             return;
         }
         if ($("#ReligionId").val() == "") {
-            $("#ReligionId").select2('open');
-            $(".select2-search__field").css('border-color', 'red');
+            $('#ReligionId').css('border-color', 'red');
+            $('#ReligionId').focus();
             toastr.warning("Please Selcet Religion !");
             return;
         }
         if ($("#GenderId").val() == "") {
-            $("#GenderId").select2('open');
-            $(".select2-search__field").css('border-color', 'red');
+            $('#GenderId').css('border-color', 'red');
+            $('#GenderId').focus();
             toastr.warning("Please Selcet Gender !");
             return;
         }
         if ($("#BloodId").val() == "") {
-            $("#BloodId").select2('open');
-            $(".select2-search__field").css('border-color', 'red');
+            $('#BloodId').css('border-color', 'red');
+            $('#BloodId').focus();
             toastr.warning("Please Selcet Blood Group !");
             return;
         }
@@ -495,7 +438,7 @@
             toastr.warning("Can't be empty !");
             return;
         }
-        if ($('#SmobileId').val() != '' && $scope.SCorrect != 2) {
+        if ($('#SmobileId').val() != '' && $('#SmobileId').val().length != 11) {
             $('#SmobileId').css('border-color', 'red');
             $('#SmobileId').focus();
             toastr.warning("Please Enter Valid Number!");
@@ -507,7 +450,7 @@
             toastr.warning("Can't be empty !");
             return;
         }
-        if ($('#GmobileId').val() != '' && $scope.GCorrect != 2) {
+        if ($('#GmobileId').val() != '' && $('#GmobileId').val().length != 11) {
             $('#GmobileId').css('border-color', 'red');
             $('#GmobileId').focus();
             toastr.warning("Please Enter Valid Number!");
@@ -561,46 +504,41 @@
             return;
         }
         if ($("#MPTypeId").val() == "") {
-            $("#MPTypeId").select2('open');
-            $(".select2-search__field").css('border-color', 'red');
+            $('#MPTypeId').css('border-color', 'red');
+            $('#MPTypeId').focus();
             toastr.warning("Please Selcet Type !");
             return;
         }
         if ($("#ShiftId").val() == "") {
-            $("#ShiftId").select2('open');
-            $(".select2-search__field").css('border-color', 'red');
+            $('#ShiftId').css('border-color', 'red');
+            $('#ShiftId').focus();
             toastr.warning("Please Selcet Shift !");
             return;
         }
         if ($("#ClassId").val() == "") {
-            $("#ClassId").select2('open');
-            $(".select2-search__field").css('border-color', 'red');
+            $('#ClassId').css('border-color', 'red');
+            $('#ClassId').focus();
             toastr.warning("Please Selcet Class !");
             return;
         }
-        if ($(".Groupdiv") == 'visible') {
-            if ($("#GroupId").val() == "") {
-                $("#GroupId").select2('open');
-                $(".select2-search__field").css('border-color', 'red');
-                toastr.warning("Please Selcet Group !");
-                return;
-            }
+        if ($("#GroupId").val() == "") {
+            $('#GroupId').css('border-color', 'red');
+            $('#GroupId').focus();
+            toastr.warning("Please Selcet Group !");
+            return;
         }
-        else if ($(".Sectiondiv") == 'visible') {
-            if ($("#SectionId").val() == "") {
-                $("#SectionId").select2('open');
-                $(".select2-search__field").css('border-color', 'red');
-                toastr.warning("Please Selcet Section !");
-                return;
-            }
+        if ($("#SectionId").val() == "") {
+            $('#SectionId').css('border-color', 'red');
+            $('#SectionId').focus();
+            toastr.warning("Please Selcet Section !");
+            return;
         }
-        else if ($('#RollId').val() == '') {
+        if ($('#RollId').val() == '') {
             $('#RollId').css('border-color', 'red');
             $('#RollId').focus();
             toastr.warning("Can't be empty !");
             return;
         }
-
         else {
             $('#RollId').css('border-color', '');
             $('.validation').hide();
@@ -610,37 +548,26 @@
     }
 
 
-    // ng-change
+    // ng-change        
+    $scope.ClassSection = function () {
 
-    //$('#ClassId').change(function () {
-    //    $scope.GroupInfo();
-    //    $scope.SectionInfo();
-    //});
-    $('#ClassId').change(function () {
-        //$scope.GroupInfo = function () {
-
-        if ($("#ClassId").val() > 10) {
-            CMSService.GetAll('/api/SetUpInfo/GetAllGroupByClass/' + $("#ClassId").val()).success(function (data) {
-                $scope.Groups = data;
-                $(".Groupdiv").show();
-            });
-        }
-        else {
-            $('#GroupId').val('').trigger('change.select2');
-            $(".Groupdiv").hide();
-        }
-
-        CMSService.GetAll('/api/SetUpInfo/GetAllSectionByClass/' + $("#ClassId").val()).success(function (data) {
-            if (data != '') {
-                $scope.Sections = data;
-                $(".Sectiondiv").show();
-            }
-            else {
-                $('#SectionId').val('').trigger('change.select2');
-                $(".Sectiondiv").hide();
-            }
+        CMSService.GetAll('/api/SetUpInfo/GetAllGroupByClass/' + $scope.Std.ClassID).success(function (data) {
+            $scope.Groups = data;
+        });
+        CMSService.GetAll('/api/SetUpInfo/GetAllSectionByClass/' + $scope.Std.ClassID).success(function (data) {
+            $scope.Sections = data;
         });
 
+    };
+
+
+    $('.Number').bind('keypress', function (e) {
+        if (e.which != 46 && e.which != 8 && (e.which < 48 || e.which > 57)) {
+            return (false);
+        }
+        if (e.which == 46 && this.value.indexOf(".") != -1) {
+            return (false);   // only one decimal allowed
+        }
     });
 
     //$scope.SectionInfo = function () {

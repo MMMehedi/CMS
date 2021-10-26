@@ -27,26 +27,28 @@
         </div>
         <div class="widget-body">
             <div class="widget-main col-md-12 col-xs-12">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group panel-body">
                         <label class="col-md-3 control-label no-paddidata-ng-middle">Class<span style="color:red">*</span> </label>
                         <div class="col-md-9">
-                            <select id="ClassId" class="bordercolor" ng-model="Class " ng-options="m.ClassID as m.ClassName for m in Classs"  style='width: 100%;'>
+                            <select id="ClassIDId" class="bordercolor" ng-model="CWS.ClassID" ng-options="m.ClassID as m.ClassName for m in Classs"  style='width: 100%;'>
                                 <option value="">-- Select Class --</option>
                             </select>
                         </div>
-                    </div>
+                    </div>                                  
+                </div>  
+                <div class="col-md-6">
                     <div class="form-group panel-body">
                         <label class="col-md-3 control-label no-paddidata-ng-middle">Subject<span style="color:red">*</span> </label>
                         <div class="col-md-9">
-                            <select id="ClassId" class="bordercolor" ng-model="Class " ng-options="m.SubjectID as m.SubjectName for m in Subjects" style='width: 100%;'>
+                            <select id="SubjectIDId" class="bordercolor" ng-model="CWS.SubjectID" ng-options="m.SubjectID as m.SubjectName for m in Subjects" style='width: 100%;'>
                                 <option value="">-- Select Subject --</option>
                             </select>
                         </div>
-                    </div>                   
-                </div>               
+                    </div>    
+                </div>             
                 <div class="col-md-offset-5 col-md-7">
-                    <button class="btn btn-success" type="button" ng-disabled="SaveDisabled" ng-click="Save(SectionInfo)">
+                    <button class="btn btn-success" type="button" ng-disabled="SaveDisabled" ng-click="Save(CWS)">
                         <i ng-hide="msgSave" class="ace-icon fa fa-save bigger-110"> {{buttonText}}</i>
                         <span ng-hide="msgloading"><i ng-hide="msgspinner" class="fa fa-spinner fa-spin"></i></span>
                         <span ng-hide="msgloading">Loading</span>

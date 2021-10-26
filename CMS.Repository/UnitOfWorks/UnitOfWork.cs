@@ -134,6 +134,16 @@ namespace CMS.Repository.UnitOfWorks
                 return tblSubjectInfoRepository;
             }
         }
+        private IRepository<ClassWiseSubjectInfo> tblClassWiseSubjectInfoRepository;
+        public IRepository<ClassWiseSubjectInfo> TblClassWiseSubjectInfoRepository
+        {
+            get
+            {
+                if (this.tblClassWiseSubjectInfoRepository == null)
+                    this.tblClassWiseSubjectInfoRepository = new GenericRepository<ClassWiseSubjectInfo>(context);
+                return tblClassWiseSubjectInfoRepository;
+            }
+        }
 
 
 
