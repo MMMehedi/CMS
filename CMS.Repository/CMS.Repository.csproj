@@ -129,7 +129,13 @@
     <Compile Include="StudentInformation.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="StudentType.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Subject.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TutionFeeSetUp.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="UnionInfo.cs">

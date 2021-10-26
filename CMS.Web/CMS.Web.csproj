@@ -263,6 +263,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CMS\ClassWiseSubjectInfoController.cs" />
+    <Compile Include="Controllers\CMS\TutionFeeSetUpInfoController.cs" />
     <Compile Include="Controllers\CMS\SubjectInfoController.cs" />
     <Compile Include="Controllers\CMS\StudentInfoController.cs" />
     <Compile Include="Controllers\CMS\SectionInfoController .cs" />
@@ -689,6 +690,7 @@
     <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\ApplicationJS\CMS\FeeSetUp.js" />
     <Content Include="Scripts\ApplicationJS\CMS\ClassWiseSubject.js" />
     <Content Include="Scripts\ApplicationJS\CMS\SubjectInfo.js" />
     <Content Include="Scripts\ApplicationJS\CMS\StudentInfo.js" />
@@ -1517,6 +1519,7 @@
     <Content Include="Views\CMS\_StudentInfo.cshtml" />
     <Content Include="Views\CMS\_SubjectInfo.cshtml" />
     <Content Include="Views\CMS\_ClassWiseSubject.cshtml" />
+    <Content Include="Views\CMS\_FeeSetUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

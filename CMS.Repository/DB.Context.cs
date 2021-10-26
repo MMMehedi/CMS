@@ -44,7 +44,9 @@ namespace CMS.Repository
         public virtual DbSet<Shift> Shifts { get; set; }
         public virtual DbSet<StudentAcademicInfo> StudentAcademicInfoes { get; set; }
         public virtual DbSet<StudentInformation> StudentInformations { get; set; }
+        public virtual DbSet<StudentType> StudentTypes { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
+        public virtual DbSet<TutionFeeSetUp> TutionFeeSetUps { get; set; }
         public virtual DbSet<UnionInfo> UnionInfoes { get; set; }
         public virtual DbSet<UserInfo> UserInfoes { get; set; }
     

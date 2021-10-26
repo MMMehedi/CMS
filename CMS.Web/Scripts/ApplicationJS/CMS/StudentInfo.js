@@ -244,7 +244,6 @@
                             return false;
                         }
                         else {
-
                             toastr.remove();
                             toastr.success(xhr);
                             $scope.ClearAll();
@@ -343,6 +342,7 @@
     //Edit
     $scope.Std = {};
     $scope.edit = function (row) {
+        $scope.ClearAll();
         $scope.Std = angular.copy(row);
         $scope.ClassSection();
         $('#imgEmpImage').attr('src', '/CMS/GetWebsiteImage/?StudentID=' + row.StudentID);

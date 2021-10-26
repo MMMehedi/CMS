@@ -16,6 +16,7 @@ namespace CMS.Repository.UnitOfWorks
         IRepository<StudentInformation> TblStudentInformationRepository { get; }
         IRepository<Subject> TblSubjectInfoRepository { get; }
         IRepository<ClassWiseSubjectInfo> TblClassWiseSubjectInfoRepository { get; }
+        IRepository<TutionFeeSetUp> TblTutionFeeSetUpInfoRepository { get; }
 
 
 

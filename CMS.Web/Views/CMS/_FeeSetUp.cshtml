@@ -1,0 +1,109 @@
+﻿<div id="breadcrumbs" class="breadcrumbs ace-save-state">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="" ng-click="Home()">Home</a>
+            <i class="ace-icon fa fa-angle-double-right"></i> Fee Set Up
+        </li>
+    </ul>
+</div>
+<form name="FeeSetUp" ng-controller="FeeSetUpCtrl" class="form-horizontal" role="form" novalidate>
+    <div id="splash-page" data-ng-show="showSplash" class="dissolve-animation">
+        <div class="page-splash">
+            <div class="page-splash-message">
+                <img src="~/dist/img/ajax-loading.gif" />  <b>Please wait ....</b>
+            </div>
+        </div>
+    </div>
+
+    <div class="widget-box col-md-12 col-xs-12">
+        <div class="widget-header">
+            <h4 class="widget-title">Tution Fee Set Up </h4>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="ace-icon fa fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main col-md-12 col-xs-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label no-paddidata-ng-middle">Student Type<span style="color:red">*</span> </label>
+                        <div class="col-md-9">
+                            <select id="StudentTypeIDId" class="bordercolor" ng-model="Fee.StudentTypeID" ng-click="DivShow()" ng-options="m.StudentTypeID as m.StudentTypeName for m in Students" style='width: 100%;'>
+                                <option value="">-- Select Student Type --</option>
+                            </select>
+                        </div>
+                    </div>                    
+                    <div class="form-group ">
+                        <label class="col-md-3 control-label no-paddidata-ng-middle">Class<span style="color:red">*</span> </label>
+                        <div class="col-md-9">
+                            <select id="ClassIDId" class="bordercolor" ng-model="Fee.ClassID" ng-options="m.ClassID as m.ClassName for m in Classs" ng-click="Group()" style='width: 100%;'>
+                                <option value="">-- Select Class --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label class="col-md-3 control-label no-paddidata-ng-middle">Group<span style="color:red">*</span> </label>
+                        <div class="col-md-9">
+                            <select id="GroupIDId" class="bordercolor" ng-model="Fee.GroupID" ng-options="m.GroupID as m.GroupName for m in Groups" style='width: 100%;'>
+                                <option value="">-- Select Group --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-hide="SubjectDiv">
+                        <label class="col-md-3 control-label no-paddidata-ng-middle">Subject<span style="color:red">*</span> </label>
+                        <div class="col-md-9">
+                            <select id="SubjectIDId" class="bordercolor" ng-model="Fee.SubjectID" ng-options="m.SubjectID as m.SubjectName for m in Subjects" style='width: 100%;'>
+                                <option value="">-- Select Subject --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-hide="CourseDiv">
+                        <label class="col-md-3 control-label no-paddidata-ng-middle">Course Name<span style="color:red">*</span> </label>
+                        <div class="col-md-9">
+                            <select id="CourseIDId" class="bordercolor" ng-model="Fee.CourseID" ng-options="m.SubjectID as m.SubjectName for m in Subjects" style='width: 100%;'>
+                                <option value="">-- Select Course --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label no-paddidata-ng-right">Tution Fee <span style="color:red">*</span> </label>
+                        <div class="col-md-9">
+                            <input type="text" autocomplete="off" id="TutionFeeId" ng-model="Fee.TutionFee" class="form-control bordercolor text-capitalize" placeholder="Can't be empty" />
+                        </div>
+                    </div>
+                      
+                </div>
+                <div class="col-md-6">
+                                   
+                </div>
+                &nbsp;
+                <div class="col-md-offset-5 col-md-7">
+                    <button class="btn btn-success" type="button" ng-disabled="SaveDisabled" ng-click="Save(Fee)">
+                        <i ng-hide="msgSave" class="ace-icon fa fa-save bigger-110"> {{buttonText}}</i>
+                        <span ng-hide="msgloading"><i ng-hide="msgspinner" class="fa fa-spinner fa-spin"></i></span>
+                        <span ng-hide="msgloading">Loading</span>
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-warning" type="button" ng-click="ClearAll()">
+                        <i class="ace-icon fa fa-undo bigger-110"></i>
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span class="input-icon" style="float: right;">
+        <input ng-keypress="$event.keyCode == 13 && $event.preventDefault()" type="text" autocomplete="off" ng-model="filterOptions.filterText" class="form-control search-query" placeholder="Search...">
+        <i class="ace-icon fa fa-search nav-search-icon"></i>
+    </span>
+    <div class="widget-box col-md-12 col-xs-12">
+        <div class="table-responsive" style="margin-top:4px">
+            <div class="gridStyle" ng-grid="gridOptions">
+                <div id="divMsg" class="watermark">No data available</div>
+            </div>
+        </div>
+    </div>
+</form>

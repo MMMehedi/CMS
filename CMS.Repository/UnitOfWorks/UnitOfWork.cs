@@ -144,6 +144,17 @@ namespace CMS.Repository.UnitOfWorks
                 return tblClassWiseSubjectInfoRepository;
             }
         }
+        private IRepository<TutionFeeSetUp> tblTutionFeeSetUpInfoRepository;
+
+        public IRepository<TutionFeeSetUp> TblTutionFeeSetUpInfoRepository
+        {
+            get
+            {
+                if (this.tblTutionFeeSetUpInfoRepository == null)
+                    this.tblTutionFeeSetUpInfoRepository = new GenericRepository<TutionFeeSetUp>(context);
+                return tblTutionFeeSetUpInfoRepository;
+            }
+        }
 
 
 

@@ -199,9 +199,39 @@ namespace CMS.Web.Controllers
             }
         }
 
-      
+        [Route("GetAllGroupForFee/{ClassID:int}")]
+        [HttpGet]
+        public dynamic GetAllGroupForFee(int ClassID)
+        {
+            try
+            {
+                var result = context.Groups.Where(m => m.ClassID == ClassID);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //Logger.LogInformation(ex.Message);
+                throw ex;
+            }
+        }
 
-       
+        [Route("GetAllStudentType")]
+        [HttpGet]
+        public dynamic GetAllStudentType()
+        {
+            try
+            {
+                var result = context.StudentTypes;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //Logger.LogInformation(ex.Message);
+                throw ex;
+            }
+        }
+
+
 
     }
 }
