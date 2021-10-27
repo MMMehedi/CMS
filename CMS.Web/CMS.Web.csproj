@@ -690,6 +690,7 @@
     <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\ApplicationJS\CMS\CourseSetUp.js" />
     <Content Include="Scripts\ApplicationJS\CMS\FeeSetUp.js" />
     <Content Include="Scripts\ApplicationJS\CMS\ClassWiseSubject.js" />
     <Content Include="Scripts\ApplicationJS\CMS\SubjectInfo.js" />
@@ -1520,6 +1521,7 @@
     <Content Include="Views\CMS\_SubjectInfo.cshtml" />
     <Content Include="Views\CMS\_ClassWiseSubject.cshtml" />
     <Content Include="Views\CMS\_FeeSetUp.cshtml" />
+    <Content Include="Views\CMS\_CourseSetUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

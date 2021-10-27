@@ -23,6 +23,10 @@ App.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $u
              url: "/ClassWiseSubject",
              templateUrl: "/CMS/_ClassWiseSubject"
          })
+        .state("CourseSetUp", {
+            url: "/CourseSetUp",
+            templateUrl: "/CMS/_CourseSetUp"
+        })
          .state("FeeSetUp", {
              url: "/FeeSetUp",
              templateUrl: "/CMS/_FeeSetUp"

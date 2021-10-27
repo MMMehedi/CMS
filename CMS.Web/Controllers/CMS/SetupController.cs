@@ -231,7 +231,51 @@ namespace CMS.Web.Controllers
             }
         }
 
-
+        [Route("GetClassName/{ClassID:int}")]
+        [HttpGet]
+        public dynamic GetClassName(int ClassID)
+        {
+            try
+            {
+                var result = context.Classes.Where(m => m.ClassID == ClassID);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //Logger.LogInformation(ex.Message);
+                throw ex;
+            }
+        }
+        [Route("GetGroupName/{GroupID:int}")]
+        [HttpGet]
+        public dynamic GetGroupName(int GroupID)
+        {
+            try
+            {
+                var result = context.Groups.Where(m => m.GroupID == GroupID);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //Logger.LogInformation(ex.Message);
+                throw ex;
+            }
+        }
+        [Route("GetSubjectName/{SubjectID:int}")]
+        [HttpGet]
+        public dynamic GetSubjectName(int SubjectID)
+        {
+            try
+            {
+                var result = context.Subjects.Where(m => m.SubjectID == SubjectID);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //Logger.LogInformation(ex.Message);
+                throw ex;
+            }
+        }
 
     }
 }
