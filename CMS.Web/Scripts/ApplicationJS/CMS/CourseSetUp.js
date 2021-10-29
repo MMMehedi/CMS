@@ -20,7 +20,7 @@
             $scope.msgloading = true;
             $scope.msgSave = false;
         }
-
+        //commment
         $scope.ClearAllDetails = function () {
             $scope.detail.SubjectID = '';
             $scope.detail.ClassID = '';
