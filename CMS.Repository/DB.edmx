@@ -39,6 +39,37 @@
           <Property Name="ModifyDate" Type="datetime" Nullable="false" />
           <Property Name="Status" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="CourseMonthInfo">
+          <Key>
+            <PropertyRef Name="CourseDurationID" />
+          </Key>
+          <Property Name="CourseDurationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DurationName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompanyID" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyBy" Type="int" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseSetup">
+          <Key>
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CourseDurationID" Type="int" Nullable="false" />
+          <Property Name="ClassID" Type="int" Nullable="false" />
+          <Property Name="GroupID" Type="int" Nullable="false" />
+          <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="CompanyID" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyBy" Type="int" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="DesignationInfo">
           <Key>
             <PropertyRef Name="DesigID" />
@@ -123,7 +154,7 @@
           </Key>
           <Property Name="GroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ClassID" Type="int" />
+          <Property Name="ClassID" Type="int" Nullable="false" />
           <Property Name="CompanyID" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
@@ -331,6 +362,8 @@
           <EntitySet Name="Blood" EntityType="Self.Blood" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClassWiseSubjectInfo" EntityType="Self.ClassWiseSubjectInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseMonthInfo" EntityType="Self.CourseMonthInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseSetup" EntityType="Self.CourseSetup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DesignationInfo" EntityType="Self.DesignationInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DistrictInfo" EntityType="Self.DistrictInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
@@ -362,6 +395,8 @@
           <EntitySet Name="Bloods" EntityType="CMSModel.Blood" />
           <EntitySet Name="Classes" EntityType="CMSModel.Class" />
           <EntitySet Name="ClassWiseSubjectInfoes" EntityType="CMSModel.ClassWiseSubjectInfo" />
+          <EntitySet Name="CourseMonthInfoes" EntityType="CMSModel.CourseMonthInfo" />
+          <EntitySet Name="CourseSetups" EntityType="CMSModel.CourseSetup" />
           <EntitySet Name="DesignationInfoes" EntityType="CMSModel.DesignationInfo" />
           <EntitySet Name="DistrictInfoes" EntityType="CMSModel.DistrictInfo" />
           <EntitySet Name="Employees" EntityType="CMSModel.Employee" />
@@ -408,6 +443,37 @@
           </Key>
           <Property Name="ClassSubjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClassID" Type="Int32" Nullable="false" />
+          <Property Name="SubjectID" Type="Int32" Nullable="false" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseMonthInfo">
+          <Key>
+            <PropertyRef Name="CourseDurationID" />
+          </Key>
+          <Property Name="CourseDurationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DurationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseSetup">
+          <Key>
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="CourseName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CourseDurationID" Type="Int32" Nullable="false" />
+          <Property Name="ClassID" Type="Int32" Nullable="false" />
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
           <Property Name="SubjectID" Type="Int32" Nullable="false" />
           <Property Name="CompanyID" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
@@ -500,7 +566,7 @@
           </Key>
           <Property Name="GroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GroupName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ClassID" Type="Int32" />
+          <Property Name="ClassID" Type="Int32" Nullable="false" />
           <Property Name="CompanyID" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -742,6 +808,38 @@
                 <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
                 <ScalarProperty Name="ClassSubjectID" ColumnName="ClassSubjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseMonthInfoes">
+            <EntityTypeMapping TypeName="CMSModel.CourseMonthInfo">
+              <MappingFragment StoreEntitySet="CourseMonthInfo">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="DurationName" ColumnName="DurationName" />
+                <ScalarProperty Name="CourseDurationID" ColumnName="CourseDurationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseSetups">
+            <EntityTypeMapping TypeName="CMSModel.CourseSetup">
+              <MappingFragment StoreEntitySet="CourseSetup">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="CourseDurationID" ColumnName="CourseDurationID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

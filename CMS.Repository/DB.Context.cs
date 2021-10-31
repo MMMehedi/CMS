@@ -30,6 +30,8 @@ namespace CMS.Repository
         public virtual DbSet<Blood> Bloods { get; set; }
         public virtual DbSet<Class> Classes { get; set; }
         public virtual DbSet<ClassWiseSubjectInfo> ClassWiseSubjectInfoes { get; set; }
+        public virtual DbSet<CourseMonthInfo> CourseMonthInfoes { get; set; }
+        public virtual DbSet<CourseSetup> CourseSetups { get; set; }
         public virtual DbSet<DesignationInfo> DesignationInfoes { get; set; }
         public virtual DbSet<DistrictInfo> DistrictInfoes { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }

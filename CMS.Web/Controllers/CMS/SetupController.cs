@@ -133,6 +133,22 @@ namespace CMS.Web.Controllers
             }
         }
 
+        [Route("GetAllCourseMonth/{CompanyID:int}")]
+        [HttpGet]
+        public dynamic GetAllCourseMonth(int CompanyID)
+        {
+            try
+            {
+                var result = context.CourseMonthInfoes;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //Logger.LogInformation(ex.Message);
+                throw ex;
+            }
+        }
+
 
         [Route("GetAllReligion/{CompanyID:int}")]
         [HttpGet]

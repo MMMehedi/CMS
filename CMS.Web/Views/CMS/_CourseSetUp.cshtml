@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label no-paddidata-ng-right">Course Tittle <span style="color:red">*</span> </label>
                         <div class="col-md-9">
-                            <input type="text" autocomplete="off" id="TutionFeeId" ng-model="Course.CourseName" class="form-control bordercolor text-capitalize" placeholder="Can't be empty" />
+                            <input type="text" autocomplete="off" id="CourseNameId" ng-model="Course.CourseName" class="form-control bordercolor text-capitalize" placeholder="Can't be empty" />
                         </div>
                     </div>
                 </div>
@@ -55,15 +55,11 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label no-paddidata-ng-middle">Course Duration<span style="color:red">*</span> </label>
                         <div class="col-md-9">
-                            <select id="SubjectIDId" class="bordercolor" ng-model="Course.SubjectID"  ng-options="m.SubjectID as m. for m in " style='width: 100%;'>
-                                <option value="">-- Select Subject --</option>
+                            <select id="CourseDurationIDId" class="bordercolor" ng-model="Course.CourseDurationID"  ng-options="m.CourseDurationID as m.DurationName for m in CourseMonths" style='width: 100%;'>
+                                <option value="">-- Select Duration Time --</option>
                             </select>
                         </div>
-                        <div class="col-md-9">
-                            <select id="SubjectIDId" class="bordercolor" ng-model="Course.SubjectID" ng-options="m.SubjectID as m. for m in " style='width: 100%;'>
-                                <option value="">-- Select Subject --</option>
-                            </select>
-                        </div>
+                        
                     </div>
                     &nbsp; &nbsp;
                 </div>
@@ -74,7 +70,7 @@
                             <div class="form-group ">
                                 <label class="col-md-3 control-label no-paddidata-ng-middle">Class<span style="color:red">*</span> </label>
                                 <div class="col-md-9">
-                                    <select id="ClassIDId" class="bordercolor" ng-model="detail.ClassID"  ng-options="m.ClassID as m.ClassName for m in Classs" ng-click="ClassName();Group()" style='width: 100%;'>
+                                    <select id="ClassIDId" class="bordercolor" ng-model="detail.ClassID"  ng-options="m.ClassID as m.ClassName for m in Classs" ng-click="ClassName();Group()" ng-disabled="ClassDisable" style='width: 100%;'>
                                         <option value="">-- Select Class --</option>
                                     </select>
                                 </div>
@@ -82,7 +78,7 @@
                             <div class="form-group ">
                                 <label class="col-md-3 control-label no-paddidata-ng-middle">Group<span style="color:red">*</span> </label>
                                 <div class="col-md-9">
-                                    <select id="GroupIDId" class="bordercolor" ng-model="detail.GroupID" ng-click="GroupName()" ng-options="m.GroupID as m.GroupName for m in Groups" style='width: 100%;'>
+                                    <select id="GroupIDId" class="bordercolor" ng-model="detail.GroupID" ng-click="GroupName()" ng-options="m.GroupID as m.GroupName for m in Groups" ng-disabled="GroupDisable" style='width: 100%;'>
                                         <option value="">-- Select Group --</option>
                                     </select>
                                 </div>

@@ -166,7 +166,16 @@
         };
 
         $scope.toggleChecker = function (checked) {
-            var rows = $scope.gridOptions.$gridScope.renderedRows,
+            //for (var i = 0; i < $scope.myData.length; i++) {
+            //    var check = 1;
+            //    if ($scope.myData[i].UserPer == false && check == 1) {
+            //        $scope.checker.checked = "";
+            //        check = 0;
+            //    }
+            //    //else
+            //    //    $scope.checker.checked = true;
+            //}
+              var rows = $scope.gridOptions.$gridScope.renderedRows,
                 allChecked = true;
 
             for (var r = 0; r < rows.length; r++) {
@@ -178,6 +187,9 @@
             if (!$scope.gridOptions.$gridScope.UserPer)
                 $scope.gridOptions.$gridScope.UserPer = {};
             $scope.gridOptions.$gridScope.UserPer.checked = allChecked;
+
+
+          
         };
 
         function filedVal() {

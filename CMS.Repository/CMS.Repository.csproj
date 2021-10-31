@@ -64,6 +64,12 @@
     <Compile Include="ClassWiseSubjectInfo.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="CourseMonthInfo.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CourseSetup.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

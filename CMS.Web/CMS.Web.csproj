@@ -263,6 +263,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CMS\ClassWiseSubjectInfoController.cs" />
+    <Compile Include="Controllers\CMS\CourseSetUpInfoController.cs" />
     <Compile Include="Controllers\CMS\TutionFeeSetUpInfoController.cs" />
     <Compile Include="Controllers\CMS\SubjectInfoController.cs" />
     <Compile Include="Controllers\CMS\StudentInfoController.cs" />
