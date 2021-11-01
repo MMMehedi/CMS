@@ -33,28 +33,18 @@
                     <div class="form-group panel-body">
                         <label class="col-md-3 control-label no-paddidata-ng-middle">Class <span style="color:red">*</span> </label>
                         <div class="col-md-8">
-                            <select id="ClassId" class="select2 bordercolor" ng-model="Class " ng-options="item.ClassName for item in Classs track by item.ClassID" style='width: 100%;'>
+                            <select id="ClassId" class="bordercolor" ng-model="SectionInfo.ClassID " ng-options="m.ClassID as m.ClassName for m in Classs"style='width: 100%;'>
                                 <option value="">-- Select Class --</option>
                             </select>
                         </div>
                     </div>
-
-                    @*<div class="form-group">
-                        <label class="col-md-4 control-label no-paddidata-ng-right">Sector<span style="color:red">*</span></label>
-                        <div class="col-md-8">
-                            <input type="text" placeholder="-- Select Sector --" list="Classs" id="idSectorID" autocomplete="off" class="form-control" ng-model="SectorID" style='width: 100%;' />
-                            <datalist id="Classs">
-                                <option ng-repeat="item in Classs"
-                                        value="{{item.ClassID}}">{{item.ClassName}}</option>
-                            </datalist>
-                        </div>
-                    </div>*@
+                   
                 </div>
                 <div class="col-md-6">
                     <div class="form-group panel-body">
                         <label class="col-md-3 control-label no-paddidata-ng-right">Section Name <span style="color:red">*</span> </label>
                         <div class="col-md-8">
-                           <input type="text" autocomplete="off" id="SectionId"   ng-model="SectionInfo.Section" class="form-control bordercolor text-capitalize" placeholder="Can't be empty"  />
+                           <input type="text" autocomplete="off" id="SectionId"   ng-model="SectionInfo.SectionName" class="form-control bordercolor text-capitalize" placeholder="Can't be empty"  />
                         </div>
                     </div>
 
@@ -63,7 +53,7 @@
                         <div class="col-md-1">
                             <div class="checkbox">
                                 <label class="block">
-                                    <input type="checkbox" class="ace input-lg" id="Active" ng-model="SectionInfo.Active" name="form-field-checkbox" />
+                                    <input type="checkbox" class="ace input-lg" id="Active" ng-model="SectionInfo.Status" name="form-field-checkbox" />
                                     <span class="lbl bigger-120"></span>
                                 </label>
                             </div>

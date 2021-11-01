@@ -36,6 +36,12 @@
             $scope.Classs = data;
         });
 
+        $scope.Group = function () {
+            CMSService.GetAll('/api/SetUpInfo/GetAllGroupForFee/' + $scope.CWS.ClassID).success(function (data) {
+                $scope.Groups = data;
+            });
+        }
+
         CMSService.GetAll('/api/SetUpInfo/GetAllSubject/' + localStorage.getItem('CompanyID')).success(function (data) {
             $scope.Subjects = data;
         });
@@ -51,6 +57,7 @@
                 if ($scope.buttonText == 'Save') {
                     entity.ClassSubjectID = 0;
                     entity.ClassID = $scope.CWS.ClassID;
+                    entity.GroupID = $scope.CWS.GroupID;
                     entity.SubjectID = $scope.CWS.SubjectID;
                     entity.CompanyID = 1;
                     entity.CreatedBy = $scope.UserID;
@@ -80,6 +87,7 @@
                 if ($scope.buttonText == 'Update') {
                     entity.ClassSubjectID =$scope.CWS.ClassSubjectID; 
                     entity.ClassID = $scope.CWS.ClassID;
+                    entity.GroupID = $scope.CWS.GroupID;
                     entity.SubjectID = $scope.CWS.SubjectID;
                     entity.CompanyID = $scope.CWS.CompanyID;
                     entity.CreatedBy = $scope.CWS.CreatedBy;
@@ -181,6 +189,7 @@
         { field: 'ClassSubjectID', displayName: 'ClassSubjectID', visible: false },
         { field: 'Edit', width: 70, sortable: false, cellTemplate: '<button  ng-hide="edithide" ng-click=edit(row.entity)><i class="fa fa-pencil-square-o grid-edit-icon"></i></button>' },
         { field: 'ClassName', displayName: 'Class Name', visible: true },
+        { field: 'GroupName', displayName: 'Group Name', visible: true },
         { field: 'SubjectName', displayName: 'SubjectName', visible: true },
         { field: 'Status', displayName: 'Status', width: 100, visible: false },      
         ]
@@ -204,6 +213,12 @@
             $('#ClassIDId').css('border-color', 'red');
             $('#ClassIDId').focus();           
             toastr.warning("Please Selcet Class !");
+            return;
+        }
+        else if ($("#GroupIDId").val() == "") {
+            $('#GroupIDId').css('border-color', 'red');
+            $('#GroupIDId').focus();
+            toastr.warning("Please Selcet Group !");
             return;
         }
         else if ($("#SubjectIDId").val() == "") {

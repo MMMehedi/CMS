@@ -37,7 +37,7 @@ namespace CMS.Repository
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<FMInformaton> FMInformatons { get; set; }
         public virtual DbSet<Gender> Genders { get; set; }
-        public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<GroupInfo> GroupInfoes { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<ProfessionType> ProfessionTypes { get; set; }
@@ -59,6 +59,11 @@ namespace CMS.Repository
                 new ObjectParameter("SuitNo", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spDecreeOrder", suitNoParameter);
+        }
+    
+        public virtual ObjectResult<spCourseInformation_Result> spCourseInformation()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spCourseInformation_Result>("spCourseInformation");
         }
     }
 }

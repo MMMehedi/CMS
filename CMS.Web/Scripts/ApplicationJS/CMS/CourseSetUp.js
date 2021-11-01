@@ -190,10 +190,7 @@
             columnDefs: [
             { field: 'ID', displayName: 'ID', width: 156, visible: false },
             { field: 'Edit', width: 40, cellTemplate: '<button  ng-hide="edithide" ng-click=editItem(row.entity)><i class="fa fa-pencil-square-o grid-edit-icon"></i></button>' },
-            { field: 'Delete', width: 65, cellTemplate: '<button  ng-hide="deletehide" ng-click=deleteItem(row.entity)><i class="fa fa-pencil-square-o grid-delete-icon"></i></button>' },
-            { field: 'SubjectID', displayName: 'Class', width: 100, visible: false },
-            { field: 'ClassID', displayName: 'Group', width: 100, visible: false },
-            { field: 'GroupID', displayName: 'Subject', width: 100, visible: false },
+            { field: 'Delete', width: 65, cellTemplate: '<button  ng-hide="deletehide" ng-click=deleteItem(row.entity)><i class="fa fa-pencil-square-o grid-delete-icon"></i></button>' },            
             { field: 'ClassName', displayName: 'Class', width: 200, visible: true },
             { field: 'GroupName', displayName: 'Group', width: 200, visible: true },
             { field: 'SubjectName', displayName: 'Subject', width: 200, visible: true },
@@ -413,14 +410,13 @@
         selectedItems: $scope.selectedRow,
         multiSelect: false,
         columnDefs: [
-        { field: 'CourseID', displayName: 'ClassSubjectID', visible: false },
-        { field: 'Edit', width: 70, sortable: false, cellTemplate: '<button  ng-hide="edithide" ng-click=edit(row.entity)><i class="fa fa-pencil-square-o grid-edit-icon"></i></button>' },
-        { field: 'StudentTypeName', displayName: 'CourseName', visible: true },
-        { field: 'CourseName', displayName: 'Subject', visible: true },
-        { field: 'ClassName', displayName: 'Duration', visible: true },
-        { field: 'GroupName', displayName: 'Class', visible: true },
-        { field: 'SubjectName', displayName: 'Group', visible: true },
-        { field: 'TutionFee', displayName: 'Fee', visible: true },
+        { field: 'CourseID', displayName: 'CourseID', visible: false },
+        { field: 'Edit', width: 70, sortable: false, visible: false, cellTemplate: '<button  ng-hide="edithide" ng-click=edit(row.entity)><i class="fa fa-pencil-square-o grid-edit-icon"></i></button>' },
+        { field: 'ClassName', displayName: 'Class', visible: true },
+        { field: 'GroupName', displayName: 'Group', visible: true },
+        { field: 'CourseName', displayName: 'Course Name', visible: true },
+        { field: 'SubjectName', displayName: 'Subjects', visible: true },
+        { field: 'DurationName', displayName: 'Course Duration', visible: true },
         ]
     };
     //End of ng-Grid

@@ -29,7 +29,7 @@ namespace CMS.Web.Controllers
             {
                 var result = (from T in context.TutionFeeSetUps
                               join C in context.Classes on T.ClassID equals C.ClassID
-                              join G in context.Groups on T.GroupID equals G.GroupID
+                              join G in context.GroupInfoes on T.GroupID equals G.GroupID
                               join ST in context.StudentTypes on T.StudentTypeID equals ST.StudentTypeID
                               //join S in context.Subjects on T.SubjectID equals S.SubjectID
                               //join SS in context.Shifts on SE.ShiftID equals SS.ShiftID

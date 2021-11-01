@@ -16,6 +16,7 @@ namespace CMS.Repository
     {
         public int ClassSubjectID { get; set; }
         public int ClassID { get; set; }
+        public int GroupID { get; set; }
         public int SubjectID { get; set; }
         public int CompanyID { get; set; }
         public int CreatedBy { get; set; }

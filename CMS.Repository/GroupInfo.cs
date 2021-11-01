@@ -12,21 +12,16 @@ namespace CMS.Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class CourseSetup
+    public partial class GroupInfo
     {
-        public int CourseID { get; set; }
-        public string CourseName { get; set; }
-        public int CourseDurationID { get; set; }
-        public int ClassID { get; set; }
         public int GroupID { get; set; }
-        public int SubjectID { get; set; }
+        public string GroupName { get; set; }
+        public int ClassID { get; set; }
         public int CompanyID { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int ModifyBy { get; set; }
         public System.DateTime ModifyDate { get; set; }
-        public bool Status { get; set; }
-        public List<CourseSetup> CourseDetail { get; set; }
-
+        public int Status { get; set; }
     }
 }

@@ -60,9 +60,7 @@ namespace CMS.Web.Controllers
         {
             try
             {
-                //DataSet ds = new DataSet();
-                //int count = context.SectionInfoes.Count();
-                //if (count > 0) { 
+               
 
                 var result = "";
                 var search = context.SectionInfoes.FirstOrDefault(m => m.ClassID == entity.ClassID && m.SectionName==entity.SectionName );

@@ -21,42 +21,7 @@ namespace CMS.Web.Controllers
         {
             Uow = uow;
         }
-        [Route("GetAll/{CompanyID:int}")]
-        [HttpGet]
-        public dynamic GetAll(int CompanyID)
-        {
-            try
-            {
-                var result = (from T in context.TutionFeeSetUps
-                              join C in context.Classes on T.ClassID equals C.ClassID
-                              join G in context.Groups on T.GroupID equals G.GroupID
-                              join ST in context.StudentTypes on T.StudentTypeID equals ST.StudentTypeID
-                              //join S in context.Subjects on T.SubjectID equals S.SubjectID
-                              //join SS in context.Shifts on SE.ShiftID equals SS.ShiftID
-                              select new
-                              {
-                                  T.TutionFeeID,
-                                  T.ClassID,
-                                  C.ClassName,
-                                  T.GroupID,
-                                  G.GroupName,
-                                  T.StudentTypeID,
-                                  ST.StudentTypeName,
-                                  T.TutionFee,
-                                  T.CompanyID,
-                                  T.CreatedBy,
-                                  T.CreatedDate,
-                                  T.Status,
-                              }).ToList();
-                return result;
 
-            }
-            catch (Exception ex)
-            {
-                //Logger.LogInformation(ex.Message);
-                throw ex;
-            }
-        }
 
 
         [Route("Add")]
@@ -66,7 +31,7 @@ namespace CMS.Web.Controllers
             try
             {
                 var result = "";
-                var search = context.CourseSetups.FirstOrDefault(m => m.ClassID == entity.ClassID && m.GroupID == entity.GroupID && m.SubjectID==entity.SubjectID);
+                var search = context.CourseSetups.FirstOrDefault(m => m.ClassID == entity.ClassID && m.GroupID == entity.GroupID && m.SubjectID == entity.SubjectID);
                 if (search == null)
                 {
                     var CourseID = 0;
@@ -138,5 +103,48 @@ namespace CMS.Web.Controllers
                 throw ex;
             }
         }
+        [Route("GetAll/{CompanyID:int}")]
+        [HttpGet]
+        public dynamic GetAll(int CompanyID)
+        {
+            try
+            {
+                var result = new List<spCourseInformation_Result>();
+                using (var cmd = context.Database.Connection.CreateCommand())
+                {
+                    cmd.CommandText = "exec spCourseInformation";
+                    context.Database.Connection.Open();
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var ProductStock = new spCourseInformation_Result
+                            {
+                                CourseID = reader.GetInt32(0),
+                                CourseName = reader.GetString(1),
+                                CourseDurationID = reader.GetInt32(2),
+                                DurationName = reader.GetString(3),
+                                ClassID = reader.GetInt32(4),
+                                ClassName = reader.GetString(5),
+                                GroupID = reader.GetInt32(6),
+                                GroupName = reader.GetString(7),
+                                CompanyID = reader.GetInt32(8),
+                                CreatedDate = reader.GetDateTime(9),
+                                Status = reader.GetBoolean(10),
+                                SubjectName = reader.GetString(11),
+                            };
+                            result.Add(ProductStock);
+                        }
+                    }
+                    context.Database.Connection.Close();
+                }
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

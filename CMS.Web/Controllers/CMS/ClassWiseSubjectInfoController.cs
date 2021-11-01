@@ -33,12 +33,15 @@ namespace CMS.Web.Controllers
                 //return result;
                 var result = (from CWS in context.ClassWiseSubjectInfoes
                               join C in context.Classes on CWS.ClassID equals C.ClassID
+                              join G in context.GroupInfoes on CWS.GroupID equals G.GroupID
                               join S in context.Subjects on CWS.SubjectID equals S.SubjectID
                               select new
                               {
-                                  C.ClassName,                                
+                                  C.ClassName, 
+                                  G.GroupName,                              
                                   S.SubjectName,
                                   CWS.ClassID,
+                                  CWS.GroupID,
                                   CWS.SubjectID,
                                   CWS.ClassSubjectID,
                                   CWS.CompanyID,

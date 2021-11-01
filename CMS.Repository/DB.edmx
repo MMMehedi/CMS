@@ -31,6 +31,7 @@
           </Key>
           <Property Name="ClassSubjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClassID" Type="int" Nullable="false" />
+          <Property Name="GroupID" Type="int" Nullable="false" />
           <Property Name="SubjectID" Type="int" Nullable="false" />
           <Property Name="CompanyID" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
@@ -148,7 +149,7 @@
           <Property Name="GenderName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CompanyID" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Group">
+        <EntityType Name="GroupInfo">
           <Key>
             <PropertyRef Name="GroupID" />
           </Key>
@@ -355,6 +356,7 @@
           <Property Name="ModifyBy" Type="int" Nullable="false" />
           <Property Name="ModifyDate" Type="datetime" Nullable="false" />
         </EntityType>
+        <Function Name="spCourseInformation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spDecreeOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SuitNo" Type="varchar" Mode="In" />
         </Function>
@@ -369,7 +371,7 @@
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FMInformaton" EntityType="Self.FMInformaton" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupInfo" EntityType="Self.GroupInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProfessionType" EntityType="Self.ProfessionType" Schema="dbo" store:Type="Tables" />
@@ -402,7 +404,7 @@
           <EntitySet Name="Employees" EntityType="CMSModel.Employee" />
           <EntitySet Name="FMInformatons" EntityType="CMSModel.FMInformaton" />
           <EntitySet Name="Genders" EntityType="CMSModel.Gender" />
-          <EntitySet Name="Groups" EntityType="CMSModel.Group" />
+          <EntitySet Name="GroupInfoes" EntityType="CMSModel.GroupInfo" />
           <EntitySet Name="Menus" EntityType="CMSModel.Menu" />
           <EntitySet Name="Permissions" EntityType="CMSModel.Permission" />
           <EntitySet Name="ProfessionTypes" EntityType="CMSModel.ProfessionType" />
@@ -416,6 +418,7 @@
           <EntitySet Name="TutionFeeSetUps" EntityType="CMSModel.TutionFeeSetUp" />
           <EntitySet Name="UnionInfoes" EntityType="CMSModel.UnionInfo" />
           <EntitySet Name="UserInfoes" EntityType="CMSModel.UserInfo" />
+          <FunctionImport Name="spCourseInformation" ReturnType="Collection(CMSModel.spCourseInformation_Result)" />
           </EntityContainer>
         <EntityType Name="Blood">
           <Key>
@@ -443,6 +446,7 @@
           </Key>
           <Property Name="ClassSubjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClassID" Type="Int32" Nullable="false" />
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
           <Property Name="SubjectID" Type="Int32" Nullable="false" />
           <Property Name="CompanyID" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
@@ -560,7 +564,7 @@
           <Property Name="GenderName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CompanyID" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="Group">
+        <EntityType Name="GroupInfo">
           <Key>
             <PropertyRef Name="GroupID" />
           </Key>
@@ -767,6 +771,20 @@
           <Property Name="ModifyBy" Type="Int32" Nullable="false" />
           <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <ComplexType Name="spCourseInformation_Result">
+          <Property Type="Int32" Name="CourseID" Nullable="false" />
+          <Property Type="String" Name="CourseName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CourseDurationID" Nullable="false" />
+          <Property Type="String" Name="DurationName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ClassID" Nullable="false" />
+          <Property Type="String" Name="ClassName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="GroupID" Nullable="false" />
+          <Property Type="String" Name="GroupName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CompanyID" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="Status" Nullable="false" />
+          <Property Type="String" Name="SubjectName" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -806,6 +824,7 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
                 <ScalarProperty Name="ClassSubjectID" ColumnName="ClassSubjectID" />
               </MappingFragment>
@@ -926,9 +945,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Groups">
-            <EntityTypeMapping TypeName="CMSModel.Group">
-              <MappingFragment StoreEntitySet="Group">
+          <EntitySetMapping Name="GroupInfoes">
+            <EntityTypeMapping TypeName="CMSModel.GroupInfo">
+              <MappingFragment StoreEntitySet="GroupInfo">
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
@@ -1147,6 +1166,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spCourseInformation" FunctionName="CMSModel.Store.spCourseInformation">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CMSModel.spCourseInformation_Result">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseDurationID" ColumnName="CourseDurationID" />
+                <ScalarProperty Name="DurationName" ColumnName="DurationName" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

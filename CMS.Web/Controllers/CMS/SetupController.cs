@@ -53,6 +53,31 @@ namespace CMS.Web.Controllers
             }
         }
 
+        [Route("GetAllSubjectClassWise/{ClassID:int}/{GroupID:int}")]
+        [HttpGet]
+        public dynamic GetAllSubjectClassWise(int ClassID,int GroupID)
+        {
+            try
+            {   /*context.ClassWiseSubjectInfoes.Where(m=> m.ClassID==ClassID && m.GroupID==GroupID);*/
+                var result = (from CWS in context.ClassWiseSubjectInfoes
+                              join S in context.Subjects on CWS.SubjectID equals S.SubjectID
+                              where CWS.ClassID == ClassID && CWS.GroupID==GroupID
+                              select new
+                              {
+                                  CWS.SubjectID,
+                                  S.SubjectName
+                              }).ToList();
+
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //Logger.LogInformation(ex.Message);
+                throw ex;
+            }
+        }
+
         [Route("GetAllShift/{CompanyID:int}")]
         [HttpGet]
         public dynamic GetAllShift(int CompanyID)
@@ -75,7 +100,7 @@ namespace CMS.Web.Controllers
         { 
             try
             {
-                var result = context.Groups.Where(m => m.ClassID == ClassID);
+                var result = context.GroupInfoes.Where(m => m.ClassID == ClassID);
                 return result;
             }
             catch (Exception ex)
@@ -123,7 +148,7 @@ namespace CMS.Web.Controllers
         {
             try
             {
-                var result = context.Groups;
+                var result = context.GroupInfoes;
                 return result;
             }
             catch (Exception ex)
@@ -221,7 +246,7 @@ namespace CMS.Web.Controllers
         {
             try
             {
-                var result = context.Groups.Where(m => m.ClassID == ClassID);
+                var result = context.GroupInfoes.Where(m => m.ClassID == ClassID);
                 return result;
             }
             catch (Exception ex)
@@ -268,7 +293,7 @@ namespace CMS.Web.Controllers
         {
             try
             {
-                var result = context.Groups.Where(m => m.GroupID == GroupID);
+                var result = context.GroupInfoes.Where(m => m.GroupID == GroupID);
                 return result;
             }
             catch (Exception ex)

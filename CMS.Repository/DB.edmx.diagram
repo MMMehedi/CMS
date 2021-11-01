@@ -15,7 +15,7 @@
         <EntityTypeShape EntityType="CMSModel.Employee" Width="1.5" PointX="6.75" PointY="4.75" />
         <EntityTypeShape EntityType="CMSModel.FMInformaton" Width="1.5" PointX="8.75" PointY="0.75" />
         <EntityTypeShape EntityType="CMSModel.Gender" Width="1.5" PointX="8.75" PointY="6.75" />
-        <EntityTypeShape EntityType="CMSModel.Group" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="CMSModel.GroupInfo" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="CMSModel.Menu" Width="1.5" PointX="2.75" PointY="9.75" />
         <EntityTypeShape EntityType="CMSModel.Permission" Width="1.5" PointX="4.75" PointY="9.75" />
         <EntityTypeShape EntityType="CMSModel.ProfessionType" Width="1.5" PointX="6.75" PointY="9.75" />

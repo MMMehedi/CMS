@@ -40,9 +40,11 @@
             $scope.Classs = data;
         });
 
-        CMSService.GetAll('/api/SetUpInfo/GetAllSubject/' + localStorage.getItem('CompanyID')).success(function (data) {
-            $scope.Subjects = data;
-        });
+        $scope.GetSubject = function () {
+            CMSService.GetAll('/api/SetUpInfo/GetAllSubjectClassWise/'  + $scope.Fee.ClassID + '/' + $scope.Fee.GroupID).success(function (data) {
+                $scope.Subjects = data;
+            });
+        }
 
         CMSService.GetAll('/api/SetUpInfo/GetAllStudentType/').success(function (data) {
             $scope.Students = data;

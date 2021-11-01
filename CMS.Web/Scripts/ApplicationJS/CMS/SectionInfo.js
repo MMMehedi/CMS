@@ -22,8 +22,7 @@
         }
         $scope.ClearAll = function () {
             $scope.Clearspinner();
-            $scope.SectionInfo = {};
-            $('#ClassId').val('').trigger('change.select2');
+            $scope.SectionInfo = {};           
             $('.bordercolor').css('border-color', '');
             $scope.filterOptions.filterText = "";
             $('#divMsg').hide();
@@ -38,6 +37,8 @@
         CMSService.GetAll('/api/SetUpInfo/GetAllClass/' + localStorage.getItem('CompanyID')).success(function (data) {
             $scope.Classs = data;
         });
+
+
         $scope.SectionInfo = {};
         $scope.buttonText = 'Save';
         $scope.Save = function (entity) {
@@ -48,14 +49,12 @@
                 $scope.msgSave = true;
                 if ($scope.buttonText == 'Save') {
                     entity.SectionID = 0;
-                    entity.SectionName = $scope.SectionInfo.Section;
-                    entity.ClassID = $("#ClassId").val();
+                    entity.SectionName = $scope.SectionInfo.SectionName;
+                    entity.ClassID = $scope.SectionInfo.ClassID;
                     entity.CompanyID = 1;
-                    entity.CreateBy = $scope.UserID;
+                    entity.CreatedBy = $scope.UserID;
                     entity.ModifyBy = $scope.UserID;
-                    entity.Status = SectionInfo.Active;
-                    //entity.CreateDate = $scope.Today;
-                    //entity.ModifyDate = $scope.Today;
+                    entity.Status = SectionInfo.Status;
                     CMSService.Save('/api/SectionInfo/Add/', entity).success(function (data) {
                         if (data == "Data Saved Successfullly") {
                             toastr.success(data);
@@ -73,16 +72,15 @@
                         }
                     });
                 }
-                if ($scope.buttonText == 'Update') {
-                    
-                    entity.SectionID = $scope.SectionID;
-                    entity.SectionName = $scope.SectionInfo.Section;
-                    entity.ClassID = $("#ClassId").val();
-                    entity.CompanyID = $scope.CompanyId;
-                    entity.CreateBy = $scope.CreatedBy;
-                    entity.CreateDate = $scope.CreateDate;
+                if ($scope.buttonText == 'Update') {                    
+                    entity.SectionID = $scope.SectionInfo.SectionID;
+                    entity.SectionName = $scope.SectionInfo.SectionName;
+                    entity.ClassID = $scope.SectionInfo.ClassID;
+                    entity.CompanyID = $scope.SectionInfo.CompanyID;
+                    entity.CreateBy = $scope.SectionInfo.CreatedBy;
+                    entity.CreatedDate = $scope.SectionInfo.CreatedDate;
                     entity.ModifyBy = $scope.UserID;
-                    entity.Status = $scope.SectionInfo.Active;                   
+                    entity.Status = $scope.SectionInfo.Status;
                     CMSService.Save('/api/SectionInfo/Update/', entity).success(function (data) {
                         if (data == "Data Updated Successfullly") {
                             toastr.success(data);
@@ -184,29 +182,21 @@
     //End of ng-Grid
     //Edit
     $scope.edit = function (row) {
-        $scope.ClearAll();
-        //$scope.Desig = angular.copy(row);
-        //Active = angular.copy(row.Active);
-        $scope.SectionID = angular.copy(row.SectionID);
-        $scope.SectionInfo.Section = angular.copy(row.SectionName);
-        $('#ClassId').val(angular.copy(row.ClassID));
-        $('#ClassId').select2().trigger('change.select2');
-        $scope.CompanyId = angular.copy(row.CompanyID);
-        $scope.CreatedBy = angular.copy(row.CreateBy);
-        $scope.CreateDate = angular.copy(row.CreateDate);
-        $scope.SectionInfo.Active = angular.copy(row.Status);
+        $scope.ClearAll();        
+        $scope.SectionInfo = angular.copy(row);
         $scope.buttonText = 'Update';
     }
 
     //Validation
     function filedVal() {
+        toastr.remove();
         $('.bordercolor').css('border-color', '');
         $('.validation').hide();
         $('#spnMobileClearText').hide();
 
         if ($("#ClassId").val() == "") {
-            $("#ClassId").select2('open');
-            $(".select2-search__field").css('border-color', 'red');
+            $('#ClassId').css('border-color', 'red');
+            $('#ClassId').focus();
             toastr.warning("Please Selcet Class !");
             return;
         }

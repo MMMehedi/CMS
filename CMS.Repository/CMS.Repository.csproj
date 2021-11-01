@@ -100,7 +100,7 @@
     <Compile Include="Gender.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Group.cs">
+    <Compile Include="GroupInfo.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Menu.cs">
@@ -127,6 +127,9 @@
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Shift.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCourseInformation_Result.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="StudentAcademicInfo.cs">
