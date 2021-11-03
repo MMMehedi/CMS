@@ -27,34 +27,45 @@ namespace CMS.Web.Controllers
         {
             try
             {
-                var result = (from T in context.TutionFeeSetUps
-                              join C in context.Classes on T.ClassID equals C.ClassID
-                              join G in context.GroupInfoes on T.GroupID equals G.GroupID
-                              join ST in context.StudentTypes on T.StudentTypeID equals ST.StudentTypeID
-                              //join S in context.Subjects on T.SubjectID equals S.SubjectID
-                              //join SS in context.Shifts on SE.ShiftID equals SS.ShiftID
-                              select new
-                              {
-                                  T.TutionFeeID,
-                                  T.ClassID,
-                                  C.ClassName,
-                                  T.GroupID,
-                                  G.GroupName,
-                                  T.StudentTypeID,
-                                  ST.StudentTypeName,
-                                  T.TutionFee,
-                                  T.CompanyID,
-                                  T.CreatedBy,
-                                  T.CreatedDate,
-                                  T.Status,
-                              }).ToList();
-                return result;
+                var result = new List<spFeeSetUPInfo_Result>();
+                using (var cmd = context.Database.Connection.CreateCommand())
+                {
+                    cmd.CommandText = "exec spFeeSetUPInfo";
+                    context.Database.Connection.Open();
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var FeeInfo = new spFeeSetUPInfo_Result
+                            {
 
+                             TutionFeeID =  reader.GetInt32(0),
+                             StudentTypeID = reader.GetInt32(1),
+                             ClassID =  reader.GetInt32(2),
+                             GroupID =  reader.GetInt32(3),
+                             SubjectID = reader.GetInt32(4),
+                             CourseID  = reader.GetInt32(5),
+                             TutionFee = reader.GetDecimal(6),
+                             CompanyID = reader.GetInt32(7),
+                             CreatedBy =  reader.GetInt32(8),
+                             CreatedDate = reader.GetDateTime(9),
+                             Status = reader.GetBoolean(10),
+                             StudentTypeName = reader.GetString(11),
+                             CourseName = reader.GetString(12),
+                             SubjectName =  reader.GetString(13),
+                             GroupName = reader.GetString(14),
+                             ClassName = reader.GetString(15),                                
+                            };
+                            result.Add(FeeInfo);
+                        }
+                    }
+                    context.Database.Connection.Close();
+                }
+                return result;
             }
-            catch (Exception ex)
+            catch (Exception Ex)
             {
-                //Logger.LogInformation(ex.Message);
-                throw ex;
+                throw;
             }
         }
 

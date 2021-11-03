@@ -357,9 +357,14 @@
           <Property Name="ModifyDate" Type="datetime" Nullable="false" />
         </EntityType>
         <Function Name="spCourseInformation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spCourseInformationCourseWise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClassID" Type="int" Mode="In" />
+          <Parameter Name="GroupID" Type="int" Mode="In" />
+        </Function>
         <Function Name="spDecreeOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SuitNo" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="spFeeSetUPInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="CMSModelStoreContainer">
           <EntitySet Name="Blood" EntityType="Self.Blood" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
@@ -418,7 +423,13 @@
           <EntitySet Name="TutionFeeSetUps" EntityType="CMSModel.TutionFeeSetUp" />
           <EntitySet Name="UnionInfoes" EntityType="CMSModel.UnionInfo" />
           <EntitySet Name="UserInfoes" EntityType="CMSModel.UserInfo" />
-          <FunctionImport Name="spCourseInformation" ReturnType="Collection(CMSModel.spCourseInformation_Result)" />
+          <FunctionImport Name="spCourseInformation" ReturnType="Collection(CMSModel.spCourseInformation_Result)">
+            </FunctionImport>
+          <FunctionImport Name="spCourseInformationCourseWise" ReturnType="Collection(CMSModel.spCourseInformationCourseWise_Result)">
+            <Parameter Name="ClassID" Mode="In" Type="Int32" />
+            <Parameter Name="GroupID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spFeeSetUPInfo" ReturnType="Collection(CMSModel.spFeeSetUPInfo_Result)" />
           </EntityContainer>
         <EntityType Name="Blood">
           <Key>
@@ -784,6 +795,38 @@
           <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="23" />
           <Property Type="Boolean" Name="Status" Nullable="false" />
           <Property Type="String" Name="SubjectName" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spCourseInformationCourseWise_Result">
+          <Property Type="Int32" Name="CourseID" Nullable="false" />
+          <Property Type="String" Name="CourseName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CourseDurationID" Nullable="false" />
+          <Property Type="String" Name="DurationName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ClassID" Nullable="false" />
+          <Property Type="String" Name="ClassName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="GroupID" Nullable="false" />
+          <Property Type="String" Name="GroupName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CompanyID" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="Status" Nullable="false" />
+          <Property Type="String" Name="SubjectName" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spFeeSetUPInfo_Result">
+          <Property Type="Int32" Name="TutionFeeID" Nullable="false" />
+          <Property Type="Int32" Name="StudentTypeID" Nullable="false" />
+          <Property Type="Int32" Name="ClassID" Nullable="false" />
+          <Property Type="Int32" Name="GroupID" Nullable="false" />
+          <Property Type="Int32" Name="SubjectID" Nullable="false" />
+          <Property Type="Int32" Name="CourseID" Nullable="false" />
+          <Property Type="Decimal" Name="TutionFee" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="CompanyID" Nullable="false" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="Status" Nullable="false" />
+          <Property Type="String" Name="StudentTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CourseName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="GroupName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ClassName" Nullable="false" MaxLength="50" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1181,6 +1224,46 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spCourseInformationCourseWise" FunctionName="CMSModel.Store.spCourseInformationCourseWise">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CMSModel.spCourseInformationCourseWise_Result">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseDurationID" ColumnName="CourseDurationID" />
+                <ScalarProperty Name="DurationName" ColumnName="DurationName" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spFeeSetUPInfo" FunctionName="CMSModel.Store.spFeeSetUPInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CMSModel.spFeeSetUPInfo_Result">
+                <ScalarProperty Name="TutionFeeID" ColumnName="TutionFeeID" />
+                <ScalarProperty Name="StudentTypeID" ColumnName="StudentTypeID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="TutionFee" ColumnName="TutionFee" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StudentTypeName" ColumnName="StudentTypeName" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

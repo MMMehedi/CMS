@@ -129,7 +129,13 @@
     <Compile Include="Shift.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="spCourseInformationCourseWise_Result.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="spCourseInformation_Result.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spFeeSetUPInfo_Result.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="StudentAcademicInfo.cs">

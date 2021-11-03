@@ -1,9 +1,8 @@
 ﻿<style>
- .PartyItemsgridStyle {
+    .PartyItemsgridStyle {
         border: 1px solid rgb(212,212,212);
         width: 100%;
         height: 150px;
-
     }
 </style>
 <div id="breadcrumbs" class="breadcrumbs ace-save-state">
@@ -102,7 +101,7 @@
                             <div class="form-group ">
                                 <label class="col-md-4 control-label paddidata-ng-left">Student Mobile<span style="color:red">*</span> </label>
                                 <div class="col-md-8">
-                                    <input type="text" autocomplete="off" id="SmobileId" ng-model="Std.StudentMobile" class="form-control bordercolor  col-xs-3-offset-4 Number" ng-change="SGetMobile()"  placeholder="Can't be empty" maxlength="11"/>
+                                    <input type="text" autocomplete="off" id="SmobileId" ng-model="Std.StudentMobile" class="form-control bordercolor  col-xs-3-offset-4 Number" ng-change="SGetMobile()" placeholder="Can't be empty" maxlength="11" />
                                 </div>
                             </div>
                             <div class="form-group ">
@@ -119,6 +118,14 @@
                     <div class="row well well-sm" style="background-color:white">
                         <div class="col-md-4">
                             @*<div class="row well well-sm" style="background-color:white">*@
+                            <div class="form-group">
+                                <label class="col-md-3 control-label no-paddidata-ng-middle">Type<span style="color:red">*</span> </label>
+                                <div class="col-md-8">
+                                    <select id="StudentTypeIDId" class="bordercolor" ng-model="Std.StudentTypeID" ng-click="DivShow()" ng-options="m.StudentTypeID as m.StudentTypeName for m in Students" style='width: 100%;'>
+                                        <option value="">-- Select Student Type --</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="form-group ">
                                 <label class="col-md-3 control-label no-paddidata-ng-middle">Shift<span style="color:red">*</span> </label>
                                 <div class="col-md-8 ">
@@ -139,7 +146,7 @@
                                 <label class="col-md-3 control-label no-paddidata-ng-middle">Group<span style="color:red">*</span> </label>
                                 <div class="col-md-8">
                                     <select id="GroupIDId" class=" bordercolor" ng-model="Std.GroupID"
-                                            ng-options="m.GroupID as m.GroupName for m in Groups" style='width: 100%;'>
+                                            ng-options="m.GroupID as m.GroupName for m in Groups"  ng-click="GetSubjectCourse()"style='width: 100%;'>
                                         <option value="">-- Select Department --</option>
                                     </select>
                                 </div>
@@ -155,9 +162,9 @@
                             <div class="form-group ">
                                 <label class="col-md-3 control-label no-paddidata-ng-right">Roll No <span style="color:red">*</span> </label>
                                 <div class="col-md-8">
-                                    <input type="text" autocomplete="off" id="RollId" ng-model="Std.RollNo" class="form-control bordercolor Number" placeholder="Can't be empty" maxlength="4"/>
+                                    <input type="text" autocomplete="off" id="RollId" ng-model="Std.RollNo" class="form-control bordercolor Number" placeholder="Can't be empty" maxlength="4" />
                                 </div>
-                            </div>                           
+                            </div>
                             @*</div>*@
                         </div>
 
@@ -173,7 +180,7 @@
                                 <div class="form-group ">
                                     <label class="col-md-4 control-label no-paddidata-ng-right">NID<span style="color:red">*</span> </label>
                                     <div class="col-md-8">
-                                        <input type="text" autocomplete="off" id="FNIDId" ng-model="Std.FNID" class="form-control bordercolor Number"  placeholder="Can't be empty" maxlength="17"/>
+                                        <input type="text" autocomplete="off" id="FNIDId" ng-model="Std.FNID" class="form-control bordercolor Number" placeholder="Can't be empty" maxlength="17" />
                                     </div>
                                 </div>
 
@@ -203,7 +210,7 @@
                                 <div class="form-group ">
                                     <label class="col-md-4 control-label no-paddidata-ng-right">NID<span style="color:red">*</span> </label>
                                     <div class="col-md-8">
-                                        <input type="text" autocomplete="off" id="MNIDId" ng-model="Std.MNID" class="form-control bordercolor Number"  placeholder="Can't be empty" maxlength="17"/>
+                                        <input type="text" autocomplete="off" id="MNIDId" ng-model="Std.MNID" class="form-control bordercolor Number" placeholder="Can't be empty" maxlength="17" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -224,47 +231,45 @@
                         </div>
                     </div>
                     @*</div>*@
-                  
+
                 </div>
 
-                <div class="col-md-12" style="background-color:aliceblue">
-                    
-                   <div class="col-md-6">
-                       <div class="form-group" ng-hide="SubjectDiv">
-                           <label class="col-md-4 control-label no-paddidata-ng-middle">Subject<span style="color:red">*</span> </label>
-                           <div class="col-md-6">
-                               <select id="SubjectIDId" class="bordercolor" ng-model="Fee.SubjectID" ng-options="m.SubjectID as m.SubjectName for m in Subjects" style='width: 100%;'>
-                                   <option value="">-- Select Subject --</option>
-                               </select>
-                           </div>
-                       </div>
-                       <div class="form-group" ng-hide="CourseDiv">
-                           <label class="col-md-4 control-label no-paddidata-ng-middle">Course Name<span style="color:red">*</span> </label>
-                           <div class="col-md-6">
-                               <select id="CourseIDId" class="bordercolor" ng-model="Fee.CourseID" ng-options="m.SubjectID as m.SubjectName for m in Subjects" style='width: 100%;'>
-                                   <option value="">-- Select Course --</option>
-                               </select>
-                           </div>
-                       </div>
+                <div class="col-md-12" style="background-color:aliceblue" ng-hide="AddToListDiv">
 
-                       <div class="col-md-10 control-label no-paddidata-ng-middle">
-                           <button class="btn btn-primary" type="button" ng-model="buttonTextD" ng-click="SaveDetails($scope.obGrid,detail)">
-                               <i class="glyphicon glyphicon-plus"></i>
-                               {{buttonTextD}}
-                           </button>
-                           <button ng-click="ClearAllDetails()" type="button" class="btn">Reset</button>
-                       </div>
-                   </div>
-                        
-                   
-                    &nbsp;&nbsp;
-                        <div class="col-md-6" style="">
-                            <div class="table-responsive">
-                                <div class="PartyItemsgridStyle" ng-grid="PartyItemsgridOptions"></div>
+                    <div class="col-md-6">
+                        <div class="form-group" ng-hide="SubjectDiv">
+                            <label class="col-md-4 control-label no-paddidata-ng-middle">Subject<span style="color:red">*</span> </label>
+                            <div class="col-md-6">
+                                <select id="SubjectIDId" class="bordercolor" ng-model="detail.SubjectID" ng-options="m.SubjectID as m.SubjectName for m in Subjects" style='width: 100%;'>
+                                    <option value="">-- Select Subject --</option>
+                                </select>
                             </div>
-                        </div>                  
-                    
+                        </div>
+                        <div class="form-group" ng-hide="CourseDiv">
+                            <label class="col-md-3 control-label no-paddidata-ng-middle">Course Name<span style="color:red">*</span> </label>
+                            <div class="col-md-9">
+                                <select id="CourseIDId" class="bordercolor" ng-model="detail.CourseID" ng-options="m.CourseID as m.CourseName for m in Courses" style='width: 100%;'>
+                                    <option value="">-- Select Course --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-10 control-label no-paddidata-ng-middle">
+                            <button class="btn btn-primary" type="button" ng-model="buttonTextD" ng-click="SaveDetails($scope.obGrid,detail)">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                {{buttonTextD}}
+                            </button>
+                            <button ng-click="ClearAllDetails()" type="button" class="btn">Reset</button>
+                        </div>
                     </div>
+                    &nbsp;&nbsp;
+                    <div class="col-md-6" style="">
+                        <div class="table-responsive">
+                            <div class="PartyItemsgridStyle" ng-grid="PartyItemsgridOptions"></div>
+                        </div>
+                    </div>
+
+                </div>
                 &nbsp;&nbsp; &nbsp;&nbsp;
                 <div class="col-md-12 col-md-offset-4 ">
                     <button class="btn btn-success" type="button" ng-disabled="SaveDisabled" ng-click="Save(Std)">

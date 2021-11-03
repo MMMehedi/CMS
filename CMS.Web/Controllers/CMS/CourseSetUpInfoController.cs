@@ -118,7 +118,7 @@ namespace CMS.Web.Controllers
                     {
                         while (reader.Read())
                         {
-                            var ProductStock = new spCourseInformation_Result
+                            var CourseInfo = new spCourseInformation_Result
                             {
                                 CourseID = reader.GetInt32(0),
                                 CourseName = reader.GetString(1),
@@ -133,7 +133,7 @@ namespace CMS.Web.Controllers
                                 Status = reader.GetBoolean(10),
                                 SubjectName = reader.GetString(11),
                             };
-                            result.Add(ProductStock);
+                            result.Add(CourseInfo);
                         }
                     }
                     context.Database.Connection.Close();

@@ -78,6 +78,49 @@ namespace CMS.Web.Controllers
             }
         }
 
+        [Route("GetAllCourseClassWise/{ClassID:int}/{GroupID:int}")]
+        [HttpGet]
+        public dynamic GetAllCourseClassWise(int ClassID, int GroupID)
+        {
+            try
+            {
+                var result = new List<spCourseInformationCourseWise_Result>();
+                using (var cmd = context.Database.Connection.CreateCommand())
+                {
+                    cmd.CommandText = "exec spCourseInformationCourseWise" + " " + ClassID + "," + GroupID;
+                    context.Database.Connection.Open();
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var CourseInfoClassWise = new spCourseInformationCourseWise_Result
+                            {
+                                CourseID = reader.GetInt32(0),
+                                CourseName = reader.GetString(1),
+                                CourseDurationID = reader.GetInt32(2),
+                                DurationName = reader.GetString(3),
+                                ClassID = reader.GetInt32(4),
+                                ClassName = reader.GetString(5),
+                                GroupID = reader.GetInt32(6),
+                                GroupName = reader.GetString(7),
+                                CompanyID = reader.GetInt32(8),
+                                CreatedDate = reader.GetDateTime(9),
+                                Status = reader.GetBoolean(10),
+                                SubjectName = reader.GetString(11),                              
+                            };
+                            result.Add(CourseInfoClassWise);
+                        }
+                    }
+                    context.Database.Connection.Close();
+                }
+                return result;
+            }
+            catch (Exception EX)
+            {
+                throw;
+            }
+        }
+
         [Route("GetAllShift/{CompanyID:int}")]
         [HttpGet]
         public dynamic GetAllShift(int CompanyID)

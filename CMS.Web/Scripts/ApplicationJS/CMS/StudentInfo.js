@@ -30,7 +30,11 @@
         $(".Groupdiv").hide();
         $(".Sectiondiv").hide();
 
-         $scope.ClearAllDetails = function () {
+        $scope.AddToListDiv = true;
+        $scope.SubjectDiv = true;
+        $scope.CourseDiv = true;
+
+        $scope.ClearAllDetails = function () {
             $scope.ClassDisable = false;
             $scope.GroupDisable = false;
             $scope.detail.SubjectID = '';
@@ -59,6 +63,28 @@
 
 
         //Dropdown
+
+        CMSService.GetAll('/api/SetUpInfo/GetAllStudentType/').success(function (data) {
+            $scope.Students = data;
+        });
+        $scope.DivShow = function () {
+            if ($scope.Std.StudentTypeID == 2) {
+                $scope.SubjectDiv = false;
+                $scope.CourseDiv = true;
+                $scope.AddToListDiv = false;
+            }
+            else if ($scope.Std.StudentTypeID == 3) {
+                $scope.SubjectDiv = true;
+                $scope.CourseDiv = false;
+                $scope.AddToListDiv = false;
+            }
+            else {
+                $scope.AddToListDiv = true;
+                $scope.SubjectDiv = true;
+                $scope.CourseDiv = true;
+            }
+        }
+      
         CMSService.GetAll('/api/SetUpInfo/GetAllClass/' + localStorage.getItem('CompanyID')).success(function (data) {
             $scope.Classs = data;
         });
@@ -82,41 +108,48 @@
             $scope.ProfessionTypes = data;
         });
 
-        $scope.GetSubject = function () {
-            CMSService.GetAll('/api/SetUpInfo/GetAllSubjectClassWise/' + $scope.Std.ClassID + '/' + $scope.Std.GroupID).success(function (data) {
+        //$scope.GetSubject = function () {
+        //    CMSService.GetAll('/api/SetUpInfo/GetAllSubjectClassWise/' + $scope.Std.ClassID + '/' + $scope.Std.GroupID).success(function (data) {
+        //        $scope.Subjects = data;
+        //    });
+        //}
+       
+        $scope.ClassSection = function () {
+            CMSService.GetAll('/api/SetUpInfo/GetAllGroupByClass/' + $scope.Std.ClassID).success(function (data) {
+                $scope.Groups = data;
+            });
+            CMSService.GetAll('/api/SetUpInfo/GetAllSectionByClass/' + $scope.Std.ClassID).success(function (data) {
+                $scope.Sections = data;
+            });
+        };
+
+         $scope.GetSubjectCourse = function () {
+             CMSService.GetAll('/api/SetUpInfo/GetAllSubjectClassWise/' + $scope.Std.ClassID + '/' + $scope.Std.GroupID).success(function (data) {
                 $scope.Subjects = data;
             });
+             CMSService.GetAll('/api/SetUpInfo/GetAllCourseClassWise/' + $scope.Std.ClassID + '/' + $scope.Std.GroupID).success(function (data) {
+                $scope.Courses = data;
+            });
         }
-        //CMSService.GetAll('/api/SetUpInfo/GetAllSection/' + localStorage.getItem('CompanyID')).success(function (data) {
-        //    $scope.Sections = data;
-        //});
-        //CMSService.GetAll('/api/SetUpInfo/GetAllGroup/' + localStorage.getItem('CompanyID')).success(function (data) {
-        //    $scope.Groups = data;
-        //});
-
         //Add list
         //$scope.obGrid.length = 0;
         $scope.obGrid = [];
         $scope.buttonTextD = "Add to List";
         $scope.SaveDetails = function (obGrid, detail) {
-            if (fnValDet() == true) {
+            if ($scope.SubjectDiv == false)
+            {
+                // if (fnValDet() == true) {
                 var vCount = 0; vMaxtDid = 0;
-                for (i in $scope.obGrid) {
-                    if ($scope.obGrid[i].ClassID != detail.ClassID) {
-                        toastr.remove();
-                        toastr.warning("Class Name Must Be Same")
-                        // vCount = 1;
-                        return;
-                    }
-                    if ($scope.obGrid[i].GroupID != detail.GroupID) {
-                        toastr.remove();
-                        toastr.warning("Group Name Must Be Same")
-                        //vCount = 1;
-                        return;
-                    }
+                for (i in $scope.obGrid) {                  
+                    //if ($scope.obGrid[i].GroupID != detail.GroupID) {
+                    //    toastr.remove();
+                    //    toastr.warning("Group Name Must Be Same")
+                    //    //vCount = 1;
+                    //    return;
+                    //}
                     if ($scope.obGrid[i].SubjectID == detail.SubjectID) {
                         toastr.remove();
-                        toastr.warning("Subject Name Must Already Exist")
+                        toastr.warning("Subject Name  Already Exist")
                         vCount = 1;
                     }
                 }
@@ -128,13 +161,13 @@
                 if ($scope.buttonTextD == "Add to List") {
                     if (vCount == 0) {
                         $scope.obGrid.push({
-                            ID: $scope.obGrid.length + 1,                          
-                            ClassID: detail.ClassID,
-                            GroupID: detail.GroupID,
+                            ID: $scope.obGrid.length + 1,
+                            //ClassID: detail.ClassID,
+                            //GroupID: detail.GroupID,
                             SubjectID: detail.SubjectID,
                             SubjectName: $scope.Subjects[$scope.detail.SubjectID - 1].SubjectName, //detail.SubjectName,
-                            ClassName: $scope.Classs[$scope.detail.ClassID - 1].ClassName, //detail.ClassName,
-                            GroupName: detail.GroupName,
+                            //ClassName: $scope.Classs[$scope.detail.ClassID - 1].ClassName, //detail.ClassName,
+                            //GroupName: detail.GroupName,
                         });
                         $scope.getItemPagedDataAsync($scope.pagingItemOptions.pageSize, 1);
                         //$scope.ClearAllDetails();                       
@@ -144,11 +177,6 @@
                     }
                 }
                 if ($scope.buttonTextD == "Update") {
-                    //for (i in $scope.obGrid) {
-                    //    if (vMaxtDid < $scope.obGrid[i].ID) {
-                    //        vMaxtDid = $scope.obGrid[i].ID;
-                    //    }
-                    //}
                     $scope.obGrid[detail.ID - 1] = angular.copy(detail);
                     $scope.getItemPagedDataAsync($scope.pagingItemOptions.pageSize, 1);
                     Gtotal += total;
@@ -156,132 +184,304 @@
                     $scope.Editdisabled = false;
                     $scope.ClearAllDetails();
                 }
-            }
-        }
+                // }
+                //Item ng-Grid
+                $scope.filterItemOptions = {
+                    filterText: "",
+                    useExternalFilter: true
+                };
+                $scope.totalServerItems2 = 0;
+                $scope.pagingItemOptions = {
+                    pageSizes: [10, 15, 20],
+                    pageSize: 10,
+                    currentPage: 1
+                };
+                $scope.setItemPagingData = function (data, page, pageSize) {
+                    var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+                    $scope.myData2 = pagedData;
+                    $scope.totalServerItems2 = data.length;
+                    if (!$scope.$$phase) {
+                        $scope.$apply();
+                    }
+                };
 
+                $scope.getItemPagedDataAsync = function (pageSize, page, searchText) {
+                    setTimeout(function () {
+                        $scope.setItemPagingData($scope.obGrid, page, pageSize);
+                    }, 100);
+                };
 
+                $scope.getItemPagedDataAsync($scope.pagingItemOptions.pageSize, $scope.pagingItemOptions.currentPage);
 
+                $scope.$watch('pagingItemOptions', function (newVal, oldVal) {
+                    if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+                        $scope.getItemPagedDataAsync($scope.pagingItemOptions.pageSize, $scope.pagingItemOptions.currentPage, $scope.filterItemOptions.filterText);
+                    }
+                }, true);
+                $scope.$watch('filterItemOptions', function (newVal, oldVal) {
+                    if (newVal !== oldVal) {
+                        $scope.getItemPagedDataAsync($scope.pagingItemOptions.pageSize, $scope.pagingItemOptions.currentPage, $scope.filterItemOptions.filterText);
+                    }
+                }, true);
 
-        //Item ng-Grid
-        $scope.filterItemOptions = {
-            filterText: "",
-            useExternalFilter: true
-        };
-        $scope.totalServerItems2 = 0;
-        $scope.pagingItemOptions = {
-            pageSizes: [10, 15, 20],
-            pageSize: 10,
-            currentPage: 1
-        };
-        $scope.setItemPagingData = function (data, page, pageSize) {
-            var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
-            $scope.myData2 = pagedData;
-            $scope.totalServerItems2 = data.length;
-            if (!$scope.$$phase) {
-                $scope.$apply();
-            }
-        };
-
-        $scope.getItemPagedDataAsync = function (pageSize, page, searchText) {
-            setTimeout(function () {
-                $scope.setItemPagingData($scope.obGrid, page, pageSize);
-            }, 100);
-        };
-
-        $scope.getItemPagedDataAsync($scope.pagingItemOptions.pageSize, $scope.pagingItemOptions.currentPage);
-
-        $scope.$watch('pagingItemOptions', function (newVal, oldVal) {
-            if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
-                $scope.getItemPagedDataAsync($scope.pagingItemOptions.pageSize, $scope.pagingItemOptions.currentPage, $scope.filterItemOptions.filterText);
-            }
-        }, true);
-        $scope.$watch('filterItemOptions', function (newVal, oldVal) {
-            if (newVal !== oldVal) {
-                $scope.getItemPagedDataAsync($scope.pagingItemOptions.pageSize, $scope.pagingItemOptions.currentPage, $scope.filterItemOptions.filterText);
-            }
-        }, true);
-
-        $scope.PartyItemsgridOptions = {
-            data: 'myData2',
-            enablePaging: true,
-            showFooter: false,
-            totalServerItems2: 'totalServerItems2',
-            pagingItemOptions: $scope.pagingItemOptions,
-            filterItemOptions: $scope.filterItemOptions,
-            enableCellSelection: true,
-            selectedItems: $scope.selectedRow,
-            multiSelect: false,
-            columnDefs: [
-            { field: 'ID', displayName: 'ID', width: 156, visible: false },
-            { field: 'Edit', width: 40, cellTemplate: '<button  ng-hide="edithide" ng-click=editItem(row.entity)><i class="fa fa-pencil-square-o grid-edit-icon"></i></button>' },
-            { field: 'Delete', width: 65, cellTemplate: '<button  ng-hide="deletehide" ng-click=deleteItem(row.entity)><i class="fa fa-pencil-square-o grid-delete-icon"></i></button>' },            
-            { field: 'ClassName', displayName: 'Class', width: 200, visible: true },
-            { field: 'GroupName', displayName: 'Group', width: 200, visible: true },
-            { field: 'SubjectName', displayName: 'Subject', width: 200, visible: true },
-            //{ field: 'total', displayName: 'Duration', width: 90, visible: true },
-            ]
-        };
-        $scope.editItem = function (row) {
-            $scope.detail = angular.copy(row);
-            Gtotal = Gtotal - row.total;
-            $scope.detail.Total = Gtotal;
-            $scope.Editdisabled = true;
-            $scope.buttonTextD = "Update";
-        }
-        $scope.deleteItem = function (row) {
-            var retValue = confirm('Do you want to delete this record?');
-            if (retValue == true) {
-                var index = -1;
-                for (var i = 0; i < $scope.obGrid.length; i++) {
-                    if ($scope.obGrid[i].Inv_ProductID === row.Inv_ProductID) {
-                        index = i;
-                        break;
+                $scope.PartyItemsgridOptions = {
+                    data: 'myData2',
+                    enablePaging: true,
+                    showFooter: false,
+                    totalServerItems2: 'totalServerItems2',
+                    pagingItemOptions: $scope.pagingItemOptions,
+                    filterItemOptions: $scope.filterItemOptions,
+                    enableCellSelection: true,
+                    selectedItems: $scope.selectedRow,
+                    multiSelect: false,
+                    columnDefs: [
+                    { field: 'ID', displayName: 'ID', width: 156, visible: false },
+                    { field: 'Edit', width: 40, cellTemplate: '<button  ng-hide="edithide" ng-click=editItem(row.entity)><i class="fa fa-pencil-square-o grid-edit-icon"></i></button>' },
+                    { field: 'Delete', width: 65, cellTemplate: '<button  ng-hide="deletehide" ng-click=deleteItem(row.entity)><i class="fa fa-pencil-square-o grid-delete-icon"></i></button>' },
+                    { field: 'SubjectID', displayName: 'Class', visible: true },
+                    { field: 'GroupName', displayName: 'Group', visible: true },
+                    { field: 'SubjectName', displayName: 'Subject', width: 200, visible: true },
+                    //{ field: 'total', displayName: 'Duration', width: 90, visible: true },
+                    ]
+                };
+                $scope.editItem = function (row) {
+                    $scope.detail = angular.copy(row);
+                    Gtotal = Gtotal - row.total;
+                    $scope.detail.Total = Gtotal;
+                    $scope.Editdisabled = true;
+                    $scope.buttonTextD = "Update";
+                }
+                $scope.deleteItem = function (row) {
+                    var retValue = confirm('Do you want to delete this record?');
+                    if (retValue == true) {
+                        var index = -1;
+                        for (var i = 0; i < $scope.obGrid.length; i++) {
+                            if ($scope.obGrid[i].Inv_ProductID === row.Inv_ProductID) {
+                                index = i;
+                                break;
+                            }
+                        }
+                        if (index === -1) {
+                            alert("Something gone wrong");
+                        }
+                        $scope.obGrid.splice(index, 1);
+                        $scope.getItemPagedDataAsync($scope.pagingItemOptions.pageSize, 1);
+                        $scope.detail.Total = ' ';
+                        Gtotal = Gtotal - row.total;
+                        $scope.detail.Total = Gtotal;
                     }
                 }
-                if (index === -1) {
-                    alert("Something gone wrong");
+                function fnValDet() {
+                    toastr.remove();
+                    $('.bordercolor').css('border-color', '');
+                    $('.validation').hide();
+                    $('#spnMobileClearText').hide();
+
+
+                    if ($("#ClassIDId").val() == "") {
+                        $('#ClassIDId').css('border-color', 'red');
+                        $('#ClassIDId').focus();
+                        toastr.warning("Please Selcet Class !");
+                        return;
+                    }
+                    else if ($("#GroupIDId").val() == "") {
+                        $('#GroupIDId').css('border-color', 'red');
+                        $('#GroupIDId').focus();
+                        toastr.warning("Please Selcet Group !");
+                        return;
+                    }
+                    if ($("#SubjectIDId").val() == "") {
+                        $('#SubjectIDId').css('border-color', 'red');
+                        $('#SubjectIDId').focus();
+                        toastr.warning("Please Selcet Subject !");
+                        return;
+                    }
+                    else {
+                        $('#SubjectIDId').css('border-color', '');
+                        $('.validation').hide();
+                        return true;
+                    }
+
                 }
-                $scope.obGrid.splice(index, 1);
-                $scope.getItemPagedDataAsync($scope.pagingItemOptions.pageSize, 1);
-                $scope.detail.Total = ' ';
-                Gtotal = Gtotal - row.total;
-                $scope.detail.Total = Gtotal;
             }
+           
+
+                if ($scope.CourseDiv == false) {
+                    // if (fnValDet() == true) {
+                    var vCount = 0; vMaxtDid = 0;
+                    for (i in $scope.obGrid) {
+                        //if ($scope.obGrid[i].ClassID != detail.ClassID) {
+                        //    toastr.remove();
+                        //    toastr.warning("Class Name Must Be Same")
+                        //    // vCount = 1;
+                        //    return;
+                        //}
+                        //if ($scope.obGrid[i].GroupID != detail.GroupID) {
+                        //    toastr.remove();
+                        //    toastr.warning("Group Name Must Be Same")
+                        //    //vCount = 1;
+                        //    return;
+                        //}
+                        if ($scope.obGrid[i].CourseID == detail.CourseID) {
+                            toastr.remove();
+                            toastr.warning("Course Name Must Already Exist")
+                            vCount = 1;
+                        }
+                    }
+                    for (i in $scope.obGrid) {
+                        if (vMaxtDid < $scope.obGrid[i].ID) {
+                            vMaxtDid = $scope.obGrid[i].ID;
+                        }
+                    }
+                    if ($scope.buttonTextD == "Add to List") {
+                        if (vCount == 0) {
+                            $scope.obGrid.push({
+                                ID: $scope.obGrid.length + 1,
+                                //ClassID: detail.ClassID,
+                                //GroupID: detail.GroupID,
+                                CourseID: detail.CourseID,
+                                CourseName: $scope.Courses[$scope.detail.CourseID - 1].CourseName, //detail.CourseName,
+                                //ClassName: $scope.Classs[$scope.detail.ClassID - 1].ClassName, //detail.ClassName,
+                                //GroupName: detail.GroupName,
+                            });
+                            $scope.getItemPagedDataAsync($scope.pagingItemOptions.pageSize, 1);
+                            //$scope.ClearAllDetails();                       
+                            $scope.ClassDisable = true;
+                            $scope.GroupDisable = true;
+
+                        }
+                    }
+                    if ($scope.buttonTextD == "Update") {
+                        $scope.obGrid[detail.ID - 1] = angular.copy(detail);
+                        $scope.getItemPagedDataAsync($scope.pagingItemOptions.pageSize, 1);
+                        Gtotal += total;
+                        $scope.detail.Total = Gtotal;
+                        $scope.Editdisabled = false;
+                        $scope.ClearAllDetails();
+                    }
+                    // }
+
+                    //Item ng-Grid
+                    $scope.filterItemOptions = {
+                        filterText: "",
+                        useExternalFilter: true
+                    };
+                    $scope.totalServerItems2 = 0;
+                    $scope.pagingItemOptions = {
+                        pageSizes: [10, 15, 20],
+                        pageSize: 10,
+                        currentPage: 1
+                    };
+                    $scope.setItemPagingData = function (data, page, pageSize) {
+                        var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+                        $scope.myData2 = pagedData;
+                        $scope.totalServerItems2 = data.length;
+                        if (!$scope.$$phase) {
+                            $scope.$apply();
+                        }
+                    };
+
+                    $scope.getItemPagedDataAsync = function (pageSize, page, searchText) {
+                        setTimeout(function () {
+                            $scope.setItemPagingData($scope.obGrid, page, pageSize);
+                        }, 100);
+                    };
+
+                    $scope.getItemPagedDataAsync($scope.pagingItemOptions.pageSize, $scope.pagingItemOptions.currentPage);
+
+                    $scope.$watch('pagingItemOptions', function (newVal, oldVal) {
+                        if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+                            $scope.getItemPagedDataAsync($scope.pagingItemOptions.pageSize, $scope.pagingItemOptions.currentPage, $scope.filterItemOptions.filterText);
+                        }
+                    }, true);
+                    $scope.$watch('filterItemOptions', function (newVal, oldVal) {
+                        if (newVal !== oldVal) {
+                            $scope.getItemPagedDataAsync($scope.pagingItemOptions.pageSize, $scope.pagingItemOptions.currentPage, $scope.filterItemOptions.filterText);
+                        }
+                    }, true);
+
+                    $scope.PartyItemsgridOptions = {
+                        data: 'myData2',
+                        enablePaging: true,
+                        showFooter: false,
+                        totalServerItems2: 'totalServerItems2',
+                        pagingItemOptions: $scope.pagingItemOptions,
+                        filterItemOptions: $scope.filterItemOptions,
+                        enableCellSelection: true,
+                        selectedItems: $scope.selectedRow,
+                        multiSelect: false,
+                        columnDefs: [
+                        { field: 'ID', displayName: 'ID', width: 156, visible: false },
+                        { field: 'Edit', width: 40, cellTemplate: '<button  ng-hide="edithide" ng-click=editItem(row.entity)><i class="fa fa-pencil-square-o grid-edit-icon"></i></button>' },
+                        { field: 'Delete', width: 65, cellTemplate: '<button  ng-hide="deletehide" ng-click=deleteItem(row.entity)><i class="fa fa-pencil-square-o grid-delete-icon"></i></button>' },
+                        { field: 'SubjectID', displayName: 'Class', visible: true },
+                        { field: 'GroupName', displayName: 'Group', visible: true },
+                        { field: 'SubjectName', displayName: 'Subject', width: 200, visible: true },
+                        //{ field: 'total', displayName: 'Duration', width: 90, visible: true },
+                        ]
+                    };
+                    $scope.editItem = function (row) {
+                        $scope.detail = angular.copy(row);
+                        Gtotal = Gtotal - row.total;
+                        $scope.detail.Total = Gtotal;
+                        $scope.Editdisabled = true;
+                        $scope.buttonTextD = "Update";
+                    }
+                    $scope.deleteItem = function (row) {
+                        var retValue = confirm('Do you want to delete this record?');
+                        if (retValue == true) {
+                            var index = -1;
+                            for (var i = 0; i < $scope.obGrid.length; i++) {
+                                if ($scope.obGrid[i].Inv_ProductID === row.Inv_ProductID) {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            if (index === -1) {
+                                alert("Something gone wrong");
+                            }
+                            $scope.obGrid.splice(index, 1);
+                            $scope.getItemPagedDataAsync($scope.pagingItemOptions.pageSize, 1);
+                            $scope.detail.Total = ' ';
+                            Gtotal = Gtotal - row.total;
+                            $scope.detail.Total = Gtotal;
+                        }
+                    }
+                    function fnValDet() {
+                        toastr.remove();
+                        $('.bordercolor').css('border-color', '');
+                        $('.validation').hide();
+                        $('#spnMobileClearText').hide();
+
+
+                        if ($("#ClassIDId").val() == "") {
+                            $('#ClassIDId').css('border-color', 'red');
+                            $('#ClassIDId').focus();
+                            toastr.warning("Please Selcet Class !");
+                            return;
+                        }
+                        else if ($("#GroupIDId").val() == "") {
+                            $('#GroupIDId').css('border-color', 'red');
+                            $('#GroupIDId').focus();
+                            toastr.warning("Please Selcet Group !");
+                            return;
+                        }
+                        if ($("#SubjectIDId").val() == "") {
+                            $('#SubjectIDId').css('border-color', 'red');
+                            $('#SubjectIDId').focus();
+                            toastr.warning("Please Selcet Subject !");
+                            return;
+                        }
+                        else {
+                            $('#SubjectIDId').css('border-color', '');
+                            $('.validation').hide();
+                            return true;
+                        }
+
+                    }
+                }
         }
-
-
-        function fnValDet() {
-            toastr.remove();
-            $('.bordercolor').css('border-color', '');
-            $('.validation').hide();
-            $('#spnMobileClearText').hide();
-
-
-            if ($("#ClassIDId").val() == "") {
-                $('#ClassIDId').css('border-color', 'red');
-                $('#ClassIDId').focus();
-                toastr.warning("Please Selcet Class !");
-                return;
-            }
-            else if ($("#GroupIDId").val() == "") {
-                $('#GroupIDId').css('border-color', 'red');
-                $('#GroupIDId').focus();
-                toastr.warning("Please Selcet Group !");
-                return;
-            }
-            if ($("#SubjectIDId").val() == "") {
-                $('#SubjectIDId').css('border-color', 'red');
-                $('#SubjectIDId').focus();
-                toastr.warning("Please Selcet Subject !");
-                return;
-            }
-            else {
-                $('#SubjectIDId').css('border-color', '');
-                $('.validation').hide();
-                return true;
-            }
-
-        }
+        
         //End of Add List 
 
 
@@ -757,16 +957,7 @@
 
 
     // ng-change        
-    $scope.ClassSection = function () {
-
-        CMSService.GetAll('/api/SetUpInfo/GetAllGroupByClass/' + $scope.Std.ClassID).success(function (data) {
-            $scope.Groups = data;
-        });
-        CMSService.GetAll('/api/SetUpInfo/GetAllSectionByClass/' + $scope.Std.ClassID).success(function (data) {
-            $scope.Sections = data;
-        });
-
-    };
+   
 
 
     $('.Number').bind('keypress', function (e) {

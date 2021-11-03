@@ -65,5 +65,23 @@ namespace CMS.Repository
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spCourseInformation_Result>("spCourseInformation");
         }
+    
+        public virtual ObjectResult<spCourseInformationCourseWise_Result> spCourseInformationCourseWise(Nullable<int> classID, Nullable<int> groupID)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(int));
+    
+            var groupIDParameter = groupID.HasValue ?
+                new ObjectParameter("GroupID", groupID) :
+                new ObjectParameter("GroupID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spCourseInformationCourseWise_Result>("spCourseInformationCourseWise", classIDParameter, groupIDParameter);
+        }
+    
+        public virtual ObjectResult<spFeeSetUPInfo_Result> spFeeSetUPInfo()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spFeeSetUPInfo_Result>("spFeeSetUPInfo");
+        }
     }
 }

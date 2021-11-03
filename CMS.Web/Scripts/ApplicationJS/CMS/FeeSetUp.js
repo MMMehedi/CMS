@@ -40,9 +40,12 @@
             $scope.Classs = data;
         });
 
-        $scope.GetSubject = function () {
+        $scope.GetSubjectCourse = function () {
             CMSService.GetAll('/api/SetUpInfo/GetAllSubjectClassWise/'  + $scope.Fee.ClassID + '/' + $scope.Fee.GroupID).success(function (data) {
                 $scope.Subjects = data;
+            });
+            CMSService.GetAll('/api/SetUpInfo/GetAllCourseClassWise/' + $scope.Fee.ClassID + '/' + $scope.Fee.GroupID).success(function (data) {
+                $scope.Courses = data;
             });
         }
 
@@ -79,7 +82,7 @@
                 $scope.msgspinner = false;
                 $scope.msgloading = false;
                 $scope.msgSave = true;
-                if ($scope.buttonText == 'Save') {
+                if ($scope.buttonText == 'Save') {                   
                     entity.TutionFeeID = 0;
                     entity.StudentTypeID = $scope.Fee.StudentTypeID;
                     entity.ClassID = $scope.Fee.ClassID;
@@ -222,8 +225,8 @@
         { field: 'StudentTypeName', displayName: 'Student Type', visible: true },
         { field: 'ClassName', displayName: 'Class', visible: true },
         { field: 'GroupName', displayName: 'Group', visible: true },
-        { field: 'SubjectName', displayName: 'Subject', visible: false },
-        { field: 'CourseName', displayName: 'Course', visible: false },
+        { field: 'SubjectName', displayName: 'Subject', visible: true },
+        { field: 'CourseName', displayName: 'Course', visible: true },
         { field: 'TutionFee', displayName: 'Fee', visible: true },
         ]
     };
@@ -249,37 +252,37 @@
             toastr.warning("Please Selcet Student Type !");
             return;
         }
-        else if ($("#ClassIDId").val() == "") {
+        if ($("#ClassIDId").val() == "") {
             $('#ClassIDId').css('border-color', 'red');
             $('#ClassIDId').focus();
             toastr.warning("Please Selcet Class !");
             return;
         }
-        else if ($("#GroupIDId").val() == "") {
+        if ($("#GroupIDId").val() == "") {
             $('#GroupIDId').css('border-color', 'red');
             $('#GroupIDId').focus();
             toastr.warning("Please Selcet Group !");
             return;
         }
-        else if ($scope.SubjectDiv == false) {
+        if ($scope.SubjectDiv == false) {
             if ($("#SubjectIDId").val() == "") {
                 $('#SubjectIDId').css('border-color', 'red');
                 $('#SubjectIDId').focus();
                 toastr.warning("Please Selcet Subject !");
                 return;
             }
-            return;
+           // return;
         }
-        else if ($scope.CourseDiv == false) {
+        if ($scope.CourseDiv == false) {
             if ($("#CourseIDId").val() == "") {
                 $('#CourseIDId').css('border-color', 'red');
                 $('#CourseIDId').focus();
                 toastr.warning("Please Selcet Course !");
                 return;
             }
-            return;
+          // return;
         }
-        else if ($("#TutionFeeId").val() == "") {
+         if ($("#TutionFeeId").val() == "") {
             $('#TutionFeeId').css('border-color', 'red');
             $('#TutionFeeId').focus();
             toastr.warning("Can Not Be Empty !");
